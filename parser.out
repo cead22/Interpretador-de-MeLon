@@ -1,0 +1,3076 @@
+Created by PLY version 3.3 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> e
+Rule 1     e -> t
+Rule 2     t -> c
+Rule 3     t -> v
+Rule 4     c -> ENTERO
+Rule 5     c -> FALSE
+Rule 6     c -> TRUE
+Rule 7     c -> CORCHETEI CORCHETED
+Rule 8     v -> VARIABLE
+Rule 9     t -> t t
+Rule 10    e -> e MAS e
+Rule 11    e -> e MENOS e
+Rule 12    e -> MENOS e
+Rule 13    e -> e PRODUCTO e
+Rule 14    e -> e COCIENTE e
+Rule 15    t -> PARENTESISI e PARENTESISD
+Rule 16    e -> e MENOR e
+Rule 17    e -> e MENOROIGUAL e
+Rule 18    e -> e MAYOR e
+Rule 19    e -> e MAYOROIGUAL e
+Rule 20    e -> e IGUAL e
+Rule 21    e -> e DISTINTO e
+Rule 22    e -> NOT e
+Rule 23    e -> e OR e
+Rule 24    e -> e DDOSPUNTOS e
+Rule 25    e -> e AND e
+Rule 26    e -> IF e THEN e ELSE e FI
+Rule 27    patron -> c
+Rule 28    patron -> v
+Rule 29    Listapatron -> patron
+Rule 30    Listapatron -> Listapatron patron
+Rule 31    patron -> PARENTESISI patron PARENTESISD
+Rule 32    e -> LET patron IGUAL e IN e TEL
+Rule 33    e -> FUN arg NUF
+Rule 34    arg -> arg PIPE arg2
+Rule 35    arg -> arg2
+Rule 36    arg2 -> Listapatron FLECHA e
+Rule 37    patron -> patron DDOSPUNTOS patron
+
+Terminals, with rules where they appear
+
+AND                  : 25
+COCIENTE             : 14
+CORCHETED            : 7
+CORCHETEI            : 7
+DDOSPUNTOS           : 24 37
+DISTINTO             : 21
+ELSE                 : 26
+ENTERO               : 4
+FALSE                : 5
+FI                   : 26
+FLECHA               : 36
+FUN                  : 33
+IF                   : 26
+IGUAL                : 20 32
+IN                   : 32
+LET                  : 32
+MAS                  : 10
+MAYOR                : 18
+MAYOROIGUAL          : 19
+MENOR                : 16
+MENOROIGUAL          : 17
+MENOS                : 11 12
+NOT                  : 22
+NUF                  : 33
+OR                   : 23
+PARENTESISD          : 15 31
+PARENTESISI          : 15 31
+PIPE                 : 34
+PRODUCTO             : 13
+TEL                  : 32
+THEN                 : 26
+TRUE                 : 6
+VARIABLE             : 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+Listapatron          : 30 36
+arg                  : 33 34
+arg2                 : 34 35
+c                    : 2 27
+e                    : 10 10 11 11 12 13 13 14 14 15 16 16 17 17 18 18 19 19 20 20 21 21 22 23 23 24 24 25 25 26 26 26 32 32 36 0
+patron               : 29 30 31 32 37 37
+t                    : 1 9 9
+v                    : 3 28
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 10
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 1
+
+    (7) c -> CORCHETEI . CORCHETED
+
+    CORCHETED       shift and go to state 16
+
+
+state 2
+
+    (15) t -> PARENTESISI . e PARENTESISD
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 17
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 3
+
+    (33) e -> FUN . arg NUF
+    (34) arg -> . arg PIPE arg2
+    (35) arg -> . arg2
+    (36) arg2 -> . Listapatron FLECHA e
+    (29) Listapatron -> . patron
+    (30) Listapatron -> . Listapatron patron
+    (27) patron -> . c
+    (28) patron -> . v
+    (31) patron -> . PARENTESISI patron PARENTESISD
+    (37) patron -> . patron DDOSPUNTOS patron
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    PARENTESISI     shift and go to state 22
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 18
+    patron                         shift and go to state 19
+    arg2                           shift and go to state 20
+    v                              shift and go to state 21
+    arg                            shift and go to state 23
+    Listapatron                    shift and go to state 24
+
+state 4
+
+    (6) c -> TRUE .
+
+    PARENTESISI     reduce using rule 6 (c -> TRUE .)
+    ENTERO          reduce using rule 6 (c -> TRUE .)
+    FALSE           reduce using rule 6 (c -> TRUE .)
+    TRUE            reduce using rule 6 (c -> TRUE .)
+    CORCHETEI       reduce using rule 6 (c -> TRUE .)
+    VARIABLE        reduce using rule 6 (c -> TRUE .)
+    MAS             reduce using rule 6 (c -> TRUE .)
+    MENOS           reduce using rule 6 (c -> TRUE .)
+    PRODUCTO        reduce using rule 6 (c -> TRUE .)
+    COCIENTE        reduce using rule 6 (c -> TRUE .)
+    MENOR           reduce using rule 6 (c -> TRUE .)
+    MENOROIGUAL     reduce using rule 6 (c -> TRUE .)
+    MAYOR           reduce using rule 6 (c -> TRUE .)
+    MAYOROIGUAL     reduce using rule 6 (c -> TRUE .)
+    IGUAL           reduce using rule 6 (c -> TRUE .)
+    DISTINTO        reduce using rule 6 (c -> TRUE .)
+    OR              reduce using rule 6 (c -> TRUE .)
+    DDOSPUNTOS      reduce using rule 6 (c -> TRUE .)
+    AND             reduce using rule 6 (c -> TRUE .)
+    $end            reduce using rule 6 (c -> TRUE .)
+    PARENTESISD     reduce using rule 6 (c -> TRUE .)
+    THEN            reduce using rule 6 (c -> TRUE .)
+    NUF             reduce using rule 6 (c -> TRUE .)
+    PIPE            reduce using rule 6 (c -> TRUE .)
+    ELSE            reduce using rule 6 (c -> TRUE .)
+    IN              reduce using rule 6 (c -> TRUE .)
+    FI              reduce using rule 6 (c -> TRUE .)
+    TEL             reduce using rule 6 (c -> TRUE .)
+    FLECHA          reduce using rule 6 (c -> TRUE .)
+
+
+state 5
+
+    (4) c -> ENTERO .
+
+    PARENTESISI     reduce using rule 4 (c -> ENTERO .)
+    ENTERO          reduce using rule 4 (c -> ENTERO .)
+    FALSE           reduce using rule 4 (c -> ENTERO .)
+    TRUE            reduce using rule 4 (c -> ENTERO .)
+    CORCHETEI       reduce using rule 4 (c -> ENTERO .)
+    VARIABLE        reduce using rule 4 (c -> ENTERO .)
+    MAS             reduce using rule 4 (c -> ENTERO .)
+    MENOS           reduce using rule 4 (c -> ENTERO .)
+    PRODUCTO        reduce using rule 4 (c -> ENTERO .)
+    COCIENTE        reduce using rule 4 (c -> ENTERO .)
+    MENOR           reduce using rule 4 (c -> ENTERO .)
+    MENOROIGUAL     reduce using rule 4 (c -> ENTERO .)
+    MAYOR           reduce using rule 4 (c -> ENTERO .)
+    MAYOROIGUAL     reduce using rule 4 (c -> ENTERO .)
+    IGUAL           reduce using rule 4 (c -> ENTERO .)
+    DISTINTO        reduce using rule 4 (c -> ENTERO .)
+    OR              reduce using rule 4 (c -> ENTERO .)
+    DDOSPUNTOS      reduce using rule 4 (c -> ENTERO .)
+    AND             reduce using rule 4 (c -> ENTERO .)
+    $end            reduce using rule 4 (c -> ENTERO .)
+    PARENTESISD     reduce using rule 4 (c -> ENTERO .)
+    THEN            reduce using rule 4 (c -> ENTERO .)
+    NUF             reduce using rule 4 (c -> ENTERO .)
+    PIPE            reduce using rule 4 (c -> ENTERO .)
+    ELSE            reduce using rule 4 (c -> ENTERO .)
+    IN              reduce using rule 4 (c -> ENTERO .)
+    FI              reduce using rule 4 (c -> ENTERO .)
+    TEL             reduce using rule 4 (c -> ENTERO .)
+    FLECHA          reduce using rule 4 (c -> ENTERO .)
+
+
+state 6
+
+    (2) t -> c .
+
+    PARENTESISI     reduce using rule 2 (t -> c .)
+    ENTERO          reduce using rule 2 (t -> c .)
+    FALSE           reduce using rule 2 (t -> c .)
+    TRUE            reduce using rule 2 (t -> c .)
+    CORCHETEI       reduce using rule 2 (t -> c .)
+    VARIABLE        reduce using rule 2 (t -> c .)
+    MAS             reduce using rule 2 (t -> c .)
+    MENOS           reduce using rule 2 (t -> c .)
+    PRODUCTO        reduce using rule 2 (t -> c .)
+    COCIENTE        reduce using rule 2 (t -> c .)
+    MENOR           reduce using rule 2 (t -> c .)
+    MENOROIGUAL     reduce using rule 2 (t -> c .)
+    MAYOR           reduce using rule 2 (t -> c .)
+    MAYOROIGUAL     reduce using rule 2 (t -> c .)
+    IGUAL           reduce using rule 2 (t -> c .)
+    DISTINTO        reduce using rule 2 (t -> c .)
+    OR              reduce using rule 2 (t -> c .)
+    DDOSPUNTOS      reduce using rule 2 (t -> c .)
+    AND             reduce using rule 2 (t -> c .)
+    $end            reduce using rule 2 (t -> c .)
+    PARENTESISD     reduce using rule 2 (t -> c .)
+    THEN            reduce using rule 2 (t -> c .)
+    NUF             reduce using rule 2 (t -> c .)
+    PIPE            reduce using rule 2 (t -> c .)
+    ELSE            reduce using rule 2 (t -> c .)
+    IN              reduce using rule 2 (t -> c .)
+    FI              reduce using rule 2 (t -> c .)
+    TEL             reduce using rule 2 (t -> c .)
+
+
+state 7
+
+    (8) v -> VARIABLE .
+
+    PARENTESISI     reduce using rule 8 (v -> VARIABLE .)
+    ENTERO          reduce using rule 8 (v -> VARIABLE .)
+    FALSE           reduce using rule 8 (v -> VARIABLE .)
+    TRUE            reduce using rule 8 (v -> VARIABLE .)
+    CORCHETEI       reduce using rule 8 (v -> VARIABLE .)
+    VARIABLE        reduce using rule 8 (v -> VARIABLE .)
+    ELSE            reduce using rule 8 (v -> VARIABLE .)
+    MAS             reduce using rule 8 (v -> VARIABLE .)
+    MENOS           reduce using rule 8 (v -> VARIABLE .)
+    PRODUCTO        reduce using rule 8 (v -> VARIABLE .)
+    COCIENTE        reduce using rule 8 (v -> VARIABLE .)
+    MENOR           reduce using rule 8 (v -> VARIABLE .)
+    MENOROIGUAL     reduce using rule 8 (v -> VARIABLE .)
+    MAYOR           reduce using rule 8 (v -> VARIABLE .)
+    MAYOROIGUAL     reduce using rule 8 (v -> VARIABLE .)
+    IGUAL           reduce using rule 8 (v -> VARIABLE .)
+    DISTINTO        reduce using rule 8 (v -> VARIABLE .)
+    OR              reduce using rule 8 (v -> VARIABLE .)
+    DDOSPUNTOS      reduce using rule 8 (v -> VARIABLE .)
+    AND             reduce using rule 8 (v -> VARIABLE .)
+    FLECHA          reduce using rule 8 (v -> VARIABLE .)
+    PARENTESISD     reduce using rule 8 (v -> VARIABLE .)
+    $end            reduce using rule 8 (v -> VARIABLE .)
+    THEN            reduce using rule 8 (v -> VARIABLE .)
+    NUF             reduce using rule 8 (v -> VARIABLE .)
+    PIPE            reduce using rule 8 (v -> VARIABLE .)
+    IN              reduce using rule 8 (v -> VARIABLE .)
+    FI              reduce using rule 8 (v -> VARIABLE .)
+    TEL             reduce using rule 8 (v -> VARIABLE .)
+
+
+state 8
+
+    (5) c -> FALSE .
+
+    PARENTESISI     reduce using rule 5 (c -> FALSE .)
+    ENTERO          reduce using rule 5 (c -> FALSE .)
+    FALSE           reduce using rule 5 (c -> FALSE .)
+    TRUE            reduce using rule 5 (c -> FALSE .)
+    CORCHETEI       reduce using rule 5 (c -> FALSE .)
+    VARIABLE        reduce using rule 5 (c -> FALSE .)
+    MAS             reduce using rule 5 (c -> FALSE .)
+    MENOS           reduce using rule 5 (c -> FALSE .)
+    PRODUCTO        reduce using rule 5 (c -> FALSE .)
+    COCIENTE        reduce using rule 5 (c -> FALSE .)
+    MENOR           reduce using rule 5 (c -> FALSE .)
+    MENOROIGUAL     reduce using rule 5 (c -> FALSE .)
+    MAYOR           reduce using rule 5 (c -> FALSE .)
+    MAYOROIGUAL     reduce using rule 5 (c -> FALSE .)
+    IGUAL           reduce using rule 5 (c -> FALSE .)
+    DISTINTO        reduce using rule 5 (c -> FALSE .)
+    OR              reduce using rule 5 (c -> FALSE .)
+    DDOSPUNTOS      reduce using rule 5 (c -> FALSE .)
+    AND             reduce using rule 5 (c -> FALSE .)
+    $end            reduce using rule 5 (c -> FALSE .)
+    PARENTESISD     reduce using rule 5 (c -> FALSE .)
+    THEN            reduce using rule 5 (c -> FALSE .)
+    NUF             reduce using rule 5 (c -> FALSE .)
+    PIPE            reduce using rule 5 (c -> FALSE .)
+    ELSE            reduce using rule 5 (c -> FALSE .)
+    IN              reduce using rule 5 (c -> FALSE .)
+    FI              reduce using rule 5 (c -> FALSE .)
+    TEL             reduce using rule 5 (c -> FALSE .)
+    FLECHA          reduce using rule 5 (c -> FALSE .)
+
+
+state 9
+
+    (26) e -> IF . e THEN e ELSE e FI
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 25
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 10
+
+    (0) S' -> e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    OR              shift and go to state 38
+    DDOSPUNTOS      shift and go to state 37
+    AND             shift and go to state 26
+
+
+state 11
+
+    (12) e -> MENOS . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 39
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 12
+
+    (32) e -> LET . patron IGUAL e IN e TEL
+    (27) patron -> . c
+    (28) patron -> . v
+    (31) patron -> . PARENTESISI patron PARENTESISD
+    (37) patron -> . patron DDOSPUNTOS patron
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    PARENTESISI     shift and go to state 22
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 18
+    patron                         shift and go to state 40
+    v                              shift and go to state 21
+
+state 13
+
+    (1) e -> t .
+    (9) t -> t . t
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MAS             reduce using rule 1 (e -> t .)
+    MENOS           reduce using rule 1 (e -> t .)
+    PRODUCTO        reduce using rule 1 (e -> t .)
+    COCIENTE        reduce using rule 1 (e -> t .)
+    MENOR           reduce using rule 1 (e -> t .)
+    MENOROIGUAL     reduce using rule 1 (e -> t .)
+    MAYOR           reduce using rule 1 (e -> t .)
+    MAYOROIGUAL     reduce using rule 1 (e -> t .)
+    IGUAL           reduce using rule 1 (e -> t .)
+    DISTINTO        reduce using rule 1 (e -> t .)
+    OR              reduce using rule 1 (e -> t .)
+    DDOSPUNTOS      reduce using rule 1 (e -> t .)
+    AND             reduce using rule 1 (e -> t .)
+    $end            reduce using rule 1 (e -> t .)
+    PARENTESISD     reduce using rule 1 (e -> t .)
+    THEN            reduce using rule 1 (e -> t .)
+    NUF             reduce using rule 1 (e -> t .)
+    PIPE            reduce using rule 1 (e -> t .)
+    ELSE            reduce using rule 1 (e -> t .)
+    IN              reduce using rule 1 (e -> t .)
+    FI              reduce using rule 1 (e -> t .)
+    TEL             reduce using rule 1 (e -> t .)
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    t                              shift and go to state 41
+    v                              shift and go to state 14
+
+state 14
+
+    (3) t -> v .
+
+    PARENTESISI     reduce using rule 3 (t -> v .)
+    ENTERO          reduce using rule 3 (t -> v .)
+    FALSE           reduce using rule 3 (t -> v .)
+    TRUE            reduce using rule 3 (t -> v .)
+    CORCHETEI       reduce using rule 3 (t -> v .)
+    VARIABLE        reduce using rule 3 (t -> v .)
+    MAS             reduce using rule 3 (t -> v .)
+    MENOS           reduce using rule 3 (t -> v .)
+    PRODUCTO        reduce using rule 3 (t -> v .)
+    COCIENTE        reduce using rule 3 (t -> v .)
+    MENOR           reduce using rule 3 (t -> v .)
+    MENOROIGUAL     reduce using rule 3 (t -> v .)
+    MAYOR           reduce using rule 3 (t -> v .)
+    MAYOROIGUAL     reduce using rule 3 (t -> v .)
+    IGUAL           reduce using rule 3 (t -> v .)
+    DISTINTO        reduce using rule 3 (t -> v .)
+    OR              reduce using rule 3 (t -> v .)
+    DDOSPUNTOS      reduce using rule 3 (t -> v .)
+    AND             reduce using rule 3 (t -> v .)
+    $end            reduce using rule 3 (t -> v .)
+    PARENTESISD     reduce using rule 3 (t -> v .)
+    THEN            reduce using rule 3 (t -> v .)
+    NUF             reduce using rule 3 (t -> v .)
+    PIPE            reduce using rule 3 (t -> v .)
+    ELSE            reduce using rule 3 (t -> v .)
+    IN              reduce using rule 3 (t -> v .)
+    FI              reduce using rule 3 (t -> v .)
+    TEL             reduce using rule 3 (t -> v .)
+
+
+state 15
+
+    (22) e -> NOT . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 42
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 16
+
+    (7) c -> CORCHETEI CORCHETED .
+
+    PARENTESISI     reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    ENTERO          reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    FALSE           reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    TRUE            reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    CORCHETEI       reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    VARIABLE        reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    MAS             reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    MENOS           reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    PRODUCTO        reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    COCIENTE        reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    MENOR           reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    MENOROIGUAL     reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    MAYOR           reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    MAYOROIGUAL     reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    IGUAL           reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    DISTINTO        reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    OR              reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    DDOSPUNTOS      reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    AND             reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    $end            reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    PARENTESISD     reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    THEN            reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    NUF             reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    PIPE            reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    ELSE            reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    IN              reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    FI              reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    TEL             reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+    FLECHA          reduce using rule 7 (c -> CORCHETEI CORCHETED .)
+
+
+state 17
+
+    (15) t -> PARENTESISI e . PARENTESISD
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    PARENTESISD     shift and go to state 43
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    OR              shift and go to state 38
+    DDOSPUNTOS      shift and go to state 37
+    AND             shift and go to state 26
+
+
+state 18
+
+    (27) patron -> c .
+
+    DDOSPUNTOS      reduce using rule 27 (patron -> c .)
+    FLECHA          reduce using rule 27 (patron -> c .)
+    PARENTESISI     reduce using rule 27 (patron -> c .)
+    ENTERO          reduce using rule 27 (patron -> c .)
+    FALSE           reduce using rule 27 (patron -> c .)
+    TRUE            reduce using rule 27 (patron -> c .)
+    CORCHETEI       reduce using rule 27 (patron -> c .)
+    VARIABLE        reduce using rule 27 (patron -> c .)
+    PARENTESISD     reduce using rule 27 (patron -> c .)
+    IGUAL           reduce using rule 27 (patron -> c .)
+
+
+state 19
+
+    (29) Listapatron -> patron .
+    (37) patron -> patron . DDOSPUNTOS patron
+
+    FLECHA          reduce using rule 29 (Listapatron -> patron .)
+    PARENTESISI     reduce using rule 29 (Listapatron -> patron .)
+    ENTERO          reduce using rule 29 (Listapatron -> patron .)
+    FALSE           reduce using rule 29 (Listapatron -> patron .)
+    TRUE            reduce using rule 29 (Listapatron -> patron .)
+    CORCHETEI       reduce using rule 29 (Listapatron -> patron .)
+    VARIABLE        reduce using rule 29 (Listapatron -> patron .)
+    DDOSPUNTOS      shift and go to state 44
+
+
+state 20
+
+    (35) arg -> arg2 .
+
+    NUF             reduce using rule 35 (arg -> arg2 .)
+    PIPE            reduce using rule 35 (arg -> arg2 .)
+
+
+state 21
+
+    (28) patron -> v .
+
+    DDOSPUNTOS      reduce using rule 28 (patron -> v .)
+    FLECHA          reduce using rule 28 (patron -> v .)
+    PARENTESISI     reduce using rule 28 (patron -> v .)
+    ENTERO          reduce using rule 28 (patron -> v .)
+    FALSE           reduce using rule 28 (patron -> v .)
+    TRUE            reduce using rule 28 (patron -> v .)
+    CORCHETEI       reduce using rule 28 (patron -> v .)
+    VARIABLE        reduce using rule 28 (patron -> v .)
+    PARENTESISD     reduce using rule 28 (patron -> v .)
+    IGUAL           reduce using rule 28 (patron -> v .)
+
+
+state 22
+
+    (31) patron -> PARENTESISI . patron PARENTESISD
+    (27) patron -> . c
+    (28) patron -> . v
+    (31) patron -> . PARENTESISI patron PARENTESISD
+    (37) patron -> . patron DDOSPUNTOS patron
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    PARENTESISI     shift and go to state 22
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 18
+    patron                         shift and go to state 45
+    v                              shift and go to state 21
+
+state 23
+
+    (33) e -> FUN arg . NUF
+    (34) arg -> arg . PIPE arg2
+
+    NUF             shift and go to state 46
+    PIPE            shift and go to state 47
+
+
+state 24
+
+    (36) arg2 -> Listapatron . FLECHA e
+    (30) Listapatron -> Listapatron . patron
+    (27) patron -> . c
+    (28) patron -> . v
+    (31) patron -> . PARENTESISI patron PARENTESISD
+    (37) patron -> . patron DDOSPUNTOS patron
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    FLECHA          shift and go to state 49
+    PARENTESISI     shift and go to state 22
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 18
+    patron                         shift and go to state 48
+    v                              shift and go to state 21
+
+state 25
+
+    (26) e -> IF e . THEN e ELSE e FI
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    THEN            shift and go to state 50
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    OR              shift and go to state 38
+    DDOSPUNTOS      shift and go to state 37
+    AND             shift and go to state 26
+
+
+state 26
+
+    (25) e -> e AND . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 51
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 27
+
+    (10) e -> e MAS . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 52
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 28
+
+    (21) e -> e DISTINTO . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 53
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 29
+
+    (14) e -> e COCIENTE . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 54
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 30
+
+    (13) e -> e PRODUCTO . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 55
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 31
+
+    (17) e -> e MENOROIGUAL . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 56
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 32
+
+    (19) e -> e MAYOROIGUAL . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 57
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 33
+
+    (16) e -> e MENOR . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 58
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 34
+
+    (11) e -> e MENOS . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 59
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 35
+
+    (20) e -> e IGUAL . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 60
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 36
+
+    (18) e -> e MAYOR . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 61
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 37
+
+    (24) e -> e DDOSPUNTOS . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 62
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 38
+
+    (23) e -> e OR . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 63
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 39
+
+    (12) e -> MENOS e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MAS             reduce using rule 12 (e -> MENOS e .)
+    MENOS           reduce using rule 12 (e -> MENOS e .)
+    PRODUCTO        reduce using rule 12 (e -> MENOS e .)
+    COCIENTE        reduce using rule 12 (e -> MENOS e .)
+    MENOR           reduce using rule 12 (e -> MENOS e .)
+    MENOROIGUAL     reduce using rule 12 (e -> MENOS e .)
+    MAYOR           reduce using rule 12 (e -> MENOS e .)
+    MAYOROIGUAL     reduce using rule 12 (e -> MENOS e .)
+    IGUAL           reduce using rule 12 (e -> MENOS e .)
+    DISTINTO        reduce using rule 12 (e -> MENOS e .)
+    OR              reduce using rule 12 (e -> MENOS e .)
+    DDOSPUNTOS      reduce using rule 12 (e -> MENOS e .)
+    AND             reduce using rule 12 (e -> MENOS e .)
+    $end            reduce using rule 12 (e -> MENOS e .)
+    PARENTESISD     reduce using rule 12 (e -> MENOS e .)
+    THEN            reduce using rule 12 (e -> MENOS e .)
+    NUF             reduce using rule 12 (e -> MENOS e .)
+    PIPE            reduce using rule 12 (e -> MENOS e .)
+    ELSE            reduce using rule 12 (e -> MENOS e .)
+    IN              reduce using rule 12 (e -> MENOS e .)
+    FI              reduce using rule 12 (e -> MENOS e .)
+    TEL             reduce using rule 12 (e -> MENOS e .)
+
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 34 ]
+  ! PRODUCTO        [ shift and go to state 30 ]
+  ! COCIENTE        [ shift and go to state 29 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! DDOSPUNTOS      [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 40
+
+    (32) e -> LET patron . IGUAL e IN e TEL
+    (37) patron -> patron . DDOSPUNTOS patron
+
+    IGUAL           shift and go to state 64
+    DDOSPUNTOS      shift and go to state 44
+
+
+state 41
+
+    (9) t -> t t .
+    (9) t -> t . t
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    PARENTESISI     reduce using rule 9 (t -> t t .)
+    ENTERO          reduce using rule 9 (t -> t t .)
+    FALSE           reduce using rule 9 (t -> t t .)
+    TRUE            reduce using rule 9 (t -> t t .)
+    CORCHETEI       reduce using rule 9 (t -> t t .)
+    VARIABLE        reduce using rule 9 (t -> t t .)
+    MAS             reduce using rule 9 (t -> t t .)
+    MENOS           reduce using rule 9 (t -> t t .)
+    PRODUCTO        reduce using rule 9 (t -> t t .)
+    COCIENTE        reduce using rule 9 (t -> t t .)
+    MENOR           reduce using rule 9 (t -> t t .)
+    MENOROIGUAL     reduce using rule 9 (t -> t t .)
+    MAYOR           reduce using rule 9 (t -> t t .)
+    MAYOROIGUAL     reduce using rule 9 (t -> t t .)
+    IGUAL           reduce using rule 9 (t -> t t .)
+    DISTINTO        reduce using rule 9 (t -> t t .)
+    OR              reduce using rule 9 (t -> t t .)
+    DDOSPUNTOS      reduce using rule 9 (t -> t t .)
+    AND             reduce using rule 9 (t -> t t .)
+    $end            reduce using rule 9 (t -> t t .)
+    PARENTESISD     reduce using rule 9 (t -> t t .)
+    THEN            reduce using rule 9 (t -> t t .)
+    NUF             reduce using rule 9 (t -> t t .)
+    PIPE            reduce using rule 9 (t -> t t .)
+    ELSE            reduce using rule 9 (t -> t t .)
+    IN              reduce using rule 9 (t -> t t .)
+    FI              reduce using rule 9 (t -> t t .)
+    TEL             reduce using rule 9 (t -> t t .)
+
+  ! PARENTESISI     [ shift and go to state 2 ]
+  ! ENTERO          [ shift and go to state 5 ]
+  ! FALSE           [ shift and go to state 8 ]
+  ! TRUE            [ shift and go to state 4 ]
+  ! CORCHETEI       [ shift and go to state 1 ]
+  ! VARIABLE        [ shift and go to state 7 ]
+
+    c                              shift and go to state 6
+    t                              shift and go to state 41
+    v                              shift and go to state 14
+
+state 42
+
+    (22) e -> NOT e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    OR              reduce using rule 22 (e -> NOT e .)
+    AND             reduce using rule 22 (e -> NOT e .)
+    $end            reduce using rule 22 (e -> NOT e .)
+    PARENTESISD     reduce using rule 22 (e -> NOT e .)
+    THEN            reduce using rule 22 (e -> NOT e .)
+    NUF             reduce using rule 22 (e -> NOT e .)
+    PIPE            reduce using rule 22 (e -> NOT e .)
+    ELSE            reduce using rule 22 (e -> NOT e .)
+    IN              reduce using rule 22 (e -> NOT e .)
+    FI              reduce using rule 22 (e -> NOT e .)
+    TEL             reduce using rule 22 (e -> NOT e .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    DDOSPUNTOS      shift and go to state 37
+
+  ! MAS             [ reduce using rule 22 (e -> NOT e .) ]
+  ! MENOS           [ reduce using rule 22 (e -> NOT e .) ]
+  ! PRODUCTO        [ reduce using rule 22 (e -> NOT e .) ]
+  ! COCIENTE        [ reduce using rule 22 (e -> NOT e .) ]
+  ! MENOR           [ reduce using rule 22 (e -> NOT e .) ]
+  ! MENOROIGUAL     [ reduce using rule 22 (e -> NOT e .) ]
+  ! MAYOR           [ reduce using rule 22 (e -> NOT e .) ]
+  ! MAYOROIGUAL     [ reduce using rule 22 (e -> NOT e .) ]
+  ! IGUAL           [ reduce using rule 22 (e -> NOT e .) ]
+  ! DISTINTO        [ reduce using rule 22 (e -> NOT e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 22 (e -> NOT e .) ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 43
+
+    (15) t -> PARENTESISI e PARENTESISD .
+
+    PARENTESISI     reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    ENTERO          reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    FALSE           reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    TRUE            reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    CORCHETEI       reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    VARIABLE        reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    MAS             reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    MENOS           reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    PRODUCTO        reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    COCIENTE        reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    MENOR           reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    MENOROIGUAL     reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    MAYOR           reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    MAYOROIGUAL     reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    IGUAL           reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    DISTINTO        reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    OR              reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    DDOSPUNTOS      reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    AND             reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    $end            reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    PARENTESISD     reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    THEN            reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    NUF             reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    PIPE            reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    ELSE            reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    IN              reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    FI              reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+    TEL             reduce using rule 15 (t -> PARENTESISI e PARENTESISD .)
+
+
+state 44
+
+    (37) patron -> patron DDOSPUNTOS . patron
+    (27) patron -> . c
+    (28) patron -> . v
+    (31) patron -> . PARENTESISI patron PARENTESISD
+    (37) patron -> . patron DDOSPUNTOS patron
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    PARENTESISI     shift and go to state 22
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 18
+    patron                         shift and go to state 65
+    v                              shift and go to state 21
+
+state 45
+
+    (31) patron -> PARENTESISI patron . PARENTESISD
+    (37) patron -> patron . DDOSPUNTOS patron
+
+    PARENTESISD     shift and go to state 66
+    DDOSPUNTOS      shift and go to state 44
+
+
+state 46
+
+    (33) e -> FUN arg NUF .
+
+    MAS             reduce using rule 33 (e -> FUN arg NUF .)
+    MENOS           reduce using rule 33 (e -> FUN arg NUF .)
+    PRODUCTO        reduce using rule 33 (e -> FUN arg NUF .)
+    COCIENTE        reduce using rule 33 (e -> FUN arg NUF .)
+    MENOR           reduce using rule 33 (e -> FUN arg NUF .)
+    MENOROIGUAL     reduce using rule 33 (e -> FUN arg NUF .)
+    MAYOR           reduce using rule 33 (e -> FUN arg NUF .)
+    MAYOROIGUAL     reduce using rule 33 (e -> FUN arg NUF .)
+    IGUAL           reduce using rule 33 (e -> FUN arg NUF .)
+    DISTINTO        reduce using rule 33 (e -> FUN arg NUF .)
+    OR              reduce using rule 33 (e -> FUN arg NUF .)
+    DDOSPUNTOS      reduce using rule 33 (e -> FUN arg NUF .)
+    AND             reduce using rule 33 (e -> FUN arg NUF .)
+    $end            reduce using rule 33 (e -> FUN arg NUF .)
+    PARENTESISD     reduce using rule 33 (e -> FUN arg NUF .)
+    THEN            reduce using rule 33 (e -> FUN arg NUF .)
+    NUF             reduce using rule 33 (e -> FUN arg NUF .)
+    PIPE            reduce using rule 33 (e -> FUN arg NUF .)
+    ELSE            reduce using rule 33 (e -> FUN arg NUF .)
+    IN              reduce using rule 33 (e -> FUN arg NUF .)
+    FI              reduce using rule 33 (e -> FUN arg NUF .)
+    TEL             reduce using rule 33 (e -> FUN arg NUF .)
+
+
+state 47
+
+    (34) arg -> arg PIPE . arg2
+    (36) arg2 -> . Listapatron FLECHA e
+    (29) Listapatron -> . patron
+    (30) Listapatron -> . Listapatron patron
+    (27) patron -> . c
+    (28) patron -> . v
+    (31) patron -> . PARENTESISI patron PARENTESISD
+    (37) patron -> . patron DDOSPUNTOS patron
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    PARENTESISI     shift and go to state 22
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 18
+    patron                         shift and go to state 19
+    arg2                           shift and go to state 67
+    v                              shift and go to state 21
+    Listapatron                    shift and go to state 24
+
+state 48
+
+    (30) Listapatron -> Listapatron patron .
+    (37) patron -> patron . DDOSPUNTOS patron
+
+    FLECHA          reduce using rule 30 (Listapatron -> Listapatron patron .)
+    PARENTESISI     reduce using rule 30 (Listapatron -> Listapatron patron .)
+    ENTERO          reduce using rule 30 (Listapatron -> Listapatron patron .)
+    FALSE           reduce using rule 30 (Listapatron -> Listapatron patron .)
+    TRUE            reduce using rule 30 (Listapatron -> Listapatron patron .)
+    CORCHETEI       reduce using rule 30 (Listapatron -> Listapatron patron .)
+    VARIABLE        reduce using rule 30 (Listapatron -> Listapatron patron .)
+    DDOSPUNTOS      shift and go to state 44
+
+
+state 49
+
+    (36) arg2 -> Listapatron FLECHA . e
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 68
+    v                              shift and go to state 14
+    t                              shift and go to state 13
+
+state 50
+
+    (26) e -> IF e THEN . e ELSE e FI
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 69
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 51
+
+    (25) e -> e AND e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    OR              reduce using rule 25 (e -> e AND e .)
+    AND             reduce using rule 25 (e -> e AND e .)
+    $end            reduce using rule 25 (e -> e AND e .)
+    PARENTESISD     reduce using rule 25 (e -> e AND e .)
+    THEN            reduce using rule 25 (e -> e AND e .)
+    NUF             reduce using rule 25 (e -> e AND e .)
+    PIPE            reduce using rule 25 (e -> e AND e .)
+    ELSE            reduce using rule 25 (e -> e AND e .)
+    IN              reduce using rule 25 (e -> e AND e .)
+    FI              reduce using rule 25 (e -> e AND e .)
+    TEL             reduce using rule 25 (e -> e AND e .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    DDOSPUNTOS      shift and go to state 37
+
+  ! MAS             [ reduce using rule 25 (e -> e AND e .) ]
+  ! MENOS           [ reduce using rule 25 (e -> e AND e .) ]
+  ! PRODUCTO        [ reduce using rule 25 (e -> e AND e .) ]
+  ! COCIENTE        [ reduce using rule 25 (e -> e AND e .) ]
+  ! MENOR           [ reduce using rule 25 (e -> e AND e .) ]
+  ! MENOROIGUAL     [ reduce using rule 25 (e -> e AND e .) ]
+  ! MAYOR           [ reduce using rule 25 (e -> e AND e .) ]
+  ! MAYOROIGUAL     [ reduce using rule 25 (e -> e AND e .) ]
+  ! IGUAL           [ reduce using rule 25 (e -> e AND e .) ]
+  ! DISTINTO        [ reduce using rule 25 (e -> e AND e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 25 (e -> e AND e .) ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 52
+
+    (10) e -> e MAS e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MAS             reduce using rule 10 (e -> e MAS e .)
+    MENOS           reduce using rule 10 (e -> e MAS e .)
+    MENOR           reduce using rule 10 (e -> e MAS e .)
+    MENOROIGUAL     reduce using rule 10 (e -> e MAS e .)
+    MAYOR           reduce using rule 10 (e -> e MAS e .)
+    MAYOROIGUAL     reduce using rule 10 (e -> e MAS e .)
+    IGUAL           reduce using rule 10 (e -> e MAS e .)
+    DISTINTO        reduce using rule 10 (e -> e MAS e .)
+    OR              reduce using rule 10 (e -> e MAS e .)
+    AND             reduce using rule 10 (e -> e MAS e .)
+    $end            reduce using rule 10 (e -> e MAS e .)
+    PARENTESISD     reduce using rule 10 (e -> e MAS e .)
+    THEN            reduce using rule 10 (e -> e MAS e .)
+    NUF             reduce using rule 10 (e -> e MAS e .)
+    PIPE            reduce using rule 10 (e -> e MAS e .)
+    ELSE            reduce using rule 10 (e -> e MAS e .)
+    IN              reduce using rule 10 (e -> e MAS e .)
+    FI              reduce using rule 10 (e -> e MAS e .)
+    TEL             reduce using rule 10 (e -> e MAS e .)
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    DDOSPUNTOS      shift and go to state 37
+
+  ! PRODUCTO        [ reduce using rule 10 (e -> e MAS e .) ]
+  ! COCIENTE        [ reduce using rule 10 (e -> e MAS e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 10 (e -> e MAS e .) ]
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 34 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 53
+
+    (21) e -> e DISTINTO e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MENOR           reduce using rule 21 (e -> e DISTINTO e .)
+    MENOROIGUAL     reduce using rule 21 (e -> e DISTINTO e .)
+    MAYOR           reduce using rule 21 (e -> e DISTINTO e .)
+    MAYOROIGUAL     reduce using rule 21 (e -> e DISTINTO e .)
+    IGUAL           reduce using rule 21 (e -> e DISTINTO e .)
+    DISTINTO        reduce using rule 21 (e -> e DISTINTO e .)
+    OR              reduce using rule 21 (e -> e DISTINTO e .)
+    AND             reduce using rule 21 (e -> e DISTINTO e .)
+    $end            reduce using rule 21 (e -> e DISTINTO e .)
+    PARENTESISD     reduce using rule 21 (e -> e DISTINTO e .)
+    THEN            reduce using rule 21 (e -> e DISTINTO e .)
+    NUF             reduce using rule 21 (e -> e DISTINTO e .)
+    PIPE            reduce using rule 21 (e -> e DISTINTO e .)
+    ELSE            reduce using rule 21 (e -> e DISTINTO e .)
+    IN              reduce using rule 21 (e -> e DISTINTO e .)
+    FI              reduce using rule 21 (e -> e DISTINTO e .)
+    TEL             reduce using rule 21 (e -> e DISTINTO e .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    DDOSPUNTOS      shift and go to state 37
+
+  ! MAS             [ reduce using rule 21 (e -> e DISTINTO e .) ]
+  ! MENOS           [ reduce using rule 21 (e -> e DISTINTO e .) ]
+  ! PRODUCTO        [ reduce using rule 21 (e -> e DISTINTO e .) ]
+  ! COCIENTE        [ reduce using rule 21 (e -> e DISTINTO e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 21 (e -> e DISTINTO e .) ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 54
+
+    (14) e -> e COCIENTE e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MAS             reduce using rule 14 (e -> e COCIENTE e .)
+    MENOS           reduce using rule 14 (e -> e COCIENTE e .)
+    PRODUCTO        reduce using rule 14 (e -> e COCIENTE e .)
+    COCIENTE        reduce using rule 14 (e -> e COCIENTE e .)
+    MENOR           reduce using rule 14 (e -> e COCIENTE e .)
+    MENOROIGUAL     reduce using rule 14 (e -> e COCIENTE e .)
+    MAYOR           reduce using rule 14 (e -> e COCIENTE e .)
+    MAYOROIGUAL     reduce using rule 14 (e -> e COCIENTE e .)
+    IGUAL           reduce using rule 14 (e -> e COCIENTE e .)
+    DISTINTO        reduce using rule 14 (e -> e COCIENTE e .)
+    OR              reduce using rule 14 (e -> e COCIENTE e .)
+    AND             reduce using rule 14 (e -> e COCIENTE e .)
+    $end            reduce using rule 14 (e -> e COCIENTE e .)
+    PARENTESISD     reduce using rule 14 (e -> e COCIENTE e .)
+    THEN            reduce using rule 14 (e -> e COCIENTE e .)
+    NUF             reduce using rule 14 (e -> e COCIENTE e .)
+    PIPE            reduce using rule 14 (e -> e COCIENTE e .)
+    ELSE            reduce using rule 14 (e -> e COCIENTE e .)
+    IN              reduce using rule 14 (e -> e COCIENTE e .)
+    FI              reduce using rule 14 (e -> e COCIENTE e .)
+    TEL             reduce using rule 14 (e -> e COCIENTE e .)
+    DDOSPUNTOS      shift and go to state 37
+
+  ! DDOSPUNTOS      [ reduce using rule 14 (e -> e COCIENTE e .) ]
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 34 ]
+  ! PRODUCTO        [ shift and go to state 30 ]
+  ! COCIENTE        [ shift and go to state 29 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 55
+
+    (13) e -> e PRODUCTO e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MAS             reduce using rule 13 (e -> e PRODUCTO e .)
+    MENOS           reduce using rule 13 (e -> e PRODUCTO e .)
+    PRODUCTO        reduce using rule 13 (e -> e PRODUCTO e .)
+    COCIENTE        reduce using rule 13 (e -> e PRODUCTO e .)
+    MENOR           reduce using rule 13 (e -> e PRODUCTO e .)
+    MENOROIGUAL     reduce using rule 13 (e -> e PRODUCTO e .)
+    MAYOR           reduce using rule 13 (e -> e PRODUCTO e .)
+    MAYOROIGUAL     reduce using rule 13 (e -> e PRODUCTO e .)
+    IGUAL           reduce using rule 13 (e -> e PRODUCTO e .)
+    DISTINTO        reduce using rule 13 (e -> e PRODUCTO e .)
+    OR              reduce using rule 13 (e -> e PRODUCTO e .)
+    AND             reduce using rule 13 (e -> e PRODUCTO e .)
+    $end            reduce using rule 13 (e -> e PRODUCTO e .)
+    PARENTESISD     reduce using rule 13 (e -> e PRODUCTO e .)
+    THEN            reduce using rule 13 (e -> e PRODUCTO e .)
+    NUF             reduce using rule 13 (e -> e PRODUCTO e .)
+    PIPE            reduce using rule 13 (e -> e PRODUCTO e .)
+    ELSE            reduce using rule 13 (e -> e PRODUCTO e .)
+    IN              reduce using rule 13 (e -> e PRODUCTO e .)
+    FI              reduce using rule 13 (e -> e PRODUCTO e .)
+    TEL             reduce using rule 13 (e -> e PRODUCTO e .)
+    DDOSPUNTOS      shift and go to state 37
+
+  ! DDOSPUNTOS      [ reduce using rule 13 (e -> e PRODUCTO e .) ]
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 34 ]
+  ! PRODUCTO        [ shift and go to state 30 ]
+  ! COCIENTE        [ shift and go to state 29 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 56
+
+    (17) e -> e MENOROIGUAL e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MENOR           reduce using rule 17 (e -> e MENOROIGUAL e .)
+    MENOROIGUAL     reduce using rule 17 (e -> e MENOROIGUAL e .)
+    MAYOR           reduce using rule 17 (e -> e MENOROIGUAL e .)
+    MAYOROIGUAL     reduce using rule 17 (e -> e MENOROIGUAL e .)
+    IGUAL           reduce using rule 17 (e -> e MENOROIGUAL e .)
+    DISTINTO        reduce using rule 17 (e -> e MENOROIGUAL e .)
+    OR              reduce using rule 17 (e -> e MENOROIGUAL e .)
+    AND             reduce using rule 17 (e -> e MENOROIGUAL e .)
+    $end            reduce using rule 17 (e -> e MENOROIGUAL e .)
+    PARENTESISD     reduce using rule 17 (e -> e MENOROIGUAL e .)
+    THEN            reduce using rule 17 (e -> e MENOROIGUAL e .)
+    NUF             reduce using rule 17 (e -> e MENOROIGUAL e .)
+    PIPE            reduce using rule 17 (e -> e MENOROIGUAL e .)
+    ELSE            reduce using rule 17 (e -> e MENOROIGUAL e .)
+    IN              reduce using rule 17 (e -> e MENOROIGUAL e .)
+    FI              reduce using rule 17 (e -> e MENOROIGUAL e .)
+    TEL             reduce using rule 17 (e -> e MENOROIGUAL e .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    DDOSPUNTOS      shift and go to state 37
+
+  ! MAS             [ reduce using rule 17 (e -> e MENOROIGUAL e .) ]
+  ! MENOS           [ reduce using rule 17 (e -> e MENOROIGUAL e .) ]
+  ! PRODUCTO        [ reduce using rule 17 (e -> e MENOROIGUAL e .) ]
+  ! COCIENTE        [ reduce using rule 17 (e -> e MENOROIGUAL e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 17 (e -> e MENOROIGUAL e .) ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 57
+
+    (19) e -> e MAYOROIGUAL e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MENOR           reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    MENOROIGUAL     reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    MAYOR           reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    MAYOROIGUAL     reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    IGUAL           reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    DISTINTO        reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    OR              reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    AND             reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    $end            reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    PARENTESISD     reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    THEN            reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    NUF             reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    PIPE            reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    ELSE            reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    IN              reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    FI              reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    TEL             reduce using rule 19 (e -> e MAYOROIGUAL e .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    DDOSPUNTOS      shift and go to state 37
+
+  ! MAS             [ reduce using rule 19 (e -> e MAYOROIGUAL e .) ]
+  ! MENOS           [ reduce using rule 19 (e -> e MAYOROIGUAL e .) ]
+  ! PRODUCTO        [ reduce using rule 19 (e -> e MAYOROIGUAL e .) ]
+  ! COCIENTE        [ reduce using rule 19 (e -> e MAYOROIGUAL e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 19 (e -> e MAYOROIGUAL e .) ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 58
+
+    (16) e -> e MENOR e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MENOR           reduce using rule 16 (e -> e MENOR e .)
+    MENOROIGUAL     reduce using rule 16 (e -> e MENOR e .)
+    MAYOR           reduce using rule 16 (e -> e MENOR e .)
+    MAYOROIGUAL     reduce using rule 16 (e -> e MENOR e .)
+    IGUAL           reduce using rule 16 (e -> e MENOR e .)
+    DISTINTO        reduce using rule 16 (e -> e MENOR e .)
+    OR              reduce using rule 16 (e -> e MENOR e .)
+    AND             reduce using rule 16 (e -> e MENOR e .)
+    $end            reduce using rule 16 (e -> e MENOR e .)
+    PARENTESISD     reduce using rule 16 (e -> e MENOR e .)
+    THEN            reduce using rule 16 (e -> e MENOR e .)
+    NUF             reduce using rule 16 (e -> e MENOR e .)
+    PIPE            reduce using rule 16 (e -> e MENOR e .)
+    ELSE            reduce using rule 16 (e -> e MENOR e .)
+    IN              reduce using rule 16 (e -> e MENOR e .)
+    FI              reduce using rule 16 (e -> e MENOR e .)
+    TEL             reduce using rule 16 (e -> e MENOR e .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    DDOSPUNTOS      shift and go to state 37
+
+  ! MAS             [ reduce using rule 16 (e -> e MENOR e .) ]
+  ! MENOS           [ reduce using rule 16 (e -> e MENOR e .) ]
+  ! PRODUCTO        [ reduce using rule 16 (e -> e MENOR e .) ]
+  ! COCIENTE        [ reduce using rule 16 (e -> e MENOR e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 16 (e -> e MENOR e .) ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 59
+
+    (11) e -> e MENOS e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MAS             reduce using rule 11 (e -> e MENOS e .)
+    MENOS           reduce using rule 11 (e -> e MENOS e .)
+    MENOR           reduce using rule 11 (e -> e MENOS e .)
+    MENOROIGUAL     reduce using rule 11 (e -> e MENOS e .)
+    MAYOR           reduce using rule 11 (e -> e MENOS e .)
+    MAYOROIGUAL     reduce using rule 11 (e -> e MENOS e .)
+    IGUAL           reduce using rule 11 (e -> e MENOS e .)
+    DISTINTO        reduce using rule 11 (e -> e MENOS e .)
+    OR              reduce using rule 11 (e -> e MENOS e .)
+    AND             reduce using rule 11 (e -> e MENOS e .)
+    $end            reduce using rule 11 (e -> e MENOS e .)
+    PARENTESISD     reduce using rule 11 (e -> e MENOS e .)
+    THEN            reduce using rule 11 (e -> e MENOS e .)
+    NUF             reduce using rule 11 (e -> e MENOS e .)
+    PIPE            reduce using rule 11 (e -> e MENOS e .)
+    ELSE            reduce using rule 11 (e -> e MENOS e .)
+    IN              reduce using rule 11 (e -> e MENOS e .)
+    FI              reduce using rule 11 (e -> e MENOS e .)
+    TEL             reduce using rule 11 (e -> e MENOS e .)
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    DDOSPUNTOS      shift and go to state 37
+
+  ! PRODUCTO        [ reduce using rule 11 (e -> e MENOS e .) ]
+  ! COCIENTE        [ reduce using rule 11 (e -> e MENOS e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 11 (e -> e MENOS e .) ]
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 34 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 60
+
+    (20) e -> e IGUAL e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MENOR           reduce using rule 20 (e -> e IGUAL e .)
+    MENOROIGUAL     reduce using rule 20 (e -> e IGUAL e .)
+    MAYOR           reduce using rule 20 (e -> e IGUAL e .)
+    MAYOROIGUAL     reduce using rule 20 (e -> e IGUAL e .)
+    IGUAL           reduce using rule 20 (e -> e IGUAL e .)
+    DISTINTO        reduce using rule 20 (e -> e IGUAL e .)
+    OR              reduce using rule 20 (e -> e IGUAL e .)
+    AND             reduce using rule 20 (e -> e IGUAL e .)
+    $end            reduce using rule 20 (e -> e IGUAL e .)
+    PARENTESISD     reduce using rule 20 (e -> e IGUAL e .)
+    THEN            reduce using rule 20 (e -> e IGUAL e .)
+    NUF             reduce using rule 20 (e -> e IGUAL e .)
+    PIPE            reduce using rule 20 (e -> e IGUAL e .)
+    ELSE            reduce using rule 20 (e -> e IGUAL e .)
+    IN              reduce using rule 20 (e -> e IGUAL e .)
+    FI              reduce using rule 20 (e -> e IGUAL e .)
+    TEL             reduce using rule 20 (e -> e IGUAL e .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    DDOSPUNTOS      shift and go to state 37
+
+  ! MAS             [ reduce using rule 20 (e -> e IGUAL e .) ]
+  ! MENOS           [ reduce using rule 20 (e -> e IGUAL e .) ]
+  ! PRODUCTO        [ reduce using rule 20 (e -> e IGUAL e .) ]
+  ! COCIENTE        [ reduce using rule 20 (e -> e IGUAL e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 20 (e -> e IGUAL e .) ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 61
+
+    (18) e -> e MAYOR e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MENOR           reduce using rule 18 (e -> e MAYOR e .)
+    MENOROIGUAL     reduce using rule 18 (e -> e MAYOR e .)
+    MAYOR           reduce using rule 18 (e -> e MAYOR e .)
+    MAYOROIGUAL     reduce using rule 18 (e -> e MAYOR e .)
+    IGUAL           reduce using rule 18 (e -> e MAYOR e .)
+    DISTINTO        reduce using rule 18 (e -> e MAYOR e .)
+    OR              reduce using rule 18 (e -> e MAYOR e .)
+    AND             reduce using rule 18 (e -> e MAYOR e .)
+    $end            reduce using rule 18 (e -> e MAYOR e .)
+    PARENTESISD     reduce using rule 18 (e -> e MAYOR e .)
+    THEN            reduce using rule 18 (e -> e MAYOR e .)
+    NUF             reduce using rule 18 (e -> e MAYOR e .)
+    PIPE            reduce using rule 18 (e -> e MAYOR e .)
+    ELSE            reduce using rule 18 (e -> e MAYOR e .)
+    IN              reduce using rule 18 (e -> e MAYOR e .)
+    FI              reduce using rule 18 (e -> e MAYOR e .)
+    TEL             reduce using rule 18 (e -> e MAYOR e .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    DDOSPUNTOS      shift and go to state 37
+
+  ! MAS             [ reduce using rule 18 (e -> e MAYOR e .) ]
+  ! MENOS           [ reduce using rule 18 (e -> e MAYOR e .) ]
+  ! PRODUCTO        [ reduce using rule 18 (e -> e MAYOR e .) ]
+  ! COCIENTE        [ reduce using rule 18 (e -> e MAYOR e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 18 (e -> e MAYOR e .) ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 62
+
+    (24) e -> e DDOSPUNTOS e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    MAS             reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    MENOS           reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    PRODUCTO        reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    COCIENTE        reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    MENOR           reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    MENOROIGUAL     reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    MAYOR           reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    MAYOROIGUAL     reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    IGUAL           reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    DISTINTO        reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    OR              reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    AND             reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    $end            reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    PARENTESISD     reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    THEN            reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    NUF             reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    PIPE            reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    ELSE            reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    IN              reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    FI              reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    TEL             reduce using rule 24 (e -> e DDOSPUNTOS e .)
+    DDOSPUNTOS      shift and go to state 37
+
+  ! DDOSPUNTOS      [ reduce using rule 24 (e -> e DDOSPUNTOS e .) ]
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 34 ]
+  ! PRODUCTO        [ shift and go to state 30 ]
+  ! COCIENTE        [ shift and go to state 29 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! MENOROIGUAL     [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 36 ]
+  ! MAYOROIGUAL     [ shift and go to state 32 ]
+  ! IGUAL           [ shift and go to state 35 ]
+  ! DISTINTO        [ shift and go to state 28 ]
+  ! OR              [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 26 ]
+
+
+state 63
+
+    (23) e -> e OR e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    OR              reduce using rule 23 (e -> e OR e .)
+    $end            reduce using rule 23 (e -> e OR e .)
+    PARENTESISD     reduce using rule 23 (e -> e OR e .)
+    THEN            reduce using rule 23 (e -> e OR e .)
+    NUF             reduce using rule 23 (e -> e OR e .)
+    PIPE            reduce using rule 23 (e -> e OR e .)
+    ELSE            reduce using rule 23 (e -> e OR e .)
+    IN              reduce using rule 23 (e -> e OR e .)
+    FI              reduce using rule 23 (e -> e OR e .)
+    TEL             reduce using rule 23 (e -> e OR e .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    DDOSPUNTOS      shift and go to state 37
+    AND             shift and go to state 26
+
+  ! MAS             [ reduce using rule 23 (e -> e OR e .) ]
+  ! MENOS           [ reduce using rule 23 (e -> e OR e .) ]
+  ! PRODUCTO        [ reduce using rule 23 (e -> e OR e .) ]
+  ! COCIENTE        [ reduce using rule 23 (e -> e OR e .) ]
+  ! MENOR           [ reduce using rule 23 (e -> e OR e .) ]
+  ! MENOROIGUAL     [ reduce using rule 23 (e -> e OR e .) ]
+  ! MAYOR           [ reduce using rule 23 (e -> e OR e .) ]
+  ! MAYOROIGUAL     [ reduce using rule 23 (e -> e OR e .) ]
+  ! IGUAL           [ reduce using rule 23 (e -> e OR e .) ]
+  ! DISTINTO        [ reduce using rule 23 (e -> e OR e .) ]
+  ! DDOSPUNTOS      [ reduce using rule 23 (e -> e OR e .) ]
+  ! AND             [ reduce using rule 23 (e -> e OR e .) ]
+  ! OR              [ shift and go to state 38 ]
+
+
+state 64
+
+    (32) e -> LET patron IGUAL . e IN e TEL
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 70
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 65
+
+    (37) patron -> patron DDOSPUNTOS patron .
+    (37) patron -> patron . DDOSPUNTOS patron
+
+    FLECHA          reduce using rule 37 (patron -> patron DDOSPUNTOS patron .)
+    PARENTESISI     reduce using rule 37 (patron -> patron DDOSPUNTOS patron .)
+    ENTERO          reduce using rule 37 (patron -> patron DDOSPUNTOS patron .)
+    FALSE           reduce using rule 37 (patron -> patron DDOSPUNTOS patron .)
+    TRUE            reduce using rule 37 (patron -> patron DDOSPUNTOS patron .)
+    CORCHETEI       reduce using rule 37 (patron -> patron DDOSPUNTOS patron .)
+    VARIABLE        reduce using rule 37 (patron -> patron DDOSPUNTOS patron .)
+    PARENTESISD     reduce using rule 37 (patron -> patron DDOSPUNTOS patron .)
+    IGUAL           reduce using rule 37 (patron -> patron DDOSPUNTOS patron .)
+    DDOSPUNTOS      shift and go to state 44
+
+  ! DDOSPUNTOS      [ reduce using rule 37 (patron -> patron DDOSPUNTOS patron .) ]
+
+
+state 66
+
+    (31) patron -> PARENTESISI patron PARENTESISD .
+
+    DDOSPUNTOS      reduce using rule 31 (patron -> PARENTESISI patron PARENTESISD .)
+    FLECHA          reduce using rule 31 (patron -> PARENTESISI patron PARENTESISD .)
+    PARENTESISI     reduce using rule 31 (patron -> PARENTESISI patron PARENTESISD .)
+    ENTERO          reduce using rule 31 (patron -> PARENTESISI patron PARENTESISD .)
+    FALSE           reduce using rule 31 (patron -> PARENTESISI patron PARENTESISD .)
+    TRUE            reduce using rule 31 (patron -> PARENTESISI patron PARENTESISD .)
+    CORCHETEI       reduce using rule 31 (patron -> PARENTESISI patron PARENTESISD .)
+    VARIABLE        reduce using rule 31 (patron -> PARENTESISI patron PARENTESISD .)
+    PARENTESISD     reduce using rule 31 (patron -> PARENTESISI patron PARENTESISD .)
+    IGUAL           reduce using rule 31 (patron -> PARENTESISI patron PARENTESISD .)
+
+
+state 67
+
+    (34) arg -> arg PIPE arg2 .
+
+    NUF             reduce using rule 34 (arg -> arg PIPE arg2 .)
+    PIPE            reduce using rule 34 (arg -> arg PIPE arg2 .)
+
+
+state 68
+
+    (36) arg2 -> Listapatron FLECHA e .
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    NUF             reduce using rule 36 (arg2 -> Listapatron FLECHA e .)
+    PIPE            reduce using rule 36 (arg2 -> Listapatron FLECHA e .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    OR              shift and go to state 38
+    DDOSPUNTOS      shift and go to state 37
+    AND             shift and go to state 26
+
+
+state 69
+
+    (26) e -> IF e THEN e . ELSE e FI
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    ELSE            shift and go to state 71
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    OR              shift and go to state 38
+    DDOSPUNTOS      shift and go to state 37
+    AND             shift and go to state 26
+
+
+state 70
+
+    (32) e -> LET patron IGUAL e . IN e TEL
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    IN              shift and go to state 72
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    OR              shift and go to state 38
+    DDOSPUNTOS      shift and go to state 37
+    AND             shift and go to state 26
+
+
+state 71
+
+    (26) e -> IF e THEN e ELSE . e FI
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 73
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 72
+
+    (32) e -> LET patron IGUAL e IN . e TEL
+    (1) e -> . t
+    (10) e -> . e MAS e
+    (11) e -> . e MENOS e
+    (12) e -> . MENOS e
+    (13) e -> . e PRODUCTO e
+    (14) e -> . e COCIENTE e
+    (16) e -> . e MENOR e
+    (17) e -> . e MENOROIGUAL e
+    (18) e -> . e MAYOR e
+    (19) e -> . e MAYOROIGUAL e
+    (20) e -> . e IGUAL e
+    (21) e -> . e DISTINTO e
+    (22) e -> . NOT e
+    (23) e -> . e OR e
+    (24) e -> . e DDOSPUNTOS e
+    (25) e -> . e AND e
+    (26) e -> . IF e THEN e ELSE e FI
+    (32) e -> . LET patron IGUAL e IN e TEL
+    (33) e -> . FUN arg NUF
+    (2) t -> . c
+    (3) t -> . v
+    (9) t -> . t t
+    (15) t -> . PARENTESISI e PARENTESISD
+    (4) c -> . ENTERO
+    (5) c -> . FALSE
+    (6) c -> . TRUE
+    (7) c -> . CORCHETEI CORCHETED
+    (8) v -> . VARIABLE
+
+    MENOS           shift and go to state 11
+    NOT             shift and go to state 15
+    IF              shift and go to state 9
+    LET             shift and go to state 12
+    FUN             shift and go to state 3
+    PARENTESISI     shift and go to state 2
+    ENTERO          shift and go to state 5
+    FALSE           shift and go to state 8
+    TRUE            shift and go to state 4
+    CORCHETEI       shift and go to state 1
+    VARIABLE        shift and go to state 7
+
+    c                              shift and go to state 6
+    e                              shift and go to state 74
+    t                              shift and go to state 13
+    v                              shift and go to state 14
+
+state 73
+
+    (26) e -> IF e THEN e ELSE e . FI
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    FI              shift and go to state 75
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    OR              shift and go to state 38
+    DDOSPUNTOS      shift and go to state 37
+    AND             shift and go to state 26
+
+
+state 74
+
+    (32) e -> LET patron IGUAL e IN e . TEL
+    (10) e -> e . MAS e
+    (11) e -> e . MENOS e
+    (13) e -> e . PRODUCTO e
+    (14) e -> e . COCIENTE e
+    (16) e -> e . MENOR e
+    (17) e -> e . MENOROIGUAL e
+    (18) e -> e . MAYOR e
+    (19) e -> e . MAYOROIGUAL e
+    (20) e -> e . IGUAL e
+    (21) e -> e . DISTINTO e
+    (23) e -> e . OR e
+    (24) e -> e . DDOSPUNTOS e
+    (25) e -> e . AND e
+
+    TEL             shift and go to state 76
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 34
+    PRODUCTO        shift and go to state 30
+    COCIENTE        shift and go to state 29
+    MENOR           shift and go to state 33
+    MENOROIGUAL     shift and go to state 31
+    MAYOR           shift and go to state 36
+    MAYOROIGUAL     shift and go to state 32
+    IGUAL           shift and go to state 35
+    DISTINTO        shift and go to state 28
+    OR              shift and go to state 38
+    DDOSPUNTOS      shift and go to state 37
+    AND             shift and go to state 26
+
+
+state 75
+
+    (26) e -> IF e THEN e ELSE e FI .
+
+    MAS             reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    MENOS           reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    PRODUCTO        reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    COCIENTE        reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    MENOR           reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    MENOROIGUAL     reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    MAYOR           reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    MAYOROIGUAL     reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    IGUAL           reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    DISTINTO        reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    OR              reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    DDOSPUNTOS      reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    AND             reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    $end            reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    PARENTESISD     reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    THEN            reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    NUF             reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    PIPE            reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    ELSE            reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    IN              reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    FI              reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+    TEL             reduce using rule 26 (e -> IF e THEN e ELSE e FI .)
+
+
+state 76
+
+    (32) e -> LET patron IGUAL e IN e TEL .
+
+    MAS             reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    MENOS           reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    PRODUCTO        reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    COCIENTE        reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    MENOR           reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    MENOROIGUAL     reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    MAYOR           reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    MAYOROIGUAL     reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    IGUAL           reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    DISTINTO        reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    OR              reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    DDOSPUNTOS      reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    AND             reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    $end            reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    PARENTESISD     reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    THEN            reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    NUF             reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    PIPE            reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    ELSE            reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    IN              reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    FI              reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+    TEL             reduce using rule 32 (e -> LET patron IGUAL e IN e TEL .)
+

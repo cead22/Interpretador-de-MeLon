@@ -13,7 +13,7 @@ class Nodo:
 		if (self.type == "sub" or self.type == "arg2" or self.type == "lp"):
 			return str(self.izquierdo)+' '+str(self.derecho)
 		else:
-			if (self.type == "no_terminal"):
+			if (self.type == "no_terminal" or self.type == "CONSTANTE" or self.type == 'CONSTLV'):
 				#return Nodo.tostring(self.izquierdo), Nodo.tostring(self.derecho)
 				return Nodo.tostring(self.izquierdo)
 			else:

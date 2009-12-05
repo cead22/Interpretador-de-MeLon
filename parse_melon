@@ -27,16 +27,16 @@ def p_e_variable(p):
 	p[0] = Nodo.Nodo('no_terminal',p[1])
 def p_entero(p):
 	'c : ENTERO'
-	p[0] = Nodo.Nodo('no_terminal',Nodo.Nodo('ENTERO',p[1]))
+	p[0] = Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',p[1]))
 def p_false(p):
 	'c : FALSE'
-	p[0] = Nodo.Nodo('no_terminal',Nodo.Nodo('BOOLEANO','FALSE'))
+	p[0] = Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO','FALSE'))
 def p_true(p):
 	'c : TRUE'
-	p[0] = Nodo.Nodo('no_terminal',Nodo.Nodo('BOOLEANO','TRUE'))
+	p[0] = Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO','TRUE'))
 def p_listavacia(p):
 	'c : CORCHETEI CORCHETED'
-	p[0] = Nodo.Nodo('','LISTAVACIA')
+	p[0] = Nodo.Nodo('CONSTLV',Nodo.Nodo('','LISTAVACIA'))
 def p_variable(p):
 	'v : VARIABLE'
 	p[0] = Nodo.Nodo('no_terminal',Nodo.Nodo('VARIABLE',p[1]))
@@ -148,41 +148,47 @@ def valor(nodo):
 # Match
 def match(nodo1,nodo2):
 
-	# Variables hacen match con todo
-	if nodo1.type == 'VARIABLE' or nodo2.type == 'VARIABLE': return True
-
-	# Enteros
-	if nodo1.type == 'ENTERO':
-		# Ambos son enteros
-		if nodo2.type == 'ENTERO':
-			return match(nodo1.izquierdo,nodo2.izquierdo)
-		# nodo1 es entero pero nodo2 no
-		else: return False
-	# nodo2 es entero pero nodo1 no
-	elif nodo2.type == 'ENTERO': return False
-	
-
-	# Booleanos
-	if nodo1.type == 'BOOLEANO':
-		# Ambos son booleanos
-		if nodo2.type == 'BOOLEANO':
-			return match(nodo1.izquierdo,nodo2.izquierdo)
-		# nodo1 es booleano pero nodo2 no
-		else: return False
-	# nodo2 es booleano pero nodo1 no
-	elif nodo2.type == 'BOOLEANO': return False
-
-
-	# No terminales
-	if nodo1.type == 'no_terminal':
-		if nodo2.type == 'no_terminal':
-			return valor(nodo1).izquierdo == valor(nodo2).izquierdo
-		else:
-			return 
-
 	# Fin de recursion
-	if nodo1 is not Nodo.Nodo and nodo2 is not Nodo.Nodo:
+	if (not isinstance(nodo1,Nodo.Nodo)) and (not isinstance(nodo2,Nodo.Nodo)):
+		print '- ',nodo1,'\n- ',nodo2
 		return nodo1 == nodo2
+
+	# Bajar si el nodo es no_terminal
+	if nodo1.type == 'no_terminal' or nodo1.type == '': return match(nodo1.izquierdo,nodo2)
+	if nodo2.type == 'no_terminal' or nodo2.type == '': return match(nodo2.izquierdo,nodo1)
+
+	# Variables hacen match con todo
+	if nodo1.type == 'VARIABLE' or nodo2.type == 'VARIABLE':
+		print '- Variable\n -'
+		return True
+
+	# Constantes
+	if nodo1.type == 'CONSTANTE' and nodo2.type == 'CONSTANTE':
+		print '- Constante\n -'
+		print '(',nodo1.type,' ',nodo2.type,')\n'
+		return match(nodo1.izquierdo.izquierdo,nodo2.izquierdo.izquierdo)
+
+	# Entero
+	if nodo1.type == 'ENTERO' and nodo2.type == 'ENTERO':
+		print '- Entero\n -'
+		return match(nodo1.izquierdo,nodo2.izquierdo)
+
+	# Booleano
+	if nodo1.type == 'BOOLEANO' and nodo2.type == 'BOOLEANO':
+		print '- Booleano\n -'
+		return match(nodo1.izquierdo,nodo2.izquierdo)
+
+	# Listavacia
+	if nodo1.type == 'CONSTLV' and nodo2.type == 'CONSTLV':
+		return match(nodo1.izquierdo,nodo2.izquierdo)
+
+	# Listas
+	if nodo1.type == 'LISTA' and nodo2.type == 'LISTA':
+		print 'BLAH'
+		return match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
+
+	return False
+
 
 # inicializacion de variables para contar tamano de las Listapatron
 dicc = {}
@@ -194,7 +200,13 @@ cont_dicc = 0
 melonparser = yacc.yacc()
 
 # se recibe el codigo en MeLon
-
+p = '(5::(2)::x) (5::2::3)'
+prueba = melonparser.parse(p, tracking=True)
+#print prueba
+uno = prueba.izquierdo.izquierdo.izquierdo.izquierdo
+dos = prueba.izquierdo.derecho.izquierdo.izquierdo
+print prueba, ' ', isinstance(prueba,Nodo.Nodo)
+print '\nRESULTADO\n',uno.type,'\n',dos.type,'\n', match(uno,dos)
 try:
 	s = sys.stdin.read()
 except EOFError:
