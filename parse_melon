@@ -1,0 +1,213 @@
+#! /usr/bin/python
+import yacc         # herramienta para construir el parser (PLY)
+import sys, Nodo, funciones
+from melonlex import tokens         # tokens de melon
+
+# tabla de precedencia
+precedence = (
+       ('left','OR'),
+       ('left','AND'),        
+       ('right', 'NOT'),
+       ('nonassoc', 'MENOR', 'MAYOR','MENOROIGUAL','MAYOROIGUAL','DISTINTO','IGUAL'),
+       ('left', 'MAS','MENOS'),
+       ('left', 'PRODUCTO', 'COCIENTE'),
+       ('right', 'DDOSPUNTOS'),                
+       ('right', 'UMENOS'),        
+       ('left', 'APLICA'),
+)
+
+def p_e_t(p):
+	'e : t'
+	p[0] = Nodo.Nodo('no_terminal',p[1])
+def p_e_constante(p):
+	't : c'
+	p[0] = Nodo.Nodo('no_terminal',p[1])
+def p_e_variable(p):
+	't : v'
+	p[0] = Nodo.Nodo('no_terminal',p[1])
+def p_entero(p):
+	'c : ENTERO'
+	p[0] = Nodo.Nodo('no_terminal',Nodo.Nodo('ENTERO',p[1]))
+def p_false(p):
+	'c : FALSE'
+	p[0] = Nodo.Nodo('no_terminal',Nodo.Nodo('BOOLEANO','FALSE'))
+def p_true(p):
+	'c : TRUE'
+	p[0] = Nodo.Nodo('no_terminal',Nodo.Nodo('BOOLEANO','TRUE'))
+def p_listavacia(p):
+	'c : CORCHETEI CORCHETED'
+	p[0] = Nodo.Nodo('','LISTAVACIA')
+def p_variable(p):
+	'v : VARIABLE'
+	p[0] = Nodo.Nodo('no_terminal',Nodo.Nodo('VARIABLE',p[1]))
+def p_aplicar(p):
+	't : t t %prec APLICA'
+	p[0] = Nodo.Nodo('APLICAR',p[1],p[2])
+def p_sumar(p):
+	'e : e MAS e'
+	p[0] = Nodo.Nodo('MAS',p[1],p[3])
+def p_restar(p):
+	'e : e MENOS e'
+	p[0] = Nodo.Nodo('MENOS',p[1],p[3])
+def p_neg(p):
+	'e : MENOS e %prec UMENOS'
+	p[0] = Nodo.Nodo('NEGATIVO',p[2])
+def p_multiplicar(p):
+	'e : e PRODUCTO e'
+	p[0] = Nodo.Nodo('PRODUCTO',p[1],p[3])
+def p_dividir(p):
+	'e : e COCIENTE e'
+	p[0] = Nodo.Nodo('COCIENTE',p[1],p[3])
+def p_parentesis(p):
+	't : PARENTESISI e PARENTESISD'
+	p[0] = Nodo.Nodo('no_terminal',Nodo.Nodo('',p[2]))
+def p_menor(p):
+	'e : e MENOR e'
+	p[0] = Nodo.Nodo('MENOR',p[1],p[3])
+def p_menoroigual(p):
+	'e : e MENOROIGUAL e'
+	p[0] = Nodo.Nodo('MENOROIGUAL',p[1],p[3])
+def p_mayor(p):
+	'e : e MAYOR e'
+	p[0] = Nodo.Nodo('MAYOR',p[1],p[3])
+def p_mayoroigual(p):
+	'e : e MAYOROIGUAL e'
+	p[0] = Nodo.Nodo('MAYOROIGUAL',p[1],p[3])
+def p_igual(p):
+	'e : e IGUAL e'
+	p[0] = Nodo.Nodo('IGUAL',p[1],p[3])
+def p_distinto(p):
+	'e : e DISTINTO e'
+	p[0] = Nodo.Nodo('DISTINTO',p[1],p[3])
+def p_not(p):
+	'e : NOT e '
+	p[0] = Nodo.Nodo('NO',p[2])
+def p_or(p):
+	'e : e OR e'
+	p[0] = Nodo.Nodo('OR',p[1],p[3])
+def p_lista(p):
+	'e : e DDOSPUNTOS e'
+	p[0] = Nodo.Nodo('LISTA',p[1],p[3])
+def p_and(p):
+	'e : e AND e'
+	p[0] = Nodo.Nodo('AND',p[1],p[3])
+def p_if(p):
+	'e : IF e THEN e ELSE e FI'
+	p[0] = Nodo.Nodo('IF',Nodo.Nodo("sub",p[2],p[4]),p[6])
+def p_p_constante(p):
+	'patron : c'
+	p[0] = Nodo.Nodo('PATRON',p[1])
+def p_p_variable(p):
+	'patron : v'
+	p[0] = Nodo.Nodo('PATRON',p[1])
+def p_p_Listap1(p):
+	'Listapatron : patron'
+	p[0] = Nodo.Nodo('lp',p[1])
+def p_p_Listap(p):
+	'Listapatron : Listapatron patron'
+	p[0] = Nodo.Nodo('lp',p[1],p[2])
+def p_p_parentesis(p):
+	'patron : PARENTESISI patron PARENTESISD'
+	p[0] = Nodo.Nodo('PATRON',p[2]) 
+def p_let(p):
+	'e : LET patron IGUAL e IN e TEL'
+	p[0] = Nodo.Nodo('LET',Nodo.Nodo("sub",p[2],p[4]),p[6])
+def p_fun(p):
+	'e : FUN arg NUF'
+	p[0] = Nodo.Nodo('FUN',p[2])
+	dicc = funciones.recorrer_fun(p[0],{},0)
+	if not (funciones.iguales(dicc.values())): p_error(0)
+	dicc ={}
+def p_arg(p):
+	'arg : arg PIPE arg2'
+	p[0] = Nodo.Nodo('arg2',p[1],p[3])
+def p_arg_2(p):
+	'arg : arg2'
+	p[0] = Nodo.Nodo('arg2',p[1])
+def p_arg2(p):
+	'arg2 : Listapatron FLECHA e'
+	p[0] = Nodo.Nodo('arg2',Nodo.Nodo('LISTAPATRON',p[1]),p[3])
+
+def p_p_dospuntos(p):
+	'patron : patron DDOSPUNTOS patron'
+	p[0] = Nodo.Nodo('PATRON',Nodo.Nodo('LISTA',p[1],p[3]))
+
+# Manejo de errores
+def p_error(p):
+	print "Error Sintactico"
+	sys.exit(-1)
+
+# Valor de constantes, variables, etc
+def valor(nodo):
+	# Fin de recursion
+	if nodo.type == 'ENTERO' or nodo.type == 'VARIABLE' or nodo.type == 'BOOLEANO':
+		return nodo
+	if nodo.type == 'no_terminal':
+		return valor(nodo.izquierdo)
+
+# Match
+def match(nodo1,nodo2):
+
+	# Variables hacen match con todo
+	if nodo1.type == 'VARIABLE' or nodo2.type == 'VARIABLE': return True
+
+	# Enteros
+	if nodo1.type == 'ENTERO':
+		# Ambos son enteros
+		if nodo2.type == 'ENTERO':
+			return match(nodo1.izquierdo,nodo2.izquierdo)
+		# nodo1 es entero pero nodo2 no
+		else: return False
+	# nodo2 es entero pero nodo1 no
+	elif nodo2.type == 'ENTERO': return False
+	
+
+	# Booleanos
+	if nodo1.type == 'BOOLEANO':
+		# Ambos son booleanos
+		if nodo2.type == 'BOOLEANO':
+			return match(nodo1.izquierdo,nodo2.izquierdo)
+		# nodo1 es booleano pero nodo2 no
+		else: return False
+	# nodo2 es booleano pero nodo1 no
+	elif nodo2.type == 'BOOLEANO': return False
+
+
+	# No terminales
+	if nodo1.type == 'no_terminal':
+		if nodo2.type == 'no_terminal':
+			return valor(nodo1).izquierdo == valor(nodo2).izquierdo
+		else:
+			return 
+
+	# Fin de recursion
+	if nodo1 is not Nodo.Nodo and nodo2 is not Nodo.Nodo:
+		return nodo1 == nodo2
+
+# inicializacion de variables para contar tamano de las Listapatron
+dicc = {}
+num_dicc = 0
+cont_patrones = 0
+cont_dicc = 0
+
+# construccion del parser
+melonparser = yacc.yacc()
+
+# se recibe el codigo en MeLon
+
+try:
+	s = sys.stdin.read()
+except EOFError:
+	pass #break
+#if not s: continue
+result = melonparser.parse(s, tracking=True)	# parseo de la entrada
+if not (funciones.revisar_patrones(dicc)):
+	#print dicc
+	p_error(0)
+print result	# arbol
+
+# se resetean valores para calcular el tamano de las
+# Listapatron del nuevo codigo de entrada
+dicc = {}
+cont_patrones = 0
+#num_dicc = 0
