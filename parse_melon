@@ -199,14 +199,17 @@ cont_dicc = 0
 # construccion del parser
 melonparser = yacc.yacc()
 
-# se recibe el codigo en MeLon
-p = '(5::(2)::x) (5::2::3)'
-prueba = melonparser.parse(p, tracking=True)
+
+### PRUEBAS MATCH
+#p = '(5::(2)::x) (5::2::3)'
+#prueba = melonparser.parse(p, tracking=True)
 #print prueba
-uno = prueba.izquierdo.izquierdo.izquierdo.izquierdo
-dos = prueba.izquierdo.derecho.izquierdo.izquierdo
-print prueba, ' ', isinstance(prueba,Nodo.Nodo)
-print '\nRESULTADO\n',uno.type,'\n',dos.type,'\n', match(uno,dos)
+#uno = prueba.izquierdo.izquierdo.izquierdo.izquierdo
+#dos = prueba.izquierdo.derecho.izquierdo.izquierdo
+#print prueba, ' ', isinstance(prueba,Nodo.Nodo)
+#print '\nRESULTADO\n',uno.type,'\n',dos.type,'\n', match(uno,dos)
+
+# se recibe el codigo en MeLon
 try:
 	s = sys.stdin.read()
 except EOFError:
