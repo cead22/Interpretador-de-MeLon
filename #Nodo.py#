@@ -10,7 +10,7 @@ class Nodo:
 			#self.izquierdo = [ ]
 		self.derecho = derecho
 	def tostring(self):
-		if (self.type == "sub" or self.type == "arg2" or self.type == "lp" or self.type == "lfe"):
+		if (self.type == "sub" or self.type == "arg2" or self.type == "lp"):
 			return str(self.izquierdo)+' '+str(self.derecho)
 		else:
 			if (self.type == "no_terminal" or self.type == "CONSTANTE" or self.type == 'CONSTLV'):

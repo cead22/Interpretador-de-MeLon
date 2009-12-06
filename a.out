@@ -1,0 +1,55 @@
+
+no_terminal
+no_terminal
+
+LET
+no_terminal
+no_terminal
+CONSTANTE
+PATRON
+no_terminal
+no_terminal
+no_terminal
+CONSTANTE
+no_terminal
+no_terminal
+
+LET
+no_terminal
+no_terminal
+
+FUN
+arg2
+b
+     [(<Nodo.Nodo instance at 0x11ce998>, <Nodo.Nodo instance at 0x11cecf8>)] 
+(PATRON (VARIABLE x))  
+(MAS (VARIABLE x) (VARIABLE a))
+PATRON
+no_terminal
+no_terminal
+no_terminal
+
+FUN
+arg2
+a
+     [(<Nodo.Nodo instance at 0x11ce998>, <Nodo.Nodo instance at 0x11cecf8>), (<Nodo.Nodo instance at 0x11ced88>, '')]
+no_terminal
+APLICAR
+{'a': 2, 'clausura': [(<Nodo.Nodo instance at 0x11ce998>, <Nodo.Nodo instance at 0x11cecf8>), (<Nodo.Nodo instance at 0x11ced88>, '')], 'f': None}
++C0
+ + (<Nodo.Nodo instance at 0x11ce998>, <Nodo.Nodo instance at 0x11cecf8>)
+MATCH
+ - (ENTERO 5) 
+ - (PATRON (VARIABLE x)) 
+MATCH
+ - (ENTERO 5) 
+ - (PATRON (VARIABLE x)) 
++C0
+ + (<Nodo.Nodo instance at 0x11ced88>, '')
+MATCH
+ - (ENTERO 5) 
+ - (LISTAPATRON (PATRON (VARIABLE x)) ) (MAS (VARIABLE x) (VARIABLE a))
+MATCH
+ - (ENTERO 5) 
+ - (LISTAPATRON (PATRON (VARIABLE x)) ) (MAS (VARIABLE x) (VARIABLE a))
+ERROR [(<Nodo.Nodo instance at 0x11ce998>, <Nodo.Nodo instance at 0x11cecf8>), (<Nodo.Nodo instance at 0x11ced88>, '')] (ENTERO 5)

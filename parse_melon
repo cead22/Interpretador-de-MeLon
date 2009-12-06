@@ -2,7 +2,7 @@
 import yacc         # herramienta para construir el parser (PLY)
 import sys, Nodo, funciones
 from melonlex import tokens         # tokens de melon
-
+import semantica
 # tabla de precedencia
 precedence = (
        ('left','OR'),
@@ -120,13 +120,13 @@ def p_fun(p):
 	dicc ={}
 def p_arg(p):
 	'arg : arg PIPE arg2'
-	p[0] = Nodo.Nodo('arg2',p[1],p[3])
+	p[0] = Nodo.Nodo('arg',p[1],p[3])
 def p_arg_2(p):
 	'arg : arg2'
 	p[0] = Nodo.Nodo('arg2',p[1])
 def p_arg2(p):
 	'arg2 : Listapatron FLECHA e'
-	p[0] = Nodo.Nodo('arg2',Nodo.Nodo('LISTAPATRON',p[1]),p[3])
+	p[0] = Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',p[1]),p[3])
 
 def p_p_dospuntos(p):
 	'patron : patron DDOSPUNTOS patron'
@@ -145,49 +145,7 @@ def valor(nodo):
 	if nodo.type == 'no_terminal':
 		return valor(nodo.izquierdo)
 
-# Match
-def match(nodo1,nodo2):
 
-	# Fin de recursion
-	if (not isinstance(nodo1,Nodo.Nodo)) and (not isinstance(nodo2,Nodo.Nodo)):
-		print '- ',nodo1,'\n- ',nodo2
-		return nodo1 == nodo2
-
-	# Bajar si el nodo es no_terminal
-	if nodo1.type == 'no_terminal' or nodo1.type == '': return match(nodo1.izquierdo,nodo2)
-	if nodo2.type == 'no_terminal' or nodo2.type == '': return match(nodo2.izquierdo,nodo1)
-
-	# Variables hacen match con todo
-	if nodo1.type == 'VARIABLE' or nodo2.type == 'VARIABLE':
-		print '- Variable\n -'
-		return True
-
-	# Constantes
-	if nodo1.type == 'CONSTANTE' and nodo2.type == 'CONSTANTE':
-		print '- Constante\n -'
-		print '(',nodo1.type,' ',nodo2.type,')\n'
-		return match(nodo1.izquierdo.izquierdo,nodo2.izquierdo.izquierdo)
-
-	# Entero
-	if nodo1.type == 'ENTERO' and nodo2.type == 'ENTERO':
-		print '- Entero\n -'
-		return match(nodo1.izquierdo,nodo2.izquierdo)
-
-	# Booleano
-	if nodo1.type == 'BOOLEANO' and nodo2.type == 'BOOLEANO':
-		print '- Booleano\n -'
-		return match(nodo1.izquierdo,nodo2.izquierdo)
-
-	# Listavacia
-	if nodo1.type == 'CONSTLV' and nodo2.type == 'CONSTLV':
-		return match(nodo1.izquierdo,nodo2.izquierdo)
-
-	# Listas
-	if nodo1.type == 'LISTA' and nodo2.type == 'LISTA':
-		print 'BLAH'
-		return match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
-
-	return False
 
 
 # inicializacion de variables para contar tamano de las Listapatron
@@ -201,9 +159,10 @@ melonparser = yacc.yacc()
 
 
 ### PRUEBAS MATCH
-#p = '(5::(2)::x) (5::2::3)'
+#p = '5 + 7 + 4'
 #prueba = melonparser.parse(p, tracking=True)
-#print prueba
+#print prueba.izquierdo.izquierdo.type
+#print semantica.eval(prueba,{})
 #uno = prueba.izquierdo.izquierdo.izquierdo.izquierdo
 #dos = prueba.izquierdo.derecho.izquierdo.izquierdo
 #print prueba, ' ', isinstance(prueba,Nodo.Nodo)
@@ -219,8 +178,8 @@ result = melonparser.parse(s, tracking=True)	# parseo de la entrada
 if not (funciones.revisar_patrones(dicc)):
 	#print dicc
 	p_error(0)
-print result	# arbol
-
+print result.izquierdo.izquierdo.type	# arbol
+print semantica.eval(result,{})
 # se resetean valores para calcular el tamano de las
 # Listapatron del nuevo codigo de entrada
 dicc = {}
