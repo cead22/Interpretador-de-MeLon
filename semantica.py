@@ -3,7 +3,7 @@ import Nodo,CLS
 
 # Match
 def match(nodo1,nodo2):
-	#print 'MATCH\n -',nodo1,'\n -',nodo2
+	print 'MATCH\n -',nodo1,'\n -',nodo2
 	# Fin de recursion
 	if (not isinstance(nodo1,Nodo.Nodo)) and (not isinstance(nodo2,Nodo.Nodo)):
 		#print '- ',nodo1,'\n- ',nodo2
@@ -71,7 +71,10 @@ def eval(nodo,env,orientacion):
 # Valor
 def valor(nodo):
 	while isinstance(nodo,Nodo.Nodo):
-		nodo = nodo.izquierdo
+		if nodo.type != 'LISTA':
+			nodo = nodo.izquierdo
+		else:
+			return str(valor(nodo.izquierdo))+'::'+str(valor(nodo.derecho))
 	return nodo
 
 # Apply
@@ -79,9 +82,9 @@ def apply(cls,nodo):
 	for c in cls.clausura:
 		#print 'C[0]\n =',valor(c[0])
 		if match(c[0],nodo):
-			print 'APPLY\n @',cls,'\n @',c[1],'\n @',extend(cls.env,str(valor(c[0])),valor(nodo))
+			print 'APPLY\n @',cls,'\n @',c[1],'\n @',cls.env,'\n @',extend(cls.env,str(valor(c[0])),valor(nodo))
 			#return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
-			return valor(eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo))))
+			return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
 	raise 'ERROR APPLY'
 
 #APPLY VIEJO
@@ -140,13 +143,13 @@ def es_booleano(x,y):
 		return False
 def eval(nodo,env):
 	
-#	if isinstance(nodo,Nodo.Nodo):
-#		if isinstance(nodo.izquierdo,Nodo.Nodo):
-#			if isinstance(nodo.derecho,Nodo.Nodo):
-#				print nodo.type,'\n I: ', nodo.izquierdo.type,'\n D: ',nodo.derecho.type
-#			else:
-#				print nodo.type,'\n I: ', nodo.izquierdo.type
-#		else: print nodo.type
+	if isinstance(nodo,Nodo.Nodo):
+		if isinstance(nodo.izquierdo,Nodo.Nodo):
+			if isinstance(nodo.derecho,Nodo.Nodo):
+				print nodo.type,'\n I: ', nodo.izquierdo.type,'\n D: ',nodo.derecho.type
+			else:
+				print nodo.type,'\n I: ', nodo.izquierdo.type
+		else: print nodo.type
 	if not isinstance(nodo,Nodo.Nodo): return nodo
 	#if nodo.type == 'lp' or nodo.type == 'arg' or nodo.type == 'arg2': return eval(nodo.izquierdo,env)
 	if nodo.type == 'arg': 

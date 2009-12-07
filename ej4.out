@@ -1,9 +1,25 @@
 ((LET (PATRON (VARIABLE f)) ((FUN (LISTAPATRON (PATRON (VARIABLE x)) ) ((MAS (VARIABLE x) (ENTERO 2)))  (LISTAPATRON (PATRON (ENTERO 5)) ) (ENTERO 3))) (APLICAR (VARIABLE f) (ENTERO 5))))
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE x)) ) 
+ - (ENTERO 5)
+MATCH
+ - (PATRON (VARIABLE x))  
+ - (ENTERO 5)
+MATCH
+ - (PATRON (VARIABLE x)) 
+ - (ENTERO 5)
+MATCH
+ - (VARIABLE x) 
+ - (ENTERO 5)
+MATCH
+ - (VARIABLE x) 
+ - (ENTERO 5)
 APPLY
  @ CLS
- ~{<Nodo.Nodo instance at 0x1e9b9e0>: 'fake', 'f': <CLS.CLS instance at 0x1e9b3b0>}
- ~[(<Nodo.Nodo instance at 0x1e9dbd8>, <Nodo.Nodo instance at 0x1e9db90>), (<Nodo.Nodo instance at 0x1e9de60>, <Nodo.Nodo instance at 0x1e983f8>)] 
+ ~{<Nodo.Nodo instance at 0x1940908>: 'fake', 'f': <CLS.CLS instance at 0x19402d8>}
+ ~[(<Nodo.Nodo instance at 0x1942ab8>, <Nodo.Nodo instance at 0x1942a70>), (<Nodo.Nodo instance at 0x1942d40>, <Nodo.Nodo instance at 0x193dbd8>)] 
  @ ((MAS (VARIABLE x) (ENTERO 2))) 
- @ {<Nodo.Nodo instance at 0x1e9b9e0>: 'fake', 'x': 5, 'f': <CLS.CLS instance at 0x1e9b3b0>}
+ @ {<Nodo.Nodo instance at 0x1940908>: 'fake', 'f': <CLS.CLS instance at 0x19402d8>} 
+ @ {<Nodo.Nodo instance at 0x1940908>: 'fake', 'x': 5, 'f': <CLS.CLS instance at 0x19402d8>}
 7
 None
