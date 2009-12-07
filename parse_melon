@@ -179,7 +179,7 @@ if not (funciones.revisar_patrones(dicc)):
 	#print dicc
 	p_error(0)
 print result.izquierdo.izquierdo.type	# arbol
-print semantica.eval(result,{})
+semantica.eval(result,{})
 # se resetean valores para calcular el tamano de las
 # Listapatron del nuevo codigo de entrada
 dicc = {}
