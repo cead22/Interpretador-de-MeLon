@@ -59,8 +59,8 @@ _lr_productions = [
   ('patron -> PARENTESISI patron PARENTESISD','patron',3,'p_p_parentesis','./parse_melon',110),
   ('e -> LET patron IGUAL e IN e TEL','e',7,'p_let','./parse_melon',113),
   ('e -> FUN arg NUF','e',3,'p_fun','./parse_melon',116),
-  ('arg -> arg PIPE arg2','arg',3,'p_arg','./parse_melon',122),
-  ('arg -> arg2','arg',1,'p_arg_2','./parse_melon',125),
-  ('arg2 -> Listapatron FLECHA e','arg2',3,'p_arg2','./parse_melon',128),
-  ('patron -> patron DDOSPUNTOS patron','patron',3,'p_p_dospuntos','./parse_melon',132),
+  ('arg -> arg PIPE arg2','arg',3,'p_arg','./parse_melon',123),
+  ('arg -> arg2','arg',1,'p_arg_2','./parse_melon',126),
+  ('arg2 -> Listapatron FLECHA e','arg2',3,'p_arg2','./parse_melon',129),
+  ('patron -> patron DDOSPUNTOS patron','patron',3,'p_p_dospuntos','./parse_melon',133),
 ]

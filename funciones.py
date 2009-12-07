@@ -27,7 +27,6 @@ def columna(input,t):
     return c
 
 def revisar_patrones(dicc):
-	print 'a'
 	for i in range(0,len(dicc.values())):
 		if not (iguales(dicc[i].values())):
 			return False
@@ -37,7 +36,7 @@ def recorrer_fun(nodo,dicc,index):
 	if nodo.type == "lp": 
 		if index in dicc: dicc[index] += 1
 		else: dicc[index] = 1
-	elif nodo.type == "arg": index += 1
+	elif nodo.type == "arg" or nodo.type == "arg2": index += 1
 	if (nodo.izquierdo.__class__ == Nodo.Nodo):
 		recorrer_recursivo(nodo.izquierdo,dicc,index)
 	if (nodo.derecho.__class__ == Nodo.Nodo):
@@ -50,7 +49,7 @@ def recorrer_recursivo(nodo,dicc,index):
 	if nodo.type == "lp": 
 		if index in dicc: dicc[index] += 1
 		else: dicc[index] = 1
-	elif nodo.type == "arg": index += 1
+	elif nodo.type == "arg" or nodo.type == "arg2": index += 1
 	if (nodo.izquierdo.__class__ == Nodo.Nodo):
 		recorrer_recursivo(nodo.izquierdo,dicc,index)
 	if (nodo.derecho.__class__ == Nodo.Nodo):

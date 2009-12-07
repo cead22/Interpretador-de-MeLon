@@ -1,1 +1,1 @@
-fun 2 -> 3 | [] -> 1 nuf
+(fun (3::4) -> false | [] -> true nuf) (3::4)
