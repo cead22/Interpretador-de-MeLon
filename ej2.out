@@ -1,8 +1,24 @@
 (APLICAR ((FUN (LISTAPATRON (PATRON (ENTERO 5)) ) (BOOLEANO FALSE)  (LISTAPATRON (PATRON (ENTERO 3)) ) (BOOLEANO TRUE))) (ENTERO 5))
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 5)) ) 
+ - (ENTERO 5)
+MATCH
+ - (PATRON (ENTERO 5))  
+ - (ENTERO 5)
+MATCH
+ - (PATRON (ENTERO 5)) 
+ - (ENTERO 5)
+MATCH
+ - (ENTERO 5) 
+ - (ENTERO 5)
+MATCH
+ - 5 
+ - 5
 APPLY
  @ CLS
  ~{}
- ~[(<Nodo.Nodo instance at 0x250edd0>, <Nodo.Nodo instance at 0x250ebd8>), (<Nodo.Nodo instance at 0x2510b90>, <Nodo.Nodo instance at 0x2510b00>)] 
+ ~[(<Nodo.Nodo instance at 0x1b30cf8>, <Nodo.Nodo instance at 0x1b30b00>), (<Nodo.Nodo instance at 0x1b32a70>, <Nodo.Nodo instance at 0x1b329e0>)] 
  @ (BOOLEANO FALSE) 
+ @ {} 
  @ {'5': 5}
 FALSE

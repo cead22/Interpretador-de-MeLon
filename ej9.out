@@ -1,36 +1,7 @@
-(APLICAR ((FUN (LISTAPATRON (PATRON (VARIABLE x)) ) ((FUN (LISTAPATRON (PATRON (VARIABLE y)) ) (ENTERO 3) )) )) (ENTERO 5))
-no_terminal 
- I:  APLICAR
-APLICAR 
- I:  no_terminal 
- D:  no_terminal
-no_terminal 
- I:  
- 
- I:  FUN
-FUN 
- I:  arg2
-In-Fun
- - (LISTAPATRON (PATRON (VARIABLE x)) ) ((FUN (LISTAPATRON (PATRON (VARIABLE y)) ) (ENTERO 3) ))  
- - 
-arg2 
- I:  lfe
-lfe 
- I:  LISTAPATRON 
- D:  no_terminal
-ENV {'clausura': [(<Nodo.Nodo instance at 0xbe8b48>, <Nodo.Nodo instance at 0xbe8a28>)]} (LISTAPATRON (PATRON (VARIABLE x)) ) ((FUN (LISTAPATRON (PATRON (VARIABLE y)) ) (ENTERO 3) ))
-no_terminal 
- I:  CONSTANTE
-CONSTANTE 
- I:  ENTERO
-+C0
- + (ENTERO 5) 
- + (LISTAPATRON (PATRON (VARIABLE x)) ) 
- + ((FUN (LISTAPATRON (PATRON (VARIABLE y)) ) (ENTERO 3) )) 
- + ((FUN (LISTAPATRON (PATRON (VARIABLE y)) ) (ENTERO 3) ))
+(APLICAR (APLICAR ((FUN (LISTAPATRON (PATRON (VARIABLE x)) ) ((FUN (LISTAPATRON (PATRON (VARIABLE y)) ) (ENTERO 3) )) )) (ENTERO 5)) (ENTERO 4))
 MATCH
- - (ENTERO 5) 
- - (LISTAPATRON (PATRON (VARIABLE x)) )
+ - (LISTAPATRON (PATRON (VARIABLE x)) ) 
+ - (ENTERO 5)
 MATCH
  - (PATRON (VARIABLE x))  
  - (ENTERO 5)
@@ -43,24 +14,33 @@ MATCH
 MATCH
  - (VARIABLE x) 
  - (ENTERO 5)
-Macheo 
- * ((FUN (LISTAPATRON (PATRON (VARIABLE y)) ) (ENTERO 3) )) 
- * {'x': 5, 'clausura': [(<Nodo.Nodo instance at 0xbe8b48>, <Nodo.Nodo instance at 0xbe8a28>)]}
-no_terminal 
- I:  no_terminal
-no_terminal 
- I:  
- 
- I:  FUN
-FUN 
- I:  arg2
-In-Fun
- - (LISTAPATRON (PATRON (VARIABLE y)) ) (ENTERO 3)  
- - 
-arg2 
- I:  lfe
-lfe 
- I:  LISTAPATRON 
- D:  no_terminal
-ENV {'x': 5, 'clausura': [(<Nodo.Nodo instance at 0xbe8b48>, <Nodo.Nodo instance at 0xbe8a28>), (<Nodo.Nodo instance at 0xbe8998>, <Nodo.Nodo instance at 0xbe7200>)]} (LISTAPATRON (PATRON (VARIABLE y)) ) (ENTERO 3)
-None
+APPLY
+ @ CLS
+ ~{}
+ ~[(<Nodo.Nodo instance at 0x1b36a28>, <Nodo.Nodo instance at 0x1b36908>), (<Nodo.Nodo instance at 0x1b36878>, <Nodo.Nodo instance at 0x1b367e8>)] 
+ @ ((FUN (LISTAPATRON (PATRON (VARIABLE y)) ) (ENTERO 3) )) 
+ @ {} 
+ @ {'x': 5}
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE y)) ) 
+ - (ENTERO 4)
+MATCH
+ - (PATRON (VARIABLE y))  
+ - (ENTERO 4)
+MATCH
+ - (PATRON (VARIABLE y)) 
+ - (ENTERO 4)
+MATCH
+ - (VARIABLE y) 
+ - (ENTERO 4)
+MATCH
+ - (VARIABLE y) 
+ - (ENTERO 4)
+APPLY
+ @ CLS
+ ~{'x': 5}
+ ~[(<Nodo.Nodo instance at 0x1b36878>, <Nodo.Nodo instance at 0x1b367e8>)] 
+ @ (ENTERO 3) 
+ @ {'x': 5} 
+ @ {'y': 4, 'x': 5}
+3
