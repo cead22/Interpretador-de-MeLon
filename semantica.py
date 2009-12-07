@@ -3,7 +3,7 @@ import Nodo
 
 # Match
 def match(nodo1,nodo2):
-	#print 'MATCH\n -',nodo1,'\n -',nodo2
+	print 'MATCH\n -',nodo1,'\n -',nodo2
 	# Fin de recursion
 	if (not isinstance(nodo1,Nodo.Nodo)) and (not isinstance(nodo2,Nodo.Nodo)):
 		#print '- ',nodo1,'\n- ',nodo2
@@ -43,6 +43,7 @@ def match(nodo1,nodo2):
 	if nodo1.type == 'LISTA' and nodo2.type == 'LISTA':
 		#print 'BLAH'
 		return match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
+	print 'falso' 
 
 	return False
 
@@ -84,7 +85,7 @@ def apply(nodo1,nodo2,env):
 		#print env
 		#i=555
 		for c in env['clausura']:
-			#print '+C0\n +',nodo2,'\n +',c[0],'\n +',c[1]#,'\n +',env['clausura']
+			print '+C0\n +',nodo2,'\n +',c[0],'\n +',c[1]#,'\n +',env['clausura']
 			if match(nodo2,c[0]):
 				#print 'Macheo',c[1],extend(env,str(valor(c[0])),valor(nodo2))
 				print valor(eval(c[1],extend(env,str(valor(c[0])),valor(nodo2))))
@@ -109,13 +110,13 @@ def apply(nodo1,nodo2,env):
 
 # Eval
 def eval(nodo,env):
-	#if isinstance(nodo,Nodo.Nodo):
-		#if isinstance(nodo.izquierdo,Nodo.Nodo):
-			#if isinstance(nodo.derecho,Nodo.Nodo):
-				#print nodo.type,'\n I: ', nodo.izquierdo.type,'\n D: ',nodo.derecho.type
-			#else:
-				#print nodo.type,'\n I: ', nodo.izquierdo.type
-		#else: print nodo.type
+	if isinstance(nodo,Nodo.Nodo):
+		if isinstance(nodo.izquierdo,Nodo.Nodo):
+			if isinstance(nodo.derecho,Nodo.Nodo):
+				print nodo.type,'\n I: ', nodo.izquierdo.type,'\n D: ',nodo.derecho.type
+			else:
+				print nodo.type,'\n I: ', nodo.izquierdo.type
+		else: print nodo.type
 	if not isinstance(nodo,Nodo.Nodo): return nodo
 	#if nodo.type == 'lp' or nodo.type == 'arg' or nodo.type == 'arg2': return eval(nodo.izquierdo,env)
 	if nodo.type == 'arg': 
@@ -125,12 +126,14 @@ def eval(nodo,env):
 		eval(nodo.derecho,env)
 		#apply(nodo.izquierdo,nodo.derecho,env)
 		#print 'Doble2 \n ',nodo.izquierdo,'\n ',nodo.derecho
-	if nodo.type == 'lp' or nodo.type == 'arg2': return eval(nodo.izquierdo,env)
+	#if nodo.type == 'lp' or nodo.type == 'arg2': return eval(nodo.izquierdo,env)
+	if nodo.type == 'arg2': return eval(nodo.izquierdo,env)
+	if nodo.type == 'lp':return nodo
 	elif nodo.type == 'FUN': 
 		print 'In-Fun\n -',nodo.izquierdo,'\n -',nodo.derecho
 		return eval(nodo.izquierdo,env)
 	#elif nodo.type == 'LISTAPATRON': return eval(nodo.izquierdo,env)
-	elif nodo.type == 'LISTAPATRON': return eval(nodo.izquierdo,env)
+	elif nodo.type == 'LISTAPATRON' or nodo.type == 'LISTA': return nodo
 	elif nodo.type == 'no_terminal': return eval(nodo.izquierdo,env)
 	elif nodo.type == 'sub': return eval(nodo.izquierdo,env)
 	elif nodo.type == '': return eval(nodo.izquierdo,env)
@@ -176,7 +179,7 @@ def eval(nodo,env):
 		else:
 			extend(env,'clausura',[(nodo.izquierdo,nodo.derecho)])
 			#print 'b'
-		#print'ENV', env, nodo
+		print'ENV', env, nodo
 	elif nodo.type == 'APLICAR':
 		#print 'APLICAR',nodo.izquierdo,nodo.derecho
 		apply(nodo.izquierdo,nodo.derecho,env)
