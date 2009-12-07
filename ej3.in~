@@ -1,1 +1,1 @@
-(fun a->4 nuf) a
+(fun 3->4 nuf) x

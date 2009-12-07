@@ -1,7 +1,8 @@
 (APLICAR ((FUN (LISTAPATRON (PATRON (ENTERO 3)) ) (ENTERO 4) )) (ENTERO 3))
-In-Fun
- - (LISTAPATRON (PATRON (ENTERO 3)) ) (ENTERO 4)  
- - 
-- Constante
- -
+APPLY
+ @ CLS
+ ~{}
+ ~[(<Nodo.Nodo instance at 0x1005dd0>, <Nodo.Nodo instance at 0x1005bd8>)] 
+ @ (ENTERO 4) 
+ @ {'3': 3}
 4

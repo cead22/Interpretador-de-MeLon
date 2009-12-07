@@ -1,6 +1,9 @@
 ((LET (PATRON (VARIABLE a)) (ENTERO 2) ((LET (PATRON (VARIABLE f)) ((FUN (LISTAPATRON (PATRON (VARIABLE x)) ) (MAS (VARIABLE x) (VARIABLE a)) )) (APLICAR (VARIABLE f) (ENTERO 5))))))
-In-Fun
- - (LISTAPATRON (PATRON (VARIABLE x)) ) (MAS (VARIABLE x) (VARIABLE a))  
- - 
+APPLY
+ @ CLS
+ ~{'a': <Nodo.Nodo instance at 0x96cbd8>, <Nodo.Nodo instance at 0x96c9e0>: 'fake', <Nodo.Nodo instance at 0x96e998>: 'fake', 'f': <CLS.CLS instance at 0x96c3b0>}
+ ~[(<Nodo.Nodo instance at 0x9693f8>, <Nodo.Nodo instance at 0x96ed40>)] 
+ @ (MAS (VARIABLE x) (VARIABLE a)) 
+ @ {'a': <Nodo.Nodo instance at 0x96cbd8>, <Nodo.Nodo instance at 0x96c9e0>: 'fake', <Nodo.Nodo instance at 0x96e998>: 'fake', 'x': 5, 'f': <CLS.CLS instance at 0x96c3b0>}
 7
 None
