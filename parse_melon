@@ -134,8 +134,13 @@ def p_p_dospuntos(p):
 
 # Manejo de errores
 def p_error(p):
-	print "Error Sintactico"
-	sys.exit(-1)
+       global s
+       if isinstance(p,int):
+               print "Error Sintactico"
+       else:
+               print "Error Sintactico '%s' (Token" % p.type+ " linea %s" % p.lineno +", columna %s)" % funciones.columna(s,p)
+       sys.exit(-1)
+
 
 # Valor de constantes, variables, etc
 def valor(nodo):
@@ -155,7 +160,7 @@ cont_patrones = 0
 cont_dicc = 0
 
 # construccion del parser
-melonparser = yacc.yacc()
+melonparser = yacc.yacc(errorlog=yacc.NullLogger())
 
 
 ### PRUEBAS MATCH
@@ -179,6 +184,7 @@ except EOFError:
 #if not s: continue
 result = melonparser.parse(s, tracking=True)	# parseo de la entrada
 if not (funciones.revisar_patrones(dicc)):
+	print 'c'
 	#print dicc
 	p_error(0)
 print result	# arbol

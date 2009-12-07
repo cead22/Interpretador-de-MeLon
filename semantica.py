@@ -89,6 +89,7 @@ def apply(nodo1,nodo2,env):
 				#print 'Macheo',c[1],extend(env,str(valor(c[0])),valor(nodo2))
 				print valor(eval(c[1],extend(env,str(valor(c[0])),valor(nodo2))))
 				return #eval(c[1],extend(env,str(valor(c[0])),valor(nodo2)))
+		#	else: return False
 		#	i+=111
 		#print 'ERROR',c[0],nodo2
 		#n = c[0]
@@ -96,7 +97,7 @@ def apply(nodo1,nodo2,env):
 		#while isinstance(n,Nodo.Nodo):
 		#	print n.type
 		#	n = n.izquierdo
-		#raise 'AA'
+		raise 'AA'
 	else:
 		#print 'aqui \n ',nodo1,'\n ',nodo2,'\n ' ,env
 		#print '1zzz'
