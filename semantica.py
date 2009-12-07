@@ -167,14 +167,60 @@ def eval(nodo,env):
 		#return '[]'
 		#print nodo.type
 		return nodo
-
+	elif nodo.type == 'MAS' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
+		print resultado
 	elif nodo.type == 'MENOS' :
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
 		resultado = valor(eval(nodo.izquierdo,env)) - valor(eval(nodo.derecho,env))
 		print resultado
-	elif nodo.type == 'MAS' :
+	elif nodo.type == 'NEGATIVO' :
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
+		resultado = -valor(eval(nodo.izquierdo,env))
+		print resultado
+	elif nodo.type == 'PRODUCTO' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
+		print resultado
+	elif nodo.type == 'COCIENTE' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = valor(eval(nodo.izquierdo,env)) / valor(eval(nodo.derecho,env))
+		print resultado
+	elif nodo.type == 'MENOR' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = (str((valor(eval(nodo.izquierdo,env)) < valor(eval(nodo.derecho,env))))).lower()
+		print resultado
+	elif nodo.type == 'MENOROIGUAL' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = (str(valor(eval(nodo.izquierdo,env)) <= valor(eval(nodo.derecho,env)))).lower()
+		print resultado
+	elif nodo.type == 'MAYOR' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = (str(valor(eval(nodo.izquierdo,env)) > valor(eval(nodo.derecho,env)))).lower()
+		print resultado
+	elif nodo.type == 'MAYOROIGUAL' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = (str(valor(eval(nodo.izquierdo,env)) >= valor(eval(nodo.derecho,env)))).lower()
+		print resultado
+	elif nodo.type == 'IGUAL' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = (str(valor(eval(nodo.izquierdo,env)) == valor(eval(nodo.derecho,env)))).lower()
+		print resultado
+	elif nodo.type == 'DISTINTO' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = (str(valor(eval(nodo.izquierdo,env)) != valor(eval(nodo.derecho,env)))).lower()
+		print resultado
+	elif nodo.type == 'NO' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = not (valor(eval(nodo.izquierdo,env)))
+	elif nodo.type == 'OR' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = (str(valor(eval(nodo.izquierdo,env)) or  valor(eval(nodo.derecho,env)))).lower()
+		print resultado
+	elif nodo.type == 'AND' :
+		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		resultado = (str(valor(eval(nodo.izquierdo,env)) and valor(eval(nodo.derecho,env)))).lower()
 		print resultado
 	elif nodo.type == 'VARIABLE':
 		#print 'Pepe',env
