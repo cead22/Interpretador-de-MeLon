@@ -128,6 +128,16 @@ def clausura(nodo,env,temp):
 
 
 # Eval
+def es_entero(x,y):
+	if isinstance(x,int) and isinstance(y,int):
+		return True
+	else:
+		return False 
+def es_booleano(x,y):
+	if isinstance(x,bool) and isinstance(y,bool):
+		return True
+	else:
+		return False
 def eval(nodo,env):
 	
 #	if isinstance(nodo,Nodo.Nodo):
@@ -169,8 +179,10 @@ def eval(nodo,env):
 		return nodo
 	elif nodo.type == 'MAS' :
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
-		print resultado
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
+			print resultado
+		else: raise 'ERROR: de tipo' 
 	elif nodo.type == 'MENOS' :
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
 		resultado = valor(eval(nodo.izquierdo,env)) - valor(eval(nodo.derecho,env))
