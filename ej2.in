@@ -1,1 +1,1 @@
-(fun (x::xs)->false | [] -> true nuf) []
+(fun 5->false | 3 -> true nuf) 5

@@ -1,0 +1,58 @@
+(APLICAR ((FUN (LISTAPATRON (PATRON (ENTERO 3)) ) (ENTERO 4) )) (ENTERO 3))
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+APPLY
+ - ((FUN (LISTAPATRON (PATRON (ENTERO 3)) ) (ENTERO 4) )) 
+ - (ENTERO 3)
+no_terminal 
+ I:  
+ 
+ I:  FUN
+FUN 
+ I:  arg2
+In-Fun
+ - (LISTAPATRON (PATRON (ENTERO 3)) ) (ENTERO 4)  
+ - 
+arg2 
+ I:  lfe
+lfe 
+ I:  LISTAPATRON 
+ D:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+APPLY
+ - None 
+ - (ENTERO 3)
++C0
+ + (ENTERO 3) 
+ + (LISTAPATRON (PATRON (ENTERO 3)) ) 
+ + (ENTERO 4)
+MATCH
+ - (ENTERO 3) 
+ - (LISTAPATRON (PATRON (ENTERO 3)) )
+MATCH
+ - (PATRON (ENTERO 3))  
+ - (ENTERO 3)
+MATCH
+ - (PATRON (ENTERO 3)) 
+ - (ENTERO 3)
+MATCH
+ - (ENTERO 3) 
+ - (ENTERO 3)
+- Constante
+ -
+MATCH
+ - 3 
+ - 3
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+4

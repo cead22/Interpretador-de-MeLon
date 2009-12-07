@@ -48,7 +48,7 @@ t_PIPE = r'\|'
 
 # definicion de ENTERO
 def t_ENTERO(t):
-	'[1-9][0-9]*'
+	'[0-9][0-9]*'
 	t.value = int(t.value)
 	return t
 

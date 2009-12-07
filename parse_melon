@@ -169,6 +169,9 @@ melonparser = yacc.yacc()
 #print '\nRESULTADO\n',uno.type,'\n',dos.type,'\n', match(uno,dos)
 
 # se recibe el codigo en MeLon
+#a = melonparser.parse('5')
+#semantica.valor(semantica.eval(a,{}))
+#print('\n\n\n\n')
 try:
 	s = sys.stdin.read()
 except EOFError:
@@ -178,7 +181,7 @@ result = melonparser.parse(s, tracking=True)	# parseo de la entrada
 if not (funciones.revisar_patrones(dicc)):
 	#print dicc
 	p_error(0)
-print result.izquierdo.izquierdo.type	# arbol
+print result	# arbol
 semantica.eval(result,{})
 # se resetean valores para calcular el tamano de las
 # Listapatron del nuevo codigo de entrada
