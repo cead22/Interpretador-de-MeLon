@@ -187,16 +187,6 @@ def eval(nodo,env):
 		#print nodo.type
 		return nodo
 	elif nodo.type == 'MAS' :
-<<<<<<< HEAD:semantica.py
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		#resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
-		resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
-		return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-	elif nodo.type == 'MENOS' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = valor(eval(nodo.izquierdo,env)) - valor(eval(nodo.derecho,env))
-		return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-=======
 		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
 			resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
@@ -208,7 +198,6 @@ def eval(nodo,env):
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
 		else: raise 'ERROR: de tipo'
 
->>>>>>> 4e4d953eb4227652bfe6cebe2f4283038ec32791:semantica.py
 	elif nodo.type == 'NEGATIVO' :
 		if es_entero(valor(eval(nodo.izquierdo,env)),1):		
 			resultado = -valor(eval(nodo.izquierdo,env))
@@ -217,17 +206,10 @@ def eval(nodo,env):
 		
 		print resultado
 	elif nodo.type == 'PRODUCTO' :
-<<<<<<< HEAD:semantica.py
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
-		return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-=======
 		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
 			resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
 		else: raise 'ERROR: de tipo'
-	
->>>>>>> 4e4d953eb4227652bfe6cebe2f4283038ec32791:semantica.py
 	elif nodo.type == 'COCIENTE' :
 		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
 			if (valor(eval(nodo.derecho,env)) == 0):

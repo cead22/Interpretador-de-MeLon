@@ -1,1 +1,1 @@
-(fun (x::xs) -> false | 1::2 -> true nuf) (1::2)
+(fun xs -> false | 1::2 -> true nuf) (1::2)
