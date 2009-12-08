@@ -1,4 +1,4 @@
-((LET (PATRON (VARIABLE sum)) ((FUN (LISTAPATRON (PATRON (ENTERO 8)) ) (ENTERO 8)  (LISTAPATRON (PATRON (VARIABLE n)) ) (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MAS (VARIABLE n) (ENTERO 1)))))))) (APLICAR (VARIABLE sum) (ENTERO 15))))
+((LET (PATRON (VARIABLE sum)) ((FUN (LISTAPATRON (PATRON (ENTERO 1)) ) (ENTERO 1)  (LISTAPATRON (PATRON (VARIABLE n)) ) (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))))) (APLICAR (VARIABLE sum) (ENTERO 50))))
 no_terminal 
  I:  no_terminal
 no_terminal 
@@ -26,47 +26,69 @@ no_terminal
 no_terminal 
  I:  VARIABLE
 VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>}
 no_terminal 
  I:  CONSTANTE
 CONSTANTE 
  I:  ENTERO
 MATCH
- - (LISTAPATRON (PATRON (ENTERO 8)) ) 
- - (ENTERO 15)
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 50)
+    - LISTAPATRON 
+    - CONSTANTE
 MATCH
- - (PATRON (ENTERO 8))  
- - (ENTERO 15)
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 50)
+    - lp 
+    - CONSTANTE
 MATCH
- - (PATRON (ENTERO 8)) 
- - (ENTERO 15)
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 50)
+    - PATRON 
+    - CONSTANTE
 MATCH
- - (ENTERO 8) 
- - (ENTERO 15)
+ - (ENTERO 1) 
+ - (ENTERO 50)
+    - CONSTANTE 
+    - CONSTANTE
 MATCH
- - 8 
- - 15
+ - 1 
+ - 50
 MATCH
  - (LISTAPATRON (PATRON (VARIABLE n)) ) 
- - (ENTERO 15)
+ - (ENTERO 50)
+    - LISTAPATRON 
+    - CONSTANTE
 MATCH
  - (PATRON (VARIABLE n))  
- - (ENTERO 15)
+ - (ENTERO 50)
+    - lp 
+    - CONSTANTE
 MATCH
  - (PATRON (VARIABLE n)) 
- - (ENTERO 15)
+ - (ENTERO 50)
+    - PATRON 
+    - CONSTANTE
 MATCH
  - (VARIABLE n) 
- - (ENTERO 15)
+ - (ENTERO 50)
+    - no_terminal 
+    - CONSTANTE
 MATCH
  - (VARIABLE n) 
- - (ENTERO 15)
+ - (ENTERO 50)
+    - VARIABLE 
+    - CONSTANTE
 APPLY
  @ CLS
- ~{<Nodo.Nodo instance at 0x18db908>: 'fake', 'sum': <CLS.CLS instance at 0x18db2d8>}
- ~[(<Nodo.Nodo instance at 0x18dd830>, <Nodo.Nodo instance at 0x18dbef0>), (<Nodo.Nodo instance at 0x18ddc20>, <Nodo.Nodo instance at 0x18e9050>)] 
- @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MAS (VARIABLE n) (ENTERO 1)))))) 
- @ {<Nodo.Nodo instance at 0x18db908>: 'fake', 'sum': <CLS.CLS instance at 0x18db2d8>} 
- @ {<Nodo.Nodo instance at 0x18db908>: 'fake', 'sum': <CLS.CLS instance at 0x18db2d8>, 'n': 15}
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 50}
 MAS 
  I:  no_terminal 
  D:  no_terminal
@@ -77,6 +99,9 @@ no_terminal
 no_terminal 
  I:  VARIABLE
 VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 50}
 no_terminal 
  I:  no_terminal
 no_terminal 
@@ -93,10 +118,88 @@ no_terminal
 no_terminal 
  I:  VARIABLE
 VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 50}
 no_terminal 
  I:  
  
- I:  MAS
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 50}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 49)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 49)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 49)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 49)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 49
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 49)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 49)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 49)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 49)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 49)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 50}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 50} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 49}
 MAS 
  I:  no_terminal 
  D:  no_terminal
@@ -107,22 +210,5303 @@ no_terminal
 no_terminal 
  I:  VARIABLE
 VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 49}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 49}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 49}
 no_terminal 
  I:  no_terminal
 no_terminal 
  I:  CONSTANTE
 CONSTANTE 
  I:  ENTERO
-16
 MATCH
- - (LISTAPATRON (PATRON (ENTERO 8)) ) 
- - None
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 48)
+    - LISTAPATRON 
+    - CONSTANTE
 MATCH
- - (PATRON (ENTERO 8))  
- - None
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 48)
+    - lp 
+    - CONSTANTE
 MATCH
- - (PATRON (ENTERO 8)) 
- - None
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 48)
+    - PATRON 
+    - CONSTANTE
 MATCH
- - (ENTERO 8) 
- - None
+ - (ENTERO 1) 
+ - (ENTERO 48)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 48
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 48)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 48)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 48)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 48)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 48)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 49}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 49} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 48}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 48}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 48}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 48}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 47)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 47)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 47)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 47)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 47
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 47)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 47)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 47)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 47)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 47)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 48}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 48} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 47}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 47}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 47}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 47}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 46)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 46)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 46)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 46)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 46
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 46)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 46)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 46)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 46)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 46)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 47}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 47} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 46}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 46}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 46}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 46}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 45)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 45)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 45)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 45)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 45
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 45)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 45)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 45)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 45)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 45)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 46}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 46} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 45}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 45}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 45}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 45}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 44)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 44)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 44)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 44)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 44
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 44)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 44)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 44)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 44)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 44)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 45}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 45} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 44}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 44}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 44}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 44}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 43)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 43)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 43)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 43)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 43
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 43)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 43)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 43)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 43)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 43)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 44}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 44} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 43}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 43}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 43}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 43}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 42)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 42)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 42)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 42)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 42
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 42)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 42)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 42)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 42)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 42)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 43}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 43} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 42}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 42}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 42}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 42}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 41)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 41)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 41)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 41)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 41
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 41)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 41)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 41)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 41)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 41)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 42}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 42} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 41}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 41}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 41}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 41}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 40)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 40)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 40)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 40)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 40
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 40)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 40)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 40)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 40)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 40)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 41}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 41} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 40}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 40}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 40}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 40}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 39)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 39)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 39)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 39)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 39
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 39)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 39)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 39)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 39)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 39)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 40}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 40} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 39}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 39}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 39}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 39}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 38)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 38)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 38)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 38)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 38
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 38)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 38)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 38)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 38)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 38)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 39}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 39} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 38}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 38}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 38}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 38}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 37)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 37)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 37)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 37)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 37
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 37)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 37)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 37)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 37)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 37)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 38}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 38} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 37}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 37}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 37}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 37}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 36)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 36)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 36)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 36)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 36
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 36)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 36)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 36)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 36)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 36)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 37}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 37} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 36}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 36}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 36}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 36}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 35)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 35)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 35)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 35)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 35
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 35)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 35)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 35)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 35)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 35)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 36}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 36} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 35}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 35}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 35}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 35}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 34)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 34)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 34)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 34)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 34
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 34)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 34)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 34)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 34)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 34)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 35}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 35} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 34}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 34}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 34}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 34}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 33)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 33)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 33)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 33)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 33
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 33)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 33)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 33)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 33)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 33)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 34}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 34} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 33}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 33}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 33}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 33}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 32)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 32)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 32)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 32)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 32
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 32)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 32)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 32)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 32)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 32)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 33}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 33} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 32}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 32}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 32}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 32}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 31)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 31)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 31)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 31)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 31
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 31)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 31)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 31)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 31)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 31)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 32}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 32} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 31}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 31}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 31}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 31}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 30)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 30)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 30)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 30)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 30
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 30)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 30)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 30)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 30)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 30)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 31}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 31} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 30}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 30}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 30}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 30}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 29)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 29)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 29)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 29)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 29
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 29)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 29)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 29)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 29)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 29)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 30}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 30} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 29}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 29}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 29}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 29}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 28)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 28)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 28)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 28)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 28
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 28)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 28)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 28)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 28)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 28)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 29}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 29} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 28}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 28}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 28}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 28}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 27)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 27)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 27)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 27)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 27
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 27)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 27)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 27)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 27)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 27)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 28}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 28} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 27}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 27}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 27}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 27}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 26)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 26)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 26)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 26)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 26
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 26)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 26)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 26)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 26)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 26)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 27}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 27} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 26}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 26}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 26}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 26}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 25)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 25)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 25)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 25)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 25
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 25)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 25)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 25)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 25)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 25)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 26}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 26} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 25}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 25}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 25}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 25}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 24)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 24)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 24)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 24)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 24
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 24)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 24)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 24)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 24)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 24)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 25}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 25} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 24}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 24}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 24}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 24}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 23)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 23)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 23)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 23)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 23
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 23)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 23)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 23)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 23)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 23)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 24}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 24} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 23}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 23}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 23}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 23}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 22)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 22)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 22)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 22)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 22
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 22)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 22)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 22)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 22)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 22)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 23}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 23} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 22}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 22}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 22}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 22}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 21)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 21)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 21)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 21)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 21
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 21)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 21)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 21)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 21)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 21)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 22}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 22} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 21}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 21}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 21}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 21}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 20)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 20)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 20)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 20)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 20
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 20)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 20)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 20)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 20)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 20)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 21}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 21} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 20}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 20}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 20}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 20}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 19)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 19)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 19)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 19)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 19
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 19)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 19)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 19)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 19)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 19)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 20}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 20} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 19}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 19}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 19}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 19}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 18)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 18)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 18)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 18)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 18
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 18)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 18)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 18)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 18)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 18)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 19}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 19} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 18}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 18}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 18}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 18}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 17)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 17)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 17)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 17)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 17
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 17)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 17)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 17)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 17)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 17)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 18}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 18} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 17}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 17}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 17}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 17}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 16)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 16)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 16)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 16)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 16
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 16)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 16)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 16)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 16)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 16)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 17}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 17} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 16}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 16}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 16}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 16}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 15)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 15)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 15)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 15)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 15
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 15)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 15)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 15)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 15)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 15)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 16}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 16} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 15}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 15}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 15}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 15}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 14)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 14)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 14)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 14)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 14
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 14)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 14)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 14)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 14)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 14)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 15}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 15} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 14}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 14}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 14}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 14}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 13)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 13)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 13)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 13)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 13
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 13)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 13)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 13)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 13)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 13)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 14}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 14} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 13}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 13}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 13}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 13}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 12)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 12)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 12)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 12)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 12
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 12)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 12)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 12)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 12)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 12)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 13}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 13} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 12}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 12}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 12}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 12}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 11)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 11)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 11)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 11)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 11
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 11)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 11)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 11)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 11)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 11)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 12}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 12} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 11}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 11}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 11}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 11}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 10)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 10)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 10)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 10)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 10
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 10)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 10)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 10)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 10)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 10)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 11}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 11} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 10}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 10}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 10}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 10}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 9)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 9)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 9)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 9)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 9
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 9)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 9)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 9)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 9)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 9)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 10}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 10} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 9}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 9}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 9}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 9}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 8)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 8)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 8)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 8)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 8
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 8)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 8)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 8)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 8)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 8)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 9}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 9} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 8}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 8}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 8}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 8}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 7)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 7)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 7)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 7)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 7
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 7)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 7)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 7)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 7)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 7)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 8}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 8} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 7}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 7}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 7}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 7}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 6)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 6)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 6)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 6)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 6
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 6)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 6)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 6)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 6)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 6)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 7}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 7} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 6}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 6}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 6}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 6}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 5)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 5)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 5)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 5)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 5
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 5)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 5)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 5)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 5)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 5)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 6}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 6} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 5}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 5}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 5}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 5}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 4)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 4)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 4)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 4)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 4
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 4)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 4)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 4)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 4)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 4)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 5}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 5} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 4}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 4}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 4}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 4}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 3)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 3)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 3)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 3)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 3
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 3)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 3)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 3)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 3)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 3)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 4}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 4} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 3}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 3}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 3}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 3}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 2)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 2)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 2)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 2)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 2
+MATCH
+ - (LISTAPATRON (PATRON (VARIABLE n)) ) 
+ - (ENTERO 2)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n))  
+ - (ENTERO 2)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (VARIABLE n)) 
+ - (ENTERO 2)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 2)
+    - no_terminal 
+    - CONSTANTE
+MATCH
+ - (VARIABLE n) 
+ - (ENTERO 2)
+    - VARIABLE 
+    - CONSTANTE
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 3}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 3} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 2}
+MAS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 2}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  
+ 
+ I:  no_terminal
+no_terminal 
+ I:  APLICAR
+APLICAR 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # sum 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 2}
+no_terminal 
+ I:  
+ 
+ I:  MENOS
+MENOS 
+ I:  no_terminal 
+ D:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  VARIABLE
+VARIABLE
+LOOKUP
+ # n 
+ # {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 2}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+MATCH
+ - (LISTAPATRON (PATRON (ENTERO 1)) ) 
+ - (ENTERO 1)
+    - LISTAPATRON 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1))  
+ - (ENTERO 1)
+    - lp 
+    - CONSTANTE
+MATCH
+ - (PATRON (ENTERO 1)) 
+ - (ENTERO 1)
+    - PATRON 
+    - CONSTANTE
+MATCH
+ - (ENTERO 1) 
+ - (ENTERO 1)
+    - CONSTANTE 
+    - CONSTANTE
+MATCH
+ - 1 
+ - 1
+APPLY
+ @ CLS
+ ~{<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 2}
+ ~(LISTAPATRON (PATRON (VARIABLE n)) )
+ ~(MAS (VARIABLE n) ((APLICAR (VARIABLE sum) ((MENOS (VARIABLE n) (ENTERO 1)))))) 
+ @ (ENTERO 1) 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 2} 
+ @ {<Nodo.Nodo instance at 0x1780908>: 'fake', '1': 1, 'sum': <CLS.CLS instance at 0x17802d8>, 'n': 2}
+no_terminal 
+ I:  no_terminal
+no_terminal 
+ I:  CONSTANTE
+CONSTANTE 
+ I:  ENTERO
+1275

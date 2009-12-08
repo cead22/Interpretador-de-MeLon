@@ -3,7 +3,9 @@ import Nodo,CLS
 
 # Match
 def match(nodo1,nodo2):
-	print 'MATCH\n -',nodo1,'\n -',nodo2
+#	print 'MATCH\n -',nodo1,'\n -',nodo2
+#	if isinstance(nodo1,Nodo.Nodo) and isinstance(nodo2,Nodo.Nodo):
+#		print '    -',nodo1.type,'\n    -',nodo2.type
 	# Fin de recursion
 	if (not isinstance(nodo1,Nodo.Nodo)) and (not isinstance(nodo2,Nodo.Nodo)):
 		#print '- ',nodo1,'\n- ',nodo2
@@ -43,7 +45,7 @@ def match(nodo1,nodo2):
 	if nodo1.type == 'LISTA' and nodo2.type == 'LISTA':
 		#print 'BLAH'
 		return match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
-	#print 'falso' 
+#	print 'falso' 
 
 	return False
 
@@ -59,7 +61,7 @@ def extend(diccionario,clave,valor):
 
 # Lookup
 def lookup(clave,diccionario):
-	#print 'LOOKUP\n',clave.__class__, diccionario
+#	print 'LOOKUP\n #',clave,'\n #', diccionario
 	if clave in diccionario: return diccionario[clave]
 	else: raise 'ERROR: variable '+clave+' no definida' 
 
@@ -82,10 +84,10 @@ def apply(cls,nodo):
 	for c in cls.clausura:
 		#print 'C[0]\n =',valor(c[0])
 		if match(c[0],nodo):
-			print 'APPLY\n @',cls,'\n @',c[1],'\n @',cls.env,'\n @',extend(cls.env,str(valor(c[0])),valor(nodo))
+#			print 'APPLY\n @',cls,'\n @',c[1],'\n @',cls.env,'\n @',extend(cls.env,str(valor(c[0])),valor(nodo))
 			#return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
 			return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
-	raise 'ERROR APPLY'
+	raise 'ERROR MATCHING'
 
 #APPLY VIEJO
 # 	global num_clausura
@@ -132,14 +134,13 @@ def clausura(nodo,env,temp):
 
 # Eval
 def eval(nodo,env):
-	
-	if isinstance(nodo,Nodo.Nodo):
-		if isinstance(nodo.izquierdo,Nodo.Nodo):
-			if isinstance(nodo.derecho,Nodo.Nodo):
-				print nodo.type,'\n I: ', nodo.izquierdo.type,'\n D: ',nodo.derecho.type
-			else:
-				print nodo.type,'\n I: ', nodo.izquierdo.type
-		else: print nodo.type
+#	if isinstance(nodo,Nodo.Nodo):
+#		if isinstance(nodo.izquierdo,Nodo.Nodo):
+#			if isinstance(nodo.derecho,Nodo.Nodo):
+#				print nodo.type,'\n I: ', nodo.izquierdo.type,'\n D: ',nodo.derecho.type
+#			else:
+#				print nodo.type,'\n I: ', nodo.izquierdo.type
+#		else: print nodo.type
 	if not isinstance(nodo,Nodo.Nodo): return nodo
 	#if nodo.type == 'lp' or nodo.type == 'arg' or nodo.type == 'arg2': return eval(nodo.izquierdo,env)
 	if nodo.type == 'arg': 
@@ -172,12 +173,13 @@ def eval(nodo,env):
 		return nodo
 	elif nodo.type == 'MAS' :
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
+		#resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
 		resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
-		print resultado
+		return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
 	elif nodo.type == 'MENOS' :
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
 		resultado = valor(eval(nodo.izquierdo,env)) - valor(eval(nodo.derecho,env))
-		print resultado
+		return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
 	elif nodo.type == 'NEGATIVO' :
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
 		resultado = -valor(eval(nodo.izquierdo,env))
@@ -185,7 +187,7 @@ def eval(nodo,env):
 	elif nodo.type == 'PRODUCTO' :
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
 		resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
-		print resultado
+		return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
 	elif nodo.type == 'COCIENTE' :
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
 		resultado = valor(eval(nodo.izquierdo,env)) / valor(eval(nodo.derecho,env))
@@ -241,8 +243,8 @@ def eval(nodo,env):
 	#elif nodo.type == 'PATRON': return eval(nodo.izquierdo,env)
 	elif nodo.type == 'PATRON': return nodo
 	elif nodo.type == 'LET':
-		valor_patron = str(nodo.izquierdo.izquierdo.izquierdo.izquierdo.izquierdo)
-		env = extend(env,valor_patron,nodo.izquierdo.derecho)
+		#valor_patron = str(nodo.izquierdo.izquierdo.izquierdo.izquierdo.izquierdo)
+		#env = extend(env,valor_patron,nodo.izquierdo.derecho)
 		p = nodo.izquierdo.izquierdo
 		e1 = nodo.izquierdo.derecho
 		e2 = nodo.derecho

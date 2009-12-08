@@ -4,4 +4,4 @@ class CLS:
         self.env = env
         self.clausura = clausura
     def __str__(self):
-        return 'CLS\n ~'+str(self.env)+'\n ~'+str(self.clausura)
+        return 'CLS\n ~'+str(self.env)+'\n ~'+str(self.clausura[1][0])+'\n ~'+str(self.clausura[1][1])
