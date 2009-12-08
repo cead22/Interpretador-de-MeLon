@@ -1,5 +1,6 @@
 #! /usr/bin/python
 import Nodo,CLS
+from excepcion import *
 
 # Match
 def match(nodo1,nodo2):
@@ -133,6 +134,20 @@ def clausura(nodo,env,temp):
 
 
 # Eval
+def es_entero(x,y):
+	if isinstance(x,int) and isinstance(y,int):
+		return True
+	else:
+		return False 
+def es_booleano(x,y):
+	if isinstance(x,bool) and isinstance(y,bool):
+		return True
+	else:
+		return False
+#definicion de excepcion: Error de tipo
+
+
+
 def eval(nodo,env):
 #	if isinstance(nodo,Nodo.Nodo):
 #		if isinstance(nodo.izquierdo,Nodo.Nodo):
@@ -172,6 +187,7 @@ def eval(nodo,env):
 		#print nodo.type
 		return nodo
 	elif nodo.type == 'MAS' :
+<<<<<<< HEAD:semantica.py
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
 		#resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
 		resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
@@ -180,53 +196,92 @@ def eval(nodo,env):
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
 		resultado = valor(eval(nodo.izquierdo,env)) - valor(eval(nodo.derecho,env))
 		return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+=======
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+		else: raise ParametrosError('Error en el tipo de los parametros de la funcion') 
+		
+	elif nodo.type == 'MENOS' :
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = valor(eval(nodo.izquierdo,env)) - valor(eval(nodo.derecho,env))
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+		else: raise 'ERROR: de tipo'
+
+>>>>>>> 4e4d953eb4227652bfe6cebe2f4283038ec32791:semantica.py
 	elif nodo.type == 'NEGATIVO' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = -valor(eval(nodo.izquierdo,env))
+		if es_entero(valor(eval(nodo.izquierdo,env)),1):		
+			resultado = -valor(eval(nodo.izquierdo,env))
+			return Nodo.Nodo('NEGATIVO',resultado)
+		else: raise 'ERROR: de tipo'
+		
 		print resultado
 	elif nodo.type == 'PRODUCTO' :
+<<<<<<< HEAD:semantica.py
 		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
 		resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
 		return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+=======
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+		else: raise 'ERROR: de tipo'
+	
+>>>>>>> 4e4d953eb4227652bfe6cebe2f4283038ec32791:semantica.py
 	elif nodo.type == 'COCIENTE' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = valor(eval(nodo.izquierdo,env)) / valor(eval(nodo.derecho,env))
-		print resultado
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			if (valor(eval(nodo.derecho,env)) == 0):
+				raise 'ERROR: division por cero'
+			else:				
+				resultado = valor(eval(nodo.izquierdo,env)) / valor(eval(nodo.derecho,env))
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+		else: raise 'ERROR: de tipo'
 	elif nodo.type == 'MENOR' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = (str((valor(eval(nodo.izquierdo,env)) < valor(eval(nodo.derecho,env))))).lower()
-		print resultado
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = (str((valor(eval(nodo.izquierdo,env)) < valor(eval(nodo.derecho,env))))).lower()
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
+		else: raise 'ERROR: de tipo'
+		
 	elif nodo.type == 'MENOROIGUAL' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = (str(valor(eval(nodo.izquierdo,env)) <= valor(eval(nodo.derecho,env)))).lower()
-		print resultado
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = (str((valor(eval(nodo.izquierdo,env)) <= valor(eval(nodo.derecho,env))))).lower()
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
+		else: raise 'ERROR: de tipo'
 	elif nodo.type == 'MAYOR' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = (str(valor(eval(nodo.izquierdo,env)) > valor(eval(nodo.derecho,env)))).lower()
-		print resultado
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = (str((valor(eval(nodo.izquierdo,env)) > valor(eval(nodo.derecho,env))))).lower()
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
+		else: raise 'ERROR: de tipo'
 	elif nodo.type == 'MAYOROIGUAL' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = (str(valor(eval(nodo.izquierdo,env)) >= valor(eval(nodo.derecho,env)))).lower()
-		print resultado
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = (str((valor(eval(nodo.izquierdo,env)) >= valor(eval(nodo.derecho,env))))).lower()
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
+		else: raise 'ERROR: de tipo'
 	elif nodo.type == 'IGUAL' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = (str(valor(eval(nodo.izquierdo,env)) == valor(eval(nodo.derecho,env)))).lower()
-		print resultado
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = (str((valor(eval(nodo.izquierdo,env)) == valor(eval(nodo.derecho,env))))).lower()
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
+		else: raise 'ERROR: de tipo'
 	elif nodo.type == 'DISTINTO' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = (str(valor(eval(nodo.izquierdo,env)) != valor(eval(nodo.derecho,env)))).lower()
-		print resultado
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = (str((valor(eval(nodo.izquierdo,env)) != valor(eval(nodo.derecho,env))))).lower()
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
+		else: raise 'ERROR: de tipo'
 	elif nodo.type == 'NO' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = not (valor(eval(nodo.izquierdo,env)))
+		if es_booleano(valor(eval(nodo.izquierdo,env)),True):		
+			resultado = not(valor(eval(nodo.izquierdo,env)))
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
+		else: raise 'ERROR: de tipo'
 	elif nodo.type == 'OR' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = (str(valor(eval(nodo.izquierdo,env)) or  valor(eval(nodo.derecho,env)))).lower()
-		print resultado
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = (str((valor(eval(nodo.izquierdo,env)) or valor(eval(nodo.derecho,env))))).lower()
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
+		else: raise 'ERROR: de tipo'
 	elif nodo.type == 'AND' :
-		#print 'maz',eval(nodo.izquierdo,env).__class__,'maz1',eval(nodo.derecho,env).__class__,'zam'
-		resultado = (str(valor(eval(nodo.izquierdo,env)) and valor(eval(nodo.derecho,env)))).lower()
-		print resultado
+		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			resultado = (str((valor(eval(nodo.izquierdo,env)) and valor(eval(nodo.derecho,env))))).lower()
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
+		else: raise 'ERROR: de tipo'
 	elif nodo.type == 'VARIABLE':
 		#print 'Pepe',env
 		#if 'clausura' in env:

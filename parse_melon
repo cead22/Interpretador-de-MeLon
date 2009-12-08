@@ -3,6 +3,7 @@ import yacc         # herramienta para construir el parser (PLY)
 import sys, Nodo, funciones
 from melonlex import tokens         # tokens de melon
 import semantica
+from excepcion import *
 # tabla de precedencia
 precedence = (
        ('left','OR'),
@@ -140,6 +141,11 @@ def p_error(p):
        else:
                print "Error Sintactico '%s' (Token" % p.type+ " linea %s" % p.lineno +", columna %s)" % funciones.columna(s,p)
        sys.exit(-1)
+#Definicion de la clase de excepcion de Error
+class ParametrosError(Exception):
+    def __init__(self,messg):
+        self.messg = messg
+
 
 
 # Valor de constantes, variables, etc
@@ -161,6 +167,7 @@ cont_dicc = 0
 
 # construccion del parser
 melonparser = yacc.yacc(errorlog=yacc.NullLogger())
+	
 
 
 ### PRUEBAS MATCH
@@ -182,6 +189,11 @@ try:
 except EOFError:
 	pass #break
 #if not s: continue
+except ParametrosError, messag:
+	messag = messag.messg
+	print 'Error : ' + messag
+
+
 result = melonparser.parse(s, tracking=True)	# parseo de la entrada
 if not (funciones.revisar_patrones(dicc)):
 	print 'c'
@@ -189,6 +201,8 @@ if not (funciones.revisar_patrones(dicc)):
 	p_error(0)
 print result	# arbol
 print semantica.valor(semantica.eval(result,{}))
+
+
 
 # se resetean valores para calcular el tamano de las
 # Listapatron del nuevo codigo de entrada
