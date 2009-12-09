@@ -4,7 +4,7 @@ from excepcion import *
 sys.setrecursionlimit(100000)
 # Match
 def match(nodo1,nodo2):
-	print 'MATCH\n -',nodo1,'\n -',nodo2
+	#print 'MATCH\n -',nodo1,'\n -',nodo2
 #	if isinstance(nodo1,Nodo.Nodo) and isinstance(nodo2,Nodo.Nodo):
 #		print '    -',nodo1.type,'\n    -',nodo2.type
 	# Fin de recursion
@@ -46,10 +46,30 @@ def match(nodo1,nodo2):
 	if nodo1.type == 'LISTA' and nodo2.type == 'LISTA':
 		#print 'BLAH',nodo1.izquierdo,nodo2.izquierdo,nodo1.derecho,nodo2.derecho
 		#print match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
-		return match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
+		#return match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
+		return comparar_listas(nodo1,nodo2)
 #	print 'falso' 
 
 	return False
+
+# Comparar Listas
+def comparar_listas(lista1,lista2):
+	if match(lista1.izquierdo,lista2.izquierdo):
+		d1 = lista1.derecho
+		d2 = lista2.derecho
+		if d1.type == 'LISTA':
+			if d2.type == 'LISTA':
+				comparar_listas(lista1.derecho,lista2.derecho)
+			else: 
+				if match(d1,d2): return (d1,d2)
+		elif d2.type == 'LISTA':
+				if match(d1,d2): return (d1,d2)
+		else:
+			if match(d1,d2): return (d1,d2)
+			
+	else: return False
+	
+
 
 # Replace
 def replace(diccionario,clave,valor):
@@ -86,12 +106,19 @@ def valor(nodo):
 def apply(cls,nodo):
 	for c in cls.clausura:
 		#print 'C[0]\n =',valor(nodo)
-		if match(c[0],nodo):
-			#print 'APPLY\n @',cls,'\n @',c[1],'\n @',cls.env,'\n @',extend(cls.env,str(valor(c[0])),valor(nodo))
+		comparar = match(c[0],nodo)
+		if comparar:
+			if isinstance(comparar,tuple):
+				#print 'Matcheo de listas', comparar[0],comparar[1] 
+				#print 'APPLY\n @',cls,'\n @',c[1],'\n @',copy.deepcopy(cls.env)
+				nuevo_env = copy.deepcopy(cls.env)
+				extend(nuevo_env,valor(comparar[0]),comparar[1])
+				#print '#',nuevo_env
+				return eval(c[1],extend(nuevo_env,str(valor(c[0])),nodo))
 			#print ' @@ ',eval(c[1],extend(cls.env,str(valor(c[0])),nodo))
 #return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
 			#print 'retorno',valor(c[1])
-			return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
+			else : return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
 	raise 'ERROR MATCHING'
 
 #APPLY VIEJO

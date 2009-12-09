@@ -196,7 +196,7 @@ except ParametrosError, messag:
 
 result = melonparser.parse(s, tracking=True)	# parseo de la entrada
 if not (funciones.revisar_patrones(dicc)):
-	print 'c'
+	#print 'c'
 	#print dicc
 	p_error(0)
 print result	# arbol
