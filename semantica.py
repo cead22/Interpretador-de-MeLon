@@ -1,10 +1,10 @@
 #! /usr/bin/python
-import Nodo,CLS
+import Nodo,CLS,copy,sys
 from excepcion import *
-
+sys.setrecursionlimit(100000)
 # Match
 def match(nodo1,nodo2):
-#	print 'MATCH\n -',nodo1,'\n -',nodo2
+	print 'MATCH\n -',nodo1,'\n -',nodo2
 #	if isinstance(nodo1,Nodo.Nodo) and isinstance(nodo2,Nodo.Nodo):
 #		print '    -',nodo1.type,'\n    -',nodo2.type
 	# Fin de recursion
@@ -44,7 +44,8 @@ def match(nodo1,nodo2):
 
 	# Listas
 	if nodo1.type == 'LISTA' and nodo2.type == 'LISTA':
-		#print 'BLAH'
+		#print 'BLAH',nodo1.izquierdo,nodo2.izquierdo,nodo1.derecho,nodo2.derecho
+		#print match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
 		return match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
 #	print 'falso' 
 
@@ -63,8 +64,9 @@ def extend(diccionario,clave,valor):
 # Lookup
 def lookup(clave,diccionario):
 #	print 'LOOKUP\n #',clave,'\n #', diccionario
-	if clave in diccionario: return diccionario[clave]
-	else: raise 'ERROR: variable '+clave+' no definida' 
+#	if clave in diccionario:
+	return diccionario[clave]
+	#else: raise 'ERROR: variable '+clave+' no definida' 
 
 # Eval
 def eval(nodo,env,orientacion):
@@ -83,11 +85,13 @@ def valor(nodo):
 # Apply
 def apply(cls,nodo):
 	for c in cls.clausura:
-		#print 'C[0]\n =',valor(c[0])
+		#print 'C[0]\n =',valor(nodo)
 		if match(c[0],nodo):
-#			print 'APPLY\n @',cls,'\n @',c[1],'\n @',cls.env,'\n @',extend(cls.env,str(valor(c[0])),valor(nodo))
-			#return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
-			return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
+			#print 'APPLY\n @',cls,'\n @',c[1],'\n @',cls.env,'\n @',extend(cls.env,str(valor(c[0])),valor(nodo))
+			#print ' @@ ',eval(c[1],extend(cls.env,str(valor(c[0])),nodo))
+#return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
+			#print 'retorno',valor(c[1])
+			return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
 	raise 'ERROR MATCHING'
 
 #APPLY VIEJO
@@ -127,9 +131,11 @@ def apply(cls,nodo):
 def clausura(nodo,env,temp):
 	if isinstance(nodo,Nodo.Nodo):
 		if nodo.type == 'lfe':
+			#print 'in lfe',nodo.izquierdo,nodo.derecho
 			temp.append((nodo.izquierdo,nodo.derecho))
 		clausura(nodo.izquierdo,env,temp)
 		clausura(nodo.derecho,env,temp)
+#		print '$$$\n',CLS.CLS(env,temp),'\n$$$'
 	return CLS.CLS(env,temp)
 
 
@@ -178,8 +184,8 @@ def eval(nodo,env):
 	elif nodo.type == 'sub': return eval(nodo.izquierdo,env)
 	elif nodo.type == '': return eval(nodo.izquierdo,env)
 	#elif nodo.type == 'CONSTANTE': return nodo.izquierdo.izquierdo
-	elif nodo.type == 'CONSTANTE':
-		#print valor(nodo)
+	elif nodo.type == 'CONSTANTE' or nodo.type == 'ENTERO':
+		#print 'kkk',nodo.type
 		return nodo
 	elif nodo.type == 'CONSTLV': 
 		#print nodo.izquierdo
@@ -187,14 +193,27 @@ def eval(nodo,env):
 		#print nodo.type
 		return nodo
 	elif nodo.type == 'MAS' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
+		#print 'nodos \n', nodo.izquierdo, nodo.derecho
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			resultado = i + d
+		#if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			#resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
+			#print '\naqui',resultado,i,d,'\n'
+			#print Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
 		else: raise ParametrosError('Error en el tipo de los parametros de la funcion') 
 		
 	elif nodo.type == 'MENOS' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = valor(eval(nodo.izquierdo,env)) - valor(eval(nodo.derecho,env))
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			resultado = i - d
+		#if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			#resultado = valor(eval(nodo.izquierdo,env)) - valor(eval(nodo.derecho,env))
+			#print '\nhere',resultado,i,d,'\n'
+	#print '\nhere\n',resultado,valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env)),'\n'
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
 		else: raise 'ERROR: de tipo'
 
@@ -206,8 +225,12 @@ def eval(nodo,env):
 		
 		print resultado
 	elif nodo.type == 'PRODUCTO' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			resultado = i * d
+		#if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			#resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
 		else: raise 'ERROR: de tipo'
 	elif nodo.type == 'COCIENTE' :
@@ -290,13 +313,14 @@ def eval(nodo,env):
 		return eval(e2,replace(env1,str(valor(p)),v1))
 	elif nodo.type == 'lfe':
 		#print 'LFE \n ===>', nodo.derecho
-		if 'clausura' in env:
-			extend(env,'clausura',env['clausura']+[(nodo.izquierdo,nodo.derecho)])
+		#if 'clausura' in env:
+			#extend(env,'clausura',env['clausura']+[(nodo.izquierdo,nodo.derecho)])
 			#print 'a'
-		else:
-			extend(env,'clausura',[(nodo.izquierdo,nodo.derecho)])
+		#else:
+			#extend(env,'clausura',[(nodo.izquierdo,nodo.derecho)])
 			#print 'b'
-		print'ENV', env, nodo
+		#print'ENV', env, nodo
+		return
 	elif nodo.type == 'APLICAR':
 		#print 'APLICAR',nodo.izquierdo,nodo.derecho
 		#apply(nodo.izquierdo,nodo.derecho,env)

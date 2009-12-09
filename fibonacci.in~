@@ -1,0 +1,1 @@
+(let fibonacci = (fun 0 -> 1 | 1 -> 1 | x -> (fibonacci (x - 1)) + (fibonacci (x - 2)) nuf) in fibonacci 25 tel)
