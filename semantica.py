@@ -1,10 +1,10 @@
 #! /usr/bin/python
-import Nodo,CLS
+import Nodo,CLS,copy,sys
 from excepcion import *
-
+sys.setrecursionlimit(100000)
 # Match
 def match(nodo1,nodo2):
-#	print 'MATCH\n -',nodo1,'\n -',nodo2
+	print 'MATCH\n -',nodo1,'\n -',nodo2
 #	if isinstance(nodo1,Nodo.Nodo) and isinstance(nodo2,Nodo.Nodo):
 #		print '    -',nodo1.type,'\n    -',nodo2.type
 	# Fin de recursion
@@ -44,7 +44,8 @@ def match(nodo1,nodo2):
 
 	# Listas
 	if nodo1.type == 'LISTA' and nodo2.type == 'LISTA':
-		#print 'BLAH'
+		#print 'BLAH',nodo1.izquierdo,nodo2.izquierdo,nodo1.derecho,nodo2.derecho
+		#print match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
 		return match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
 #	print 'falso' 
 
@@ -63,8 +64,10 @@ def extend(diccionario,clave,valor):
 # Lookup
 def lookup(clave,diccionario):
 #	print 'LOOKUP\n #',clave,'\n #', diccionario
-	if clave in diccionario: return diccionario[clave]
-	else: raise 'ERROR: variable '+clave+' no definida' 
+	if clave in diccionario:
+		return diccionario[clave]
+	else: raise ParametrosError('Error:Variable no declarada')
+
 
 # Eval
 def eval(nodo,env,orientacion):
@@ -74,7 +77,10 @@ def eval(nodo,env,orientacion):
 # Valor
 def valor(nodo):
 	while isinstance(nodo,Nodo.Nodo):
-		if nodo.type != 'LISTA':
+		if nodo.type == 'BOOLEANO':
+			if nodo.izquierdo == 'TRUE': return True
+			else: return False
+		elif nodo.type != 'LISTA':
 			nodo = nodo.izquierdo
 		else:
 			return str(valor(nodo.izquierdo))+'::'+str(valor(nodo.derecho))
@@ -83,11 +89,13 @@ def valor(nodo):
 # Apply
 def apply(cls,nodo):
 	for c in cls.clausura:
-		#print 'C[0]\n =',valor(c[0])
+		#print 'C[0]\n =',valor(nodo)
 		if match(c[0],nodo):
-#			print 'APPLY\n @',cls,'\n @',c[1],'\n @',cls.env,'\n @',extend(cls.env,str(valor(c[0])),valor(nodo))
-			#return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
-			return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
+			#print 'APPLY\n @',cls,'\n @',c[1],'\n @',cls.env,'\n @',extend(cls.env,str(valor(c[0])),valor(nodo))
+			#print ' @@ ',eval(c[1],extend(cls.env,str(valor(c[0])),nodo))
+#return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
+			#print 'retorno',valor(c[1])
+			return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
 	raise 'ERROR MATCHING'
 
 #APPLY VIEJO
@@ -127,15 +135,17 @@ def apply(cls,nodo):
 def clausura(nodo,env,temp):
 	if isinstance(nodo,Nodo.Nodo):
 		if nodo.type == 'lfe':
+			#print 'in lfe',nodo.izquierdo,nodo.derecho
 			temp.append((nodo.izquierdo,nodo.derecho))
 		clausura(nodo.izquierdo,env,temp)
 		clausura(nodo.derecho,env,temp)
+#		print '$$$\n',CLS.CLS(env,temp),'\n$$$'
 	return CLS.CLS(env,temp)
 
 
 # Eval
 def es_entero(x,y):
-	if isinstance(x,int) and isinstance(y,int):
+	if isinstance(x,int) and isinstance(y,int) and not(isinstance(x,bool)) and not(isinstance(y,bool)):
 		return True
 	else:
 		return False 
@@ -156,6 +166,7 @@ def eval(nodo,env):
 #			else:
 #				print nodo.type,'\n I: ', nodo.izquierdo.type
 #		else: print nodo.type
+	
 	if not isinstance(nodo,Nodo.Nodo): return nodo
 	#if nodo.type == 'lp' or nodo.type == 'arg' or nodo.type == 'arg2': return eval(nodo.izquierdo,env)
 	if nodo.type == 'arg': 
@@ -178,8 +189,8 @@ def eval(nodo,env):
 	elif nodo.type == 'sub': return eval(nodo.izquierdo,env)
 	elif nodo.type == '': return eval(nodo.izquierdo,env)
 	#elif nodo.type == 'CONSTANTE': return nodo.izquierdo.izquierdo
-	elif nodo.type == 'CONSTANTE':
-		#print valor(nodo)
+	elif nodo.type == 'CONSTANTE' or nodo.type == 'ENTERO':
+		#print 'kkk',nodo.type
 		return nodo
 	elif nodo.type == 'CONSTLV': 
 		#print nodo.izquierdo
@@ -187,83 +198,114 @@ def eval(nodo,env):
 		#print nodo.type
 		return nodo
 	elif nodo.type == 'MAS' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = valor(eval(nodo.izquierdo,env)) + valor(eval(nodo.derecho,env))
+		#print 'nodos \n', nodo.izquierdo, nodo.derecho
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			resultado = i + d
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-		else: raise ParametrosError('Error en el tipo de los parametros de la funcion') 
+		else: raise ParametrosError('Error de tipo en los parametros de la suma') 
 		
 	elif nodo.type == 'MENOS' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = valor(eval(nodo.izquierdo,env)) - valor(eval(nodo.derecho,env))
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			resultado = i - d
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-		else: raise 'ERROR: de tipo'
+		else: raise ParametrosError('Error de tipo en los parametros de la resta') 
 
 	elif nodo.type == 'NEGATIVO' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),1):		
-			resultado = -valor(eval(nodo.izquierdo,env))
+		i = valor(eval(nodo.izquierdo,env))
+		if es_entero(i,1):		
+			resultado = -i
 			return Nodo.Nodo('NEGATIVO',resultado)
-		else: raise 'ERROR: de tipo'
+		else: raise ParametrosError('Error de tipo en el parametro de negativo')
 		
-		print resultado
+		
 	elif nodo.type == 'PRODUCTO' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			resultado = i * d
+		#if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
+			#resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-		else: raise 'ERROR: de tipo'
+		else: raise ParametrosError('Error de tipo en los parametros del producto') 
 	elif nodo.type == 'COCIENTE' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			if (valor(eval(nodo.derecho,env)) == 0):
-				raise 'ERROR: division por cero'
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			if (d == 0):
+				raise ParametrosError('Error: Division por cero') 
 			else:				
-				resultado = valor(eval(nodo.izquierdo,env)) / valor(eval(nodo.derecho,env))
+				resultado = i / d
 				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-		else: raise 'ERROR: de tipo'
+		else: raise ParametrosError('Error de tipo de los parametros de la division') 
 	elif nodo.type == 'MENOR' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = (str((valor(eval(nodo.izquierdo,env)) < valor(eval(nodo.derecho,env))))).lower()
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			resultado = (i < d)
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-		else: raise 'ERROR: de tipo'
+		else: raise ParametrosError('Error de tipo en los parametros de: <') 
 		
 	elif nodo.type == 'MENOROIGUAL' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = (str((valor(eval(nodo.izquierdo,env)) <= valor(eval(nodo.derecho,env))))).lower()
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			resultado = (i <= d)
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-		else: raise 'ERROR: de tipo'
+		else: raise ParametrosError('Error de tipo en los parametros de: =<')
 	elif nodo.type == 'MAYOR' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = (str((valor(eval(nodo.izquierdo,env)) > valor(eval(nodo.derecho,env))))).lower()
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			resultado = (i > d)
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-		else: raise 'ERROR: de tipo'
+		else: raise ParametrosError('Error de tipo en los parametros de: >')
 	elif nodo.type == 'MAYOROIGUAL' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = (str((valor(eval(nodo.izquierdo,env)) >= valor(eval(nodo.derecho,env))))).lower()
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d):
+			resultado = (i >= d)
 			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-		else: raise 'ERROR: de tipo'
+		else: raise ParametrosError('Error de tipo en los parametros de: >=')
 	elif nodo.type == 'IGUAL' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = (str((valor(eval(nodo.izquierdo,env)) == valor(eval(nodo.derecho,env))))).lower()
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-		else: raise 'ERROR: de tipo'
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		#print str(isinstance(i,str)) + ' instancia'
+		if es_entero(i,d) or es_booleano(i,d):
+			resultado = (i == d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+		else: raise ParametrosError('Error de tipo en los parametros de: =')
+		
 	elif nodo.type == 'DISTINTO' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = (str((valor(eval(nodo.izquierdo,env)) != valor(eval(nodo.derecho,env))))).lower()
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-		else: raise 'ERROR: de tipo'
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_entero(i,d) or es_booleano(i,d):
+			resultado = (i != d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+		else: raise ParametrosError('Error de tipo en los parametros de: <>')
 	elif nodo.type == 'NO' :
-		if es_booleano(valor(eval(nodo.izquierdo,env)),True):		
-			resultado = not(valor(eval(nodo.izquierdo,env)))
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-		else: raise 'ERROR: de tipo'
+		i = valor(eval(nodo.izquierdo,env))
+		if es_booleano(bool(i),True):		
+			resultado = not(i)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+		else: raise 'ERROR: de tipo en la negacion'
 	elif nodo.type == 'OR' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = (str((valor(eval(nodo.izquierdo,env)) or valor(eval(nodo.derecho,env))))).lower()
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-		else: raise 'ERROR: de tipo'
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_booleano(i,d):
+			resultado = (i or d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+		else: raise 'ERROR: de tipo en los parametros del OR'
 	elif nodo.type == 'AND' :
-		if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
-			resultado = (str((valor(eval(nodo.izquierdo,env)) and valor(eval(nodo.derecho,env))))).lower()
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-		else: raise 'ERROR: de tipo'
+		i = valor(eval(nodo.izquierdo,env))
+		d = valor(eval(nodo.derecho,env))
+		if es_booleano(i,d):
+			resultado = (i and d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+		else: raise 'ERROR: de tipo en los parametros del AND'
 	elif nodo.type == 'VARIABLE':
 		#print 'Pepe',env
 		#if 'clausura' in env:
@@ -290,18 +332,19 @@ def eval(nodo,env):
 		return eval(e2,replace(env1,str(valor(p)),v1))
 	elif nodo.type == 'lfe':
 		#print 'LFE \n ===>', nodo.derecho
-		if 'clausura' in env:
-			extend(env,'clausura',env['clausura']+[(nodo.izquierdo,nodo.derecho)])
+		#if 'clausura' in env:
+			#extend(env,'clausura',env['clausura']+[(nodo.izquierdo,nodo.derecho)])
 			#print 'a'
-		else:
-			extend(env,'clausura',[(nodo.izquierdo,nodo.derecho)])
+		#else:
+			#extend(env,'clausura',[(nodo.izquierdo,nodo.derecho)])
 			#print 'b'
-		print'ENV', env, nodo
+		#print'ENV', env, nodo
+		return
 	elif nodo.type == 'APLICAR':
 		#print 'APLICAR',nodo.izquierdo,nodo.derecho
 		#apply(nodo.izquierdo,nodo.derecho,env)
 		return apply(eval(nodo.izquierdo,env),eval(nodo.derecho,env))
 
-		
+
 
 		
