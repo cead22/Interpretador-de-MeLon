@@ -1,1 +1,0 @@
-(let factorial = (fun 0->1 | n -> n*(factorial (n-1)) nuf) in factorial 50 tel)
