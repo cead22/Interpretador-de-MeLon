@@ -1,0 +1,12 @@
+(let mod = (fun x::y-> x - (y*(x / y)) nuf) in
+(let descprimos = (fun x::y -> (if (y>x) then ([]) else
+                 (if ((mod x y) = 0) then (y::(descprimos ((x/y)::2))) else
+                 ((descprimos (x::(y+1)))) fi) fi) nuf) in
+(let longitud =
+(fun [] -> 0 | a::b -> 1 + (longitud b) nuf)
+in (let esprimo = (fun x -> (longitud (descprimos (x::2)))=1 nuf) in
+(44::(esprimo 44)::7::(esprimo 7)::1::(esprimo 1)::[])
+tel)
+tel)
+tel)
+tel)
