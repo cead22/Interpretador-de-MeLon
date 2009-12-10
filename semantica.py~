@@ -47,28 +47,25 @@ def match(nodo1,nodo2):
 		#print 'BLAH',nodo1.izquierdo,nodo2.izquierdo,nodo1.derecho,nodo2.derecho
 		#print match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
 		#return match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
-		return comparar_listas(nodo1,nodo2,[])
+		return comparar_listas(nodo1,nodo2)
 #	print 'falso' 
 
 	return False
 
 # Comparar Listas
-def comparar_listas(lista1,lista2,tuplas):
-	print 'incomp-tuplas: ',tuplas
+def comparar_listas(lista1,lista2):
 	if match(lista1.izquierdo,lista2.izquierdo):
-		tuplas.append((lista1.izquierdo,lista2.izquierdo))
 		d1 = lista1.derecho
 		d2 = lista2.derecho
 		if d1.type == 'LISTA':
 			if d2.type == 'LISTA':
-				comparar_listas(lista1.derecho,lista2.derecho,tuplas)
+				comparar_listas(lista1.derecho,lista2.derecho)
 			else: 
-				if match(d1,d2): tuplas.append((d1,d2))
+				if match(d1,d2): return (d1,d2)
 		elif d2.type == 'LISTA':
-				if match(d1,d2): tuplas.append((d1,d2))
+				if match(d1,d2): return (d1,d2)
 		else:
-			if match(d1,d2): tuplas.append((d1,d2))
-		return tuplas
+			if match(d1,d2): return (d1,d2)
 			
 	else: return False
 	
@@ -89,7 +86,7 @@ def lookup(clave,diccionario):
 	try:
 		if clave in diccionario:
 			return diccionario[clave]
-		else: raise ParametrosError('Variable '+str(clave)+' no declarada')
+		else: raise ParametrosError('Variable no declarada')
 	except ParametrosError, messag:
 		messag = messag.messg
 		print 'Error : ' + messag
@@ -112,52 +109,24 @@ def valor(nodo):
 			return str(valor(nodo.izquierdo))+'::'+str(valor(nodo.derecho))
 	return nodo
 
-# Cantidad de patrones de una Funcion
-def cantidad_patrones(nodo):
-	while (nodo.type != 'lp'):
-		nodo = nodo.izquierdo
-	global suma
-	suma = 0
-	tam_listapatron(nodo)
-	return suma
-
-# # Tamano de una lista de patrones
-# def tam_listapatron(nodo):
-# 	global suma
-# 	i = nodo.izquierdo
-# 	d = nodo.derecho
-# 	if nodo.type == 'PATRON':
-# 		suma += 1
-# 		return
-# 	else:
-# 		if isinstance(i,Nodo.Nodo):
-# 			tam_listapatron(i)
-# 		if isinstance(d,Nodo.Nodo):
-# 			tam_listapatron(d)
-# 	return suma
-	
-	
 # Apply
 def apply(cls,nodo):
 	for c in cls.clausura:
 		#print 'C[0]\n =',valor(nodo)
 		comparar = match(c[0],nodo)
-		print 'comp', comparar
 		if comparar:
-			if isinstance(comparar,list):
+			if isinstance(comparar,tuple):
 				#print 'Matcheo de listas', comparar[0],comparar[1] 
 				#print 'APPLY\n @',cls,'\n @',c[1],'\n @',copy.deepcopy(cls.env)
 				nuevo_env = copy.deepcopy(cls.env)
-				for n in comparar:
-					extend(nuevo_env,valor(n[0]),n[1])
-				print 'NE ',nuevo_env
+				extend(nuevo_env,valor(comparar[0]),comparar[1])
 				#print '#',nuevo_env
 				return eval(c[1],extend(nuevo_env,str(valor(c[0])),nodo))
 			#print ' @@ ',eval(c[1],extend(cls.env,str(valor(c[0])),nodo))
 #return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
 			#print 'retorno',valor(c[1])
 			else : return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
-	raise ParametrosError('Error de matching')
+	raise ParametrosError('Error de tipo en los parametros de: >=')
 
 #APPLY VIEJO
 # 	global num_clausura
@@ -204,98 +173,6 @@ def clausura(nodo,env,temp):
 	return CLS.CLS(env,temp)
 
 
-# Obtener patrones de una lista de patrones
-def patrones(nodo,listap):
-	if isinstance(nodo,Nodo.Nodo):
-		#print nodo
-		if nodo.type == 'PATRON':
-			#print 'p',nodo
-			listap.append(nodo)
-		if isinstance(nodo.izquierdo,Nodo.Nodo):
-			patrones(nodo.izquierdo,listap)
-		if isinstance(nodo.derecho,Nodo.Nodo):
-			patrones(nodo.derecho,listap)
-	return listap
-
-# Obtener cuerpo (listas de patrones y expresiones)
-# de una funcion
-def cuerpo(nodo,body):
-	#print 'body',body, nodo.type
-	if isinstance(nodo,Nodo.Nodo):
-		if nodo.type == 'lfe':
-			#print 'in lfe',nodo.izquierdo,nodo.derecho
-			body.append((patrones(nodo.izquierdo,[]),nodo.derecho))
-		cuerpo(nodo.izquierdo,body)
-		cuerpo(nodo.derecho,body)
-#		print '$$$\n',CLS.CLS(env,temp),'\n$$$'
-	return body
-
-
-# Factorizar funcion
-def factorizar(body):
-	conjunto = []
-	particion = {}
-	clave = {}
-	exp = {}
-	p = 0
-	q = 1
-	for b in body:
-		print b[0][0]
-		#exp.append((b[0][0],b[1]))
-		conjunto.append(b[0][0])
-	p = 0
-	q = 1
-	print 'len' ,len(conjunto)
-	while p < len(conjunto):
-		while q < len(conjunto):
-			if match(conjunto[p],conjunto[q]) and match (conjunto[q],conjunto[p]):
-				print 'conjunto',conjunto[p],conjunto[q],p,q
-				if p in clave:
-					if clave[p] in particion:
-						particion[clave[p]].append(conjunto[q])
-						
-					else:
-						particion[clave[p]] = [conjunto[q]]
-					if clave[p] in exp:
-						exp[clave[p]].append(body[p][1])
-						exp[clave[p]].append(body[q][1])
-					else:
-						exp[clave[p]] = [body[p][1]]
-						exp[clave[p]].append(body[q][1])
-					clave[q] = p
-					clave[p] = q
-
-				elif q in clave:
-					if clave[q] in particion:
-						particion[clave[q]].append(conjunto[p])
-					else:
-						particion[clave[q]] = [conjunto[p]]
-					if clave[q] in exp:
-						exp[clave[q]].append(body[p][1])
-						exp[clave[q]].append(body[q][1])
-					else:
-						exp[clave[q]] = [body[p][1]]
-						exp[clave[q]].append(body[q][1])
-					clave[p] = q
-					clave[q] = p
-  				else:
-					particion[q] = [conjunto[q]]
-					
-					clave[q] = p
-					clave[p] = p
-			else:
-				if p not in clave:
-					clave[p] = p
-					particion[p] = [conjunto[p]]
-				if q not in clave:
-					clave[q] = q
-					particion[q] = [conjunto[q]]
-			q += 1
-		p +=1
-	print particion , exp #particion[0][0] ,particion[2][0]#particion[3][0
-					
-	
-
 # Eval
 def es_entero(x,y):
 	if isinstance(x,int) and isinstance(y,int) and not(isinstance(x,bool)) and not(isinstance(y,bool)):
@@ -334,26 +211,10 @@ def eval(nodo,env):
 		if nodo.type == 'arg2': return eval(nodo.izquierdo,env)
 		if nodo.type == 'lp':return nodo
 		elif nodo.type == 'FUN': 
-			#print 'In-Fun\n', cuerpo(nodo,[])
-			cuerpo_fun = cuerpo(nodo,[])
-			if len(cuerpo_fun[0][0]) != 1:
-				#factorizado = factorizar(cuerpo_fun)
-			
-				fun_factorizada = factorizar(nodo)
-			else:
-				return clausura(nodo,env,[])
+			#print 'In-Fun\n -',nodo.izquierdo,'\n -',nodo.derecho
+			return clausura(nodo,env,[])
 			#return eval(nodo.izquierdo,env)
 		#elif nodo.type == 'LISTAPATRON': return eval(nodo.izquierdo,env)
-		elif nodo.type == 'IF':
-               #        print 'if'
-               #        print nodo.izquierdo.izquierdo.type
-               #        print nodo.izquierdo.izquierdo
-               #        print valor(eval(nodo.izquierdo.izquierdo,env))
-                       if valor(eval(nodo.izquierdo.izquierdo ,env)) == True:
-                               #print 'Hola'
-                               return eval(nodo.izquierdo.derecho,env)
-                       else:
-                               return eval(nodo.derecho,env)
 		elif nodo.type == 'LISTAPATRON' or nodo.type == 'LISTA': return nodo
 		elif nodo.type == 'no_terminal': return eval(nodo.izquierdo,env)
 		elif nodo.type == 'sub': return eval(nodo.izquierdo,env)
@@ -371,10 +232,10 @@ def eval(nodo,env):
 			#print 'nodos \n', nodo.izquierdo, nodo.derecho
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			#if es_entero(i,d):
-			resultado = i + d
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-			#else: raise ParametrosError('Error de tipo en los parametros de la suma') 
+			if es_entero(i,d):
+				resultado = i + d
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			else: raise ParametrosError('Error de tipo en los parametros de la suma') 
 		
 		elif nodo.type == 'MENOS' :
 			i = valor(eval(nodo.izquierdo,env))
@@ -395,24 +256,24 @@ def eval(nodo,env):
 		elif nodo.type == 'PRODUCTO' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			#if es_entero(i,d):
-			resultado = i * d
+			if es_entero(i,d):
+				resultado = i * d
 			#if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
 				#resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-			#else: raise ParametrosError('Error de tipo en los parametros del producto') 
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			else: raise ParametrosError('Error de tipo en los parametros del producto') 
 		elif nodo.type == 'COCIENTE' :
 			i = valor(eval(nodo.izquierdo,env))#except ParametrosError, messag:
 	#	messag = messag.messg
 	#	print 'Error : ' + messag
 			d = valor(eval(nodo.derecho,env))
-			#if es_entero(i,d):
-			if (d == 0):
-			       	raise ParametrosError('Error: Division por cero') 
-				#else:				
-				resultado = i / d
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-			#else: raise ParametrosError('Error de tipo de los parametros de la division') 
+			if es_entero(i,d):
+				if (d == 0):
+					raise ParametrosError('Error: Division por cero') 
+				else:				
+					resultado = i / d
+					return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			else: raise ParametrosError('Error de tipo de los parametros de la division') 
 		elif nodo.type == 'MENOR' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))

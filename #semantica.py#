@@ -280,7 +280,7 @@ def factorizar(body):
 					clave[q] = p
   				else:
 					particion[q] = [conjunto[q]]
-					
+					exp[q]
 					clave[q] = p
 					clave[p] = p
 			else:

@@ -1,0 +1,7 @@
+(let mod = (fun x::y-> x - (y*(x / y)) nuf) in 
+(let repbin = (fun 0-> [] | 
+                  x -> (if ((mod (x::2)) = 0) then (0::(repbin (x/2))) else 
+                       (1::(repbin (x/2))) fi) nuf) in 
+(repbin 10) 
+tel)
+tel)

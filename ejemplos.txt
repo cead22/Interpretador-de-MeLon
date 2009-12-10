@@ -1,0 +1,76 @@
+(fun 3 2 -> 5 | 1 3 -> 4 | 3 1 -> 2 nuf)
+(fun 1 2 c -> true::true | 1 c 3 -> true | 9 1 1 -> false nuf) 1 2 1
+
+5
+
+42 - 5 *5/2
+
+5 + 5*44
+
+5*5
+
+true \/ false=true
+
+(5<60) /\ false
+
+if 5<88 then false else true fi
+
+3::true::55::8::[]
+
+3::(if 5<88 then false else true fi)::55::8::[]
+
+(fun (1::3) -> false | 1::c -> true nuf) (1::2::3)
+
+(fun x -> fun false -> 1 | true -> 2 nuf nuf) 1 true
+
+(let a = 4 in let b = 3 in a*b tel tel)
+
+(let mod = fun x y-> x - (y*(x / y)) nuf in mod 44 5 tel)
+
+(let mod = fun x y-> x - (y*(x / y)) nuf in 
+ let divide = fun x y -> ( mod x y) = 0 nuf
+ in (divide 91 13)
+ tel
+ tel)
+
+(let suma = fun 0 -> 0 | n -> n + (suma n-1) nuf in
+    (suma 50) tel)
+
+(let factorial = fun 0 -> 1 | n -> n* (factorial n-1) nuf in
+    (factorial 5) tel)
+
+(let longitud = 
+ fun [] -> 0 | a::b -> 1 + (longitud b) nuf 
+ in (longitud 1::2::44::true::[]) tel
+)
+
+(let fibonacci = (fun 0 -> 0 | 1 -> 1 | x -> (fibonacci (x - 1)) + 
+                                             (fibonacci (x - 2))
+                  nuf) in fibonacci 5 tel) 
+
+(let strip = (fun [] a -> [] 
+                 |c::d a -> if c=a then (strip d a) else c::(strip d a) fi nuf)
+    in (strip 7::55::3::7::99::7::34::[] 7) tel)
+
+(let itemat = (fun [] n -> []
+    | a::b 0 -> a
+    | a::b n -> (itemat b n-1) nuf) in (itemat 1::33::55::66::44::22::[] 2) tel
+    )
+
+(let ackermann = (fun (0::n) -> (n + 1) | (m::0) -> (ackermann ((m - 1)::1)) |
+                  (m::n) -> (ackermann ((m - 1)::(ackermann (m::(n - 1))))) nuf)
+ in ackermann (1::1) tel)
+
+(let suc::dup::quad = 
+fun x -> x+1 nuf::
+fun f x -> f(f x)nuf::
+fun f x ->  dup dup f x nuf in quad quad suc 0 tel)
+
+(let map::fn = 
+fun f [] -> [] | f (x::l) -> f x::map f l nuf:: 
+fun x -> x+1 nuf in 
+map fn (1::2::3::[]) tel)
+
+
+                                                                                                                                                            1::1) tel)
+            
