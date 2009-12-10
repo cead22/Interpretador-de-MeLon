@@ -1,4 +1,4 @@
 (let longitud = 
  fun [] -> 0 | a::b -> 1 + (longitud b) nuf 
- in (longitud (1::2::44::true::[])) tel
+ in (longitud 10::(fun x -> false nuf)::1::(1+2)::(true \/ false = false)) tel
 )

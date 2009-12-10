@@ -4,7 +4,9 @@ from excepcion import *
 sys.setrecursionlimit(3000)
 # Match
 def match(nodo1,nodo2):
-
+	print 'matching'
+	print nodo1
+	print nodo2
 	# Fin de recursion
 	if (not isinstance(nodo1,Nodo.Nodo)) and (not isinstance(nodo2,Nodo.Nodo)):
 		return nodo1 == nodo2
@@ -83,7 +85,7 @@ def lookup(clave,diccionario):
 	try:
 		if clave in diccionario:
 			return diccionario[clave]
-		else: raise ParametrosError('Variable '+str(clave)+' no declarada')
+		#else: raise ParametrosError('Variable '+str(clave)+' no declarada')
 	except ParametrosError, messag:
 		messag = messag.messg
 		print 'Error : ' + messag
