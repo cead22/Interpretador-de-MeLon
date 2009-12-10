@@ -4,7 +4,7 @@ from excepcion import *
 sys.setrecursionlimit(100000)
 # Match
 def match(nodo1,nodo2):
-	#print 'MATCH\n -',nodo1,'\n -',nodo2
+	print 'MATCH\n -',nodo1,'\n -',nodo2
 #	if isinstance(nodo1,Nodo.Nodo) and isinstance(nodo2,Nodo.Nodo):
 #		print '    -',nodo1.type,'\n    -',nodo2.type
 	# Fin de recursion
@@ -18,7 +18,7 @@ def match(nodo1,nodo2):
 
 	# Variables hacen match con todo
 	if nodo1.type == 'VARIABLE' or nodo2.type == 'VARIABLE':
-		#print '- Variable\n -'
+		print '- Variable\n -'
 		return True
 
 	# Constantes
@@ -47,26 +47,30 @@ def match(nodo1,nodo2):
 		#print 'BLAH',nodo1.izquierdo,nodo2.izquierdo,nodo1.derecho,nodo2.derecho
 		#print match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
 		#return match(nodo1.izquierdo,nodo2.izquierdo) and  match(nodo1.derecho,nodo2.derecho)
-		return comparar_listas(nodo1,nodo2)
+		return comparar_listas(nodo1,nodo2,[])
 #	print 'falso' 
 
 	return False
 
 # Comparar Listas
-def comparar_listas(lista1,lista2):
+def comparar_listas(lista1,lista2,tuplas):
 	if match(lista1.izquierdo,lista2.izquierdo):
+		print 'blah'
+		tuplas.append((lista1.izquierdo,lista2.izquierdo))
 		d1 = lista1.derecho
 		d2 = lista2.derecho
+		print 'blah tuplas', tuplas
 		if d1.type == 'LISTA':
 			if d2.type == 'LISTA':
-				comparar_listas(lista1.derecho,lista2.derecho)
+				comparar_listas(lista1.derecho,lista2.derecho,tuplas)
 			else: 
-				if match(d1,d2): return (d1,d2)
+				if match(d1,d2): return tuplas.append((d1,d2))
 		elif d2.type == 'LISTA':
-				if match(d1,d2): return (d1,d2)
+				if match(d1,d2): return tuplas.append((d1,d2))
 		else:
-			if match(d1,d2): return (d1,d2)
-			
+			if match(d1,d2): tuplas.append((d1,d2))
+		return tuplas
+
 	else: return False
 	
 
@@ -83,13 +87,13 @@ def extend(diccionario,clave,valor):
 
 # Lookup
 def lookup(clave,diccionario):
-	try:
+	#try:
 		if clave in diccionario:
 			return diccionario[clave]
-		else: raise ParametrosError('Variable no declarada')
-	except ParametrosError, messag:
-		messag = messag.messg
-		print 'Error : ' + messag
+		#else: raise ParametrosError('De lookup')
+	#except ParametrosError, messag:
+	#	messag = messag.messg
+	#	print 'Error : ' + messag
 			
 
 # Eval
@@ -112,21 +116,23 @@ def valor(nodo):
 # Apply
 def apply(cls,nodo):
 	for c in cls.clausura:
-		#print 'C[0]\n =',valor(nodo)
+		print 'C[0]\n =',c[0],(nodo)
 		comparar = match(c[0],nodo)
+		print 'hhh',comparar
 		if comparar:
-			if isinstance(comparar,tuple):
+			if isinstance(comparar,list):
 				#print 'Matcheo de listas', comparar[0],comparar[1] 
 				#print 'APPLY\n @',cls,'\n @',c[1],'\n @',copy.deepcopy(cls.env)
 				nuevo_env = copy.deepcopy(cls.env)
-				extend(nuevo_env,valor(comparar[0]),comparar[1])
+				for n in comparar:				
+					extend(nuevo_env,valor(n[0]),n[1])
 				#print '#',nuevo_env
 				return eval(c[1],extend(nuevo_env,str(valor(c[0])),nodo))
 			#print ' @@ ',eval(c[1],extend(cls.env,str(valor(c[0])),nodo))
 #return eval(c[1],extend(cls.env,str(valor(c[0])),valor(nodo)))
 			#print 'retorno',valor(c[1])
-			else : return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
-	raise ParametrosError('Error de matching')
+		else : return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
+	raise ParametrosError(' De matching')
 
 #APPLY VIEJO
 # 	global num_clausura
@@ -215,7 +221,8 @@ def eval(nodo,env):
 			return clausura(nodo,env,[])
 			#return eval(nodo.izquierdo,env)
 		#elif nodo.type == 'LISTAPATRON': return eval(nodo.izquierdo,env)
-		elif nodo.type == 'LISTAPATRON' or nodo.type == 'LISTA': return nodo
+		#elif nodo.type == 'LISTAPATRON' or nodo.type == 'LISTA': return nodo
+		elif nodo.type == 'LISTAPATRON': return nodo
 		elif nodo.type == 'no_terminal': return eval(nodo.izquierdo,env)
 		elif nodo.type == 'sub': return eval(nodo.izquierdo,env)
 		elif nodo.type == '': return eval(nodo.izquierdo,env)
@@ -232,113 +239,113 @@ def eval(nodo,env):
 			#print 'nodos \n', nodo.izquierdo, nodo.derecho
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if es_entero(i,d):
-				resultado = i + d
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-			else: raise ParametrosError('Error de tipo en los parametros de la suma') 
+			#if es_entero(i,d):
+			resultado = i + d
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			#else: raise ParametrosError('De tipo en los parametros de la suma') 
 		
 		elif nodo.type == 'MENOS' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if es_entero(i,d):
-				resultado = i - d
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-			else: raise ParametrosError('Error de tipo en los parametros de la resta') 
+			#if es_entero(i,d):
+			resultado = i - d
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+	#		else: raise ParametrosError('De tipo en los parametros de la resta') 
 
 		elif nodo.type == 'NEGATIVO' :
 			i = valor(eval(nodo.izquierdo,env))
-			if es_entero(i,1):		
-				resultado = -i
-				return Nodo.Nodo('NEGATIVO',resultado)
-			else: raise ParametrosError('Error de tipo en el parametro de negativo')
+			#if es_entero(i,1):		
+			resultado = -i
+			return Nodo.Nodo('NEGATIVO',resultado)
+	#		else: raise ParametrosError('De tipo en el parametro de NEGATIVO')
 		
 		
 		elif nodo.type == 'PRODUCTO' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if es_entero(i,d):
-				resultado = i * d
+			#if es_entero(i,d):
+			resultado = i * d
 			#if es_entero(valor(eval(nodo.izquierdo,env)),valor(eval(nodo.derecho,env))):
 				#resultado = valor(eval(nodo.izquierdo,env)) * valor(eval(nodo.derecho,env))
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-			else: raise ParametrosError('Error de tipo en los parametros del producto') 
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+	#		else: raise ParametrosError('De tipo en los parametros del PRODUCTO') 
 		elif nodo.type == 'COCIENTE' :
 			i = valor(eval(nodo.izquierdo,env))#except ParametrosError, messag:
 	#	messag = messag.messg
 	#	print 'Error : ' + messag
 			d = valor(eval(nodo.derecho,env))
-			if es_entero(i,d):
-				if (d == 0):
-					raise ParametrosError('Error: Division por cero') 
-				else:				
-					resultado = i / d
-					return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
-			else: raise ParametrosError('Error de tipo de los parametros de la division') 
+			#if es_entero(i,d):
+			if (d == 0):
+				raise ParametrosError('Division por CERO') 
+			else:				
+				resultado = i / d
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+	#		else: raise ParametrosError('De tipo de los parametros de la DIVISION') 
 		elif nodo.type == 'MENOR' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if es_entero(i,d):
-				resultado = (i < d)
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-			else: raise ParametrosError('Error de tipo en los parametros de: <') 
+			#if es_entero(i,d):
+			resultado = (i<d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+	#		else: raise ParametrosError('De tipo en los parametros del <') 
 		
 		elif nodo.type == 'MENOROIGUAL' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if es_entero(i,d):
-				resultado = (i <= d)
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-			else: raise ParametrosError('Error de tipo en los parametros de: =<')
+			#if es_entero(i,d):
+			resultado = (i <= d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+	#		else: raise ParametrosError('De tipo en los parametros del =<')
 		elif nodo.type == 'MAYOR' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if es_entero(i,d):
-				resultado = (i > d)
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-			else: raise ParametrosError('Error de tipo en los parametros de: >')
+			#if es_entero(i,d):
+			resultado = (i > d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+	#		else: raise ParametrosError('De tipo en los parametros del >')
 		elif nodo.type == 'MAYOROIGUAL' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if es_entero(i,d):
-				resultado = (i >= d)
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',resultado))
-			else: raise ParametrosError('Error de tipo en los parametros de: >=')
+			#if es_entero(i,d):
+			resultado = i >= d
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+	#		else: raise ParametrosError('De tipo en los parametros del >=')
 		elif nodo.type == 'IGUAL' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
 			#print str(isinstance(i,str)) + ' instancia'
-			if es_entero(i,d) or es_booleano(i,d):
-				resultado = (i == d)
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
-			else: raise ParametrosError('Error de tipo en los parametros de: =')
+			#if es_entero(i,d) or es_booleano(i,d):
+			resultado = (i == d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+	#		else: raise ParametrosError('De tipo en los parametros del =')
 		
 		elif nodo.type == 'DISTINTO' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if es_entero(i,d) or es_booleano(i,d):
-				resultado = (i != d)
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
-			else: raise ParametrosError('Error de tipo en los parametros de: <>')
+			#if es_entero(i,d) or es_booleano(i,d):
+			resultado = (i != d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+	#		else: raise ParametrosError('De tipo en los parametros del <>')
 		elif nodo.type == 'NO' :
 			i = valor(eval(nodo.izquierdo,env))
-			if es_booleano(bool(i),True):		
-				resultado = not(i)
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
-			else: raise 'ERROR: de tipo en la negacion'
+			#if es_booleano(i,True):		
+			resultado = not(i)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+	#		else: raise ParametrosError('De tipo en la NEGACION')
 		elif nodo.type == 'OR' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if es_booleano(i,d):
-				resultado = (i or d)
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
-			else: raise 'ERROR: de tipo en los parametros del OR'
+			#if es_booleano(i,d):
+			resultado = (i or d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+	#		else: raise ParametrosError('De tipo en los parametros del OR')
 		elif nodo.type == 'AND' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if es_booleano(i,d):
-				resultado = (i and d)
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
-			else: raise 'ERROR: de tipo en los parametros del AND'
+			#if es_booleano(i,d):
+			resultado = (i and d)
+			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+	#		else: raise ParametrosError('De tipo en los parametros del AND')
 		elif nodo.type == 'VARIABLE':
 			#print 'Pepe',env
 			#if 'clausura' in env:
@@ -353,6 +360,9 @@ def eval(nodo,env):
 			return lookup(str(valor(nodo.izquierdo)),env)	
 			#return eval(lookup(str(valor(nodo.izquierdo)),env),env)
 		#elif nodo.type == 'PATRON': return eval(nodo.izquierdo,env)
+		elif nodo.type == 'LISTA':
+			return Nodo.Nodo('LISTA',eval(nodo.izquierdo,env),eval(nodo.derecho,env))
+	
 		elif nodo.type == 'PATRON': return nodo
 		elif nodo.type == 'LET':
 			#valor_patron = str(nodo.izquierdo.izquierdo.izquierdo.izquierdo.izquierdo)
@@ -363,6 +373,17 @@ def eval(nodo,env):
 			env1 = extend(env,p,'fake')
 			v1 = eval(e1,env1)
 			return eval(e2,replace(env1,str(valor(p)),v1))
+		
+		elif nodo.type == 'IF':
+		#	print 'if'
+		#	print nodo.izquierdo.izquierdo.type
+		#	print nodo.izquierdo.izquierdo
+		#	print valor(eval(nodo.izquierdo.izquierdo,env))
+			if valor(eval(nodo.izquierdo.izquierdo ,env)) == True:
+				#print 'Hola'
+				return eval(nodo.izquierdo.derecho,env)
+			else:
+				return eval(nodo.derecho,env)
 		elif nodo.type == 'lfe':
 			#print 'LFE \n ===>', nodo.derecho
 			#if 'clausura' in env:
@@ -376,7 +397,17 @@ def eval(nodo,env):
 		elif nodo.type == 'APLICAR':
 			#print 'APLICAR',nodo.izquierdo,nodo.derecho
 			#apply(nodo.izquierdo,nodo.derecho,env)
-			return apply(eval(nodo.izquierdo,env),eval(nodo.derecho,env))
+			#print nodo
+			#print nodo.type
+			#print nodo.izquierdo.type
+			#print nodo.izquierdo.izquierdo.type
+			#print nodo.izquierdo.izquierdo.izquierdo.type
+			#print nodo.izquierdo.izquierdo.izquierdo.izquierdo.izquierdo.type
+			#print nodo.izquierdo.izquierdo.izquierdo.izquierdo
+			#if (nodo.izquierdo.type == 'APLICAR' or nodo.izquierdo.izquierdo.izquierdo.type == 'FUN'):
+				return apply(eval(nodo.izquierdo,env),eval(nodo.derecho,env))
+			#else: raise ParametrosError('De aplicacion')
+	# Manejador de excepciones
 	except ParametrosError, messag:
 		messag = messag.messg
 		print 'ERROR : ' + messag

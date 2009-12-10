@@ -37,7 +37,7 @@ def p_true(p):
 	p[0] = Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO','TRUE'))
 def p_listavacia(p):
 	'c : CORCHETEI CORCHETED'
-	p[0] = Nodo.Nodo('CONSTLV',Nodo.Nodo('','LISTAVACIA'))
+	p[0] = Nodo.Nodo('CONSTLV',Nodo.Nodo('','[]'))
 def p_variable(p):
 	'v : VARIABLE'
 	p[0] = Nodo.Nodo('no_terminal',Nodo.Nodo('VARIABLE',p[1]))
