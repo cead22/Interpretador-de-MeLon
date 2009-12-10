@@ -1,0 +1,3 @@
+(let itemat = (fun []::n -> []
+    | (a::b)::0 -> a
+    | (a::b)::n -> (itemat (b::(n-1))) nuf) in (itemat ((1::33::55::66::44::22::[])::2)) tel)

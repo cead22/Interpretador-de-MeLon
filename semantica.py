@@ -4,9 +4,9 @@ from excepcion import *
 sys.setrecursionlimit(3000)
 # Match
 def match(nodo1,nodo2):
-	print 'matching'
-	print nodo1
-	print nodo2
+	#print 'matching'
+	#print nodo1
+	#print nodo2
 	# Fin de recursion
 	if (not isinstance(nodo1,Nodo.Nodo)) and (not isinstance(nodo2,Nodo.Nodo)):
 		return nodo1 == nodo2
@@ -85,7 +85,7 @@ def lookup(clave,diccionario):
 	try:
 		if clave in diccionario:
 			return diccionario[clave]
-		#else: raise ParametrosError('Variable '+str(clave)+' no declarada')
+		else: raise ParametrosError('Variable '+str(clave)+' no declarada')
 	except ParametrosError, messag:
 		messag = messag.messg
 		print 'Error : ' + messag
@@ -356,82 +356,113 @@ def eval(nodo,env):
 		elif nodo.type == 'MAS' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			resultado = i + d
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			if es_entero(i,d):
+				resultado = i + d
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			else: raise ParametrosError('De tipo en los parametros de la suma') 
 		
 		elif nodo.type == 'MENOS' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			resultado = i - d
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado)) 
+			if es_entero(i,d):
+				resultado = i - d
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			else: raise ParametrosError('De tipo en los parametros de la resta') 
 
 		elif nodo.type == 'NEGATIVO' :
 			i = valor(eval(nodo.izquierdo,env))
-			#if es_entero(i,1):		
-			resultado = -i
-			return Nodo.Nodo('NEGATIVO',resultado)
+			if es_entero(i,1):		
+				resultado = -i
+				return Nodo.Nodo('NEGATIVO',resultado)
+			else: raise ParametrosError('De tipo en el parametro de NEGATIVO')
 		
 		elif nodo.type == 'PRODUCTO' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			resultado = i * d
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			if es_entero(i,d):
+				resultado = i * d
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			else: raise ParametrosError('De tipo en los parametros del PRODUCTO')
+ 
 		elif nodo.type == 'COCIENTE' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			if (d == 0):
-				raise ParametrosError('Division por CERO') 
-			else:				
-				resultado = i / d
-				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			if es_entero(i,d):
+				if (d == 0):
+					raise ParametrosError('Division por CERO') 
+				else:				
+					resultado = i / d
+					return Nodo.Nodo('CONSTANTE',Nodo.Nodo('ENTERO',resultado))
+			else: raise ParametrosError('De tipo de los parametros de la DIVISION')
+
 		elif nodo.type == 'MENOR' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			resultado = (i<d)
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			if es_entero(i,d):
+				resultado = (i<d)
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			else: raise ParametrosError('De tipo en los parametros del <') 
 		
 		elif nodo.type == 'MENOROIGUAL' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			resultado = (i <= d)
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			if es_entero(i,d):
+				resultado = (i <= d)
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			else: raise ParametrosError('De tipo en los parametros del =<')
+
 		elif nodo.type == 'MAYOR' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			#if es_entero(i,d):
-			resultado = (i > d)
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			if es_entero(i,d):
+				resultado = (i > d)
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			else: raise ParametrosError('De tipo en los parametros del >')
+
 		elif nodo.type == 'MAYOROIGUAL' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			resultado = i >= d
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			if es_entero(i,d):
+				resultado = i >= d
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			else: raise ParametrosError('De tipo en los parametros del >=')
+
 		elif nodo.type == 'IGUAL' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			resultado = (i == d)
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
 		
+			if es_entero(i,d) or es_booleano(i,d):
+				resultado = (i == d)
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			else: raise ParametrosError('De tipo en los parametros del =')
 		elif nodo.type == 'DISTINTO' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			resultado = (i != d)
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			if es_entero(i,d) or es_booleano(i,d):
+				resultado = (i != d)
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			else: raise ParametrosError('De tipo en los parametros del <>')
 		elif nodo.type == 'NO' :
 			i = valor(eval(nodo.izquierdo,env))
-			resultado = not(i)
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			d = valor(eval(nodo.derecho,env))
+			if es_booleano(i,d):
+				resultado = (i or d)
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			else: raise ParametrosError('De tipo en los parametros del OR')
 		elif nodo.type == 'OR' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			resultado = (i or d)
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			if es_booleano(i,d):
+				resultado = (i or d)
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			else: raise ParametrosError('De tipo en los parametros del OR')
 		elif nodo.type == 'AND' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
-			#if es_booleano(i,d):
-			resultado = (i and d)
-			return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			if es_booleano(i,d):
+				resultado = (i and d)
+				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
+			else: raise ParametrosError('De tipo en los parametros del AND')
 		elif nodo.type == 'VARIABLE':
 			return lookup(str(valor(nodo.izquierdo)),env)
 		elif nodo.type == 'LISTA':

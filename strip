@@ -1,0 +1,3 @@
+(let strip = (fun ([]::a) -> [] 
+                 |(c::d)::a -> (if c=a then (strip (d::a)) else c::(strip (d::a)) fi) nuf)
+    in (strip ((7::55::3::7::99::7::34::[])::7)) tel)
