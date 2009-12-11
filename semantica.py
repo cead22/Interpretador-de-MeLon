@@ -368,6 +368,7 @@ def factorizar(body):
 	#print 'ccc',conjunto,'\n *',conjunto[0],'\n *', conjunto[1],'\n *', conjunto[2],'\n *', conjunto[3],'\n * BODY',body[0][0][1]
 	factorizada = Nodo.Nodo('FUN',0)
 	arboles = []
+	temp = 0
 	while i < len(particion):
 		j = 0
 		
@@ -394,7 +395,7 @@ def factorizar(body):
 			arg.derecho = Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',Nodo.Nodo('lp',Nodo.Nodo('PATRON',conjunto[k]))),arboles[k])))
 			arg = temp.derecho
 		k += 1
-	print 'DEF',temp
+	#print 'DEF',temp
 	return temp
 				    
 
