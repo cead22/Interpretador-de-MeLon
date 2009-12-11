@@ -3,7 +3,7 @@ import Nodo,CLS,copy,sys
 from excepcion import *
 sys.setrecursionlimit(3000)
 # Match
-def match(nodo1,nodo2):
+def match(nodo1,nodo2,tuplas):
 	print 'matching'
 	print '  -',nodo1
 	print '  -',nodo2
@@ -12,8 +12,8 @@ def match(nodo1,nodo2):
 		return nodo1 == nodo2
 
 	# Bajar si el nodo es no_terminal
-	if nodo1.type == 'no_terminal' or nodo1.type == '' or nodo1.type == 'PATRON' or nodo1.type == 'sub' or nodo1.type == 'LISTAPATRON' or nodo1.type == 'lp': return match(nodo1.izquierdo,nodo2)
-	if nodo2.type == 'no_terminal' or nodo2.type == '' or nodo2.type == 'PATRON' or nodo2.type == 'sub' or nodo2.type == 'LISTAPATRON' or nodo2.type == 'lp': return match(nodo2.izquierdo,nodo1)
+	if nodo1.type == 'no_terminal' or nodo1.type == '' or nodo1.type == 'PATRON' or nodo1.type == 'sub' or nodo1.type == 'LISTAPATRON' or nodo1.type == 'lp': return match(nodo1.izquierdo,nodo2,tuplas)
+	if nodo2.type == 'no_terminal' or nodo2.type == '' or nodo2.type == 'PATRON' or nodo2.type == 'sub' or nodo2.type == 'LISTAPATRON' or nodo2.type == 'lp': return match(nodo2.izquierdo,nodo1,tuplas)
 
 	# Variables hacen match con todo
 	if nodo1.type == 'VARIABLE' or nodo2.type == 'VARIABLE':
@@ -21,15 +21,15 @@ def match(nodo1,nodo2):
 
 	# Constantes
 	if nodo1.type == 'CONSTANTE' and nodo2.type == 'CONSTANTE':
-		return match(nodo1.izquierdo.izquierdo,nodo2.izquierdo.izquierdo)
+		return match(nodo1.izquierdo.izquierdo,nodo2.izquierdo.izquierdo,tuplas)
 
 	# Entero
 	if nodo1.type == 'ENTERO' and nodo2.type == 'ENTERO':
-		return match(nodo1.izquierdo,nodo2.izquierdo)
+		return match(nodo1.izquierdo,nodo2.izquierdo,tuplas)
 
 	# Booleano
 	if nodo1.type == 'BOOLEANO' and nodo2.type == 'BOOLEANO':
-		return match(nodo1.izquierdo,nodo2.izquierdo)
+		return match(nodo1.izquierdo,nodo2.izquierdo,tuplas)
 
 	# Listavacia
 	if nodo1.type == 'CONSTLV' and nodo2.type == 'CONSTLV':
@@ -37,53 +37,47 @@ def match(nodo1,nodo2):
 
 	# Listas
 	if nodo1.type == 'LISTA' and nodo2.type == 'LISTA':
-		return comparar_listas(nodo1,nodo2,[])
+		return comparar_listas(nodo1,nodo2,tuplas)
 
 	return False
-def pa(nodo,env):
-	a= []
-	if isinstance(nodo,Nodo.Nodo):
-		if nodo.type == 'LISTAPATRON':
-			pa(nodo.izquierdo,env)
-		if nodo.type == 'lp':
-			if isinstance(nodo.derecho,Nodo.Nodo):
-				print valor(eval(nodo.derecho,env))
-				a.append(valor(eval(nodo.derecho,env)))
-				if isinstance(nodo.izquierdo,Nodo.Nodo):
-					pa(nodo.izquierdo,env)
-				else: 
-					print (valor(eval(nodo.derecho)))
-			else:
-				print valor(eval(nodo,env))
-		else: print a
-			
 	
 # Comparar Listas
 def comparar_listas(lista1,lista2,tuplas):
-	if match(lista1.izquierdo,lista2.izquierdo):
+	if match(lista1.izquierdo,lista2.izquierdo,tuplas):
 		tuplas.append((lista1.izquierdo,lista2.izquierdo))
 		d1 = lista1.derecho
 		d2 = lista2.derecho
+		print 'listas \n  +',lista1,'\n  +',lista2,'\n  +',tuplas,'\n  +',d1.type,'\n  +',d2.type
 		if d1.type == 'LISTA':
 			if d2.type == 'LISTA':
-				if not comparar_listas(lista1.derecho,lista2.derecho,tuplas):
+				print 'tuplas internas', comp
+				comp = comparar_listas(d1,d2,tuplas)
+				if not comp:
 					tuplas = []
+				else:
+					#tuplas += comp
+					for c in comp:
+						tuplas.append(comp[c])
+					#return tuplas
 			else: 
-				if match(d1,d2): tuplas.append((d1,d2))
+				if match(d1,d2,tuplas): tuplas.append((d1,d2))
 				else:
 					tuplas = []
 					return False
 		elif d2.type == 'LISTA':
-				if match(d1,d2): tuplas.append((d1,d2))
+				if match(d1,d2,tuplas): tuplas.append((d1,d2))
 				else:
 					tuplas = []
 					return False
 		else:
-			if match(d1,d2): tuplas.append((d1,d2))
+			if match(d1,d2,tuplas):
+				tuplas.append((d1,d2))
 			else:
 				tuplas =[]
 				return False
-		if tuplas == []: return False
+		if tuplas == []: 
+			return False
+		print tuplas#[0][0],tuplas[0][1],tuplas[1][0],tuplas[1][1]
 		return tuplas
 	else: return False
 	
@@ -109,11 +103,6 @@ def lookup(clave,diccionario):
 	except ParametrosError, messag:
 		messag = messag.messg
 		print 'Error : ' + messag
-			
-# Eval
-# def eval(nodo,env,orientacion):
-# 	if orientacion == 'izquierda': return eval(nodo.izquierdo,env)
-# 	return eval(nodo.derecho,env)
 
 # Valor
 def valor(nodo):
@@ -131,7 +120,7 @@ def valor(nodo):
 def apply(cls,nodo): 
 	if isinstance(cls,CLS.CLS):
 		for c in cls.clausura:
-			comparar = match(c[0],nodo)
+			comparar = match(c[0],nodo,[])
 			if comparar:
 				if isinstance(comparar,list):
 					nuevo_env = copy.deepcopy(cls.env)
@@ -155,97 +144,53 @@ def clausura(nodo,env,temp):
 
 # Obtener patrones de una lista de patrones
 def patrones(nodo,listap):
-	#if isinstance(nodo,Nodo.Nodo):
-		#if nodo.type == 'PATRON':
-			#listap.append(nodo)
-		#if isinstance(nodo.izquierdo,Nodo.Nodo):
-			#patrones(nodo.izquierdo,listap)
-		#if isinstance(nodo.derecho,Nodo.Nodo):
-			#patrones(nodo.derecho,listap
-# 	if nodo.izquierdo.type = 'PATRON':
-# 		primer_patron = nodo.izquierdo #copy.deepcopy(nodo.izquierdo.izquierdo)
-# 		nodo.izquierdo = nodo.derecho # copy.deepcopy(nodo.derecho)
-# 		nodo.derecho = ''
-# 		return (primer_patron, nodo)
 	if isinstance(nodo,Nodo.Nodo):
-		#print nodo.__class__,nodo
 		if nodo.izquierdo.izquierdo.type == 'PATRON':
 			primer_patron =  copy.deepcopy(nodo.izquierdo.izquierdo) #copy.deepcopy(nodo.izquierdo.izquierdo)
 			nodo.izquierdo =  nodo.derecho #copy.deepcopy(nodo.derecho)
 			nodo.derecho = ''
-		#print 'PATRONES', nodo
 			return (primer_patron, nodo)
 		else:
-		#print 'PATRONES',nodo.izquierdo.izquierdo.izquierdo.type
-		#abuelo,papa,hijo = copy.deepcopy(nodo), copy.deepcopy(nodo.izquierdo), copy.deepcopy(nodo.izquierdo.izquierdo) 
-			#print 'ZXZ',nodo
-			#abuelo = nodo
-			abuelo = nodo# copy.deepcopy(nodo)
+			abuelo = nodo
 			papa =  abuelo.izquierdo
-			#print 'papa', papa.derecho
 			hijo = papa.izquierdo
-			#print 'papa,abuelo,hijo\n', abuelo,'\n',papa,'\n',hijo
-			#print hijo
-		#print 'nnn', nodo.izquierdo.izquierdo.__class__
 			while hijo.type != 'PATRON':
-			#print 'HIJO 1'#\n -',hijo.type,'\n -', hijo.izquierdo.type,'\n -', hijo.derecho
 				abuelo = papa
 				papa = hijo
 				hijo = hijo.izquierdo
-				#print 'papa,abuelo,hijo\n', abuelo,'\n',papa,'\n',hijo
-			#print 'HIJO 2', hijo.type
 			primer_patron = copy.deepcopy(hijo)
-			#print 'HIJO', papa.derecho
 			hijo = ''
 			papa.izquierdo = ''
 			abuelo.izquierdo = ''
 			papa = ''
-			abuelo.izquierdo = abuelo.derecho  #copy.deepcopy(abuelo.derecho) #copy.deepcopy(papa.derecho)
-			#print 'HIJO2', papa.izquierdo
+			abuelo.izquierdo = abuelo.derecho
 			abuelo.derecho = ''
-		       	#print 'papa,abuelo,hijo\n', abuelo,'\n',papa,'\n',hijo
-		#print 'PATRONES', nodo
-			#print '+++',nodo
+
 			return (primer_patron,nodo)
 	return
 
-	#return listap
-
-# tam_listapatron
-
 def tam_listapatron(nodo):
-	#print 'tlp',nodo, nodo.type
 	if isinstance(nodo,Nodo.Nodo):
 		if nodo.type == 'lfe':
-			#print 'ccc',nodo.izquierdo
 			res = tlp(nodo.izquierdo,[])
-			#print 'res',res
-			#print 'res',res
 			return res
 		else:
 			return tam_listapatron(nodo.izquierdo)
 
 def tlp(nodo,t):
-	#print 'hhh',nodo.type
 	if isinstance(nodo,Nodo.Nodo):
 		if nodo.type == 'LISTAPATRON':
-			#print 'in listapatron'
 			nodo = nodo.izquierdo
 			print nodo.izquierdo.type
 		if nodo.type == 'lp':
 			if nodo.izquierdo.type == 'PATRON':
-				#print 'iii', nodo
 				t.append(1)
-			#return
 			else :
 				tlp(nodo.izquierdo,t)
-				#print 'ddd',nodo
 				if isinstance(nodo.derecho,Nodo.Nodo) and nodo.derecho.type == 'PATRON':
 					t.append(1)
 				else:
 					tlp(nodo.izquierdo,t)
-					#print 'lent',len(t)
-	#else: return 
 	return len(t)
 			
 
@@ -255,7 +200,6 @@ def tlp(nodo,t):
 def cuerpo(nodo,body):
 	if isinstance(nodo,Nodo.Nodo):
 		if nodo.type == 'lfe':
-			#print 'WWW' , nodo.izquierdo
 			body.append((patrones(copy.deepcopy(nodo.izquierdo),[]),copy.deepcopy(nodo.derecho)))
 		cuerpo(nodo.izquierdo,body)
 		cuerpo(nodo.derecho,body)
@@ -285,75 +229,46 @@ def factorizar(body):
 	exp = {}
 	pat = {}
 	p,q,i,j,k = 0,1,0,0,0
-	#print 'body',body
 	for b in body:
-		#print 'b',b[0][1]
 		conjunto.append(b[0][0])
 	clave[0] = 0
 	if len(conjunto) == 1:
 		particion[0] = [conjunto[0]]
 		exp[0] = [body[0][1]]
-		#pat[0] = [body[0][0][1:len(body[0][0])]]
-		pat[0] = [body[0][0][1]]#
-		#pat[0] = resto_de_patrones(body[0][0])
-	#print 'len' ,len(conjunto)
+		pat[0] = [body[0][0][1]]
 	while p < len(conjunto):
-
-		#print 'p,q,clave: ',p,q,clave
 		q = p + 1
-		#if p not in clave:
-		#particion[q] = [conjunto[0]]
-	       	#exp[q] = [body[0][1]]
 	       	while q < len(conjunto):
-			#print 'ppp',pat
-	       		if match(conjunto[p],conjunto[q]) and match (conjunto[q],conjunto[p]):
-	       			#print '# clave',clave
-	       			#print '# particion',particion
-	       			#print '# exp', exp
-	       			#print '# p', p
-	       			#print '# q',q
-	       		#print 'conjunto',conjunto[p],conjunto[q],p,q
+	       		if match(conjunto[p],conjunto[q],[]) and match (conjunto[q],conjunto[p],[]):
 	       			clave[q] = p
 	       			if p in particion and conjunto[q] not in particion[p]:
 	       				particion[p].append(conjunto[q])
-					#pat[p].append(body[p][0][1:len(body[p][0])])#
 					pat[p].append(body[p][0][1])
-					#pat[p].append(resto_de_patrones(body[p][0]))
 	       			else:
 	       				particion[p] = [conjunto[q]]
-					#pat[p] = body[p][0][1:len(body[p][0])]#
 					pat[p] = [body[p][0][1]]
-					#pat[p] = resto_de_patrones(body[p][0])
 	       			if p in exp and body[q][1] not in exp[p]:
 	       				print 'abcdefg'
 	       				exp[p].append(body[q][1])
 					if len(body[q][0]) == 1:
-						#pat[p].append(body[q][0])#
 						pat[p].append(body[q][0][1])
-						#pat[p].append(resto_de_patrones(body[q][0]))
 					else:
-						#pat[p].append(body[q][0][1:len(body[q][0])])#
 						pat[p].append(body[q][0][1])
-						#pat[p].append(resto_de_patrones(body[q][0]))
 	       			else:
 	       				exp[p] = [body[q][1]]
 					if len(body[q][0]) == 1:
-						#pat[p] = body[q][0]#
 						pat[p] = [body[q][0][1]]
-						#pat[p] = resto_de_patrones(body[q][0])
 					else:
-						#pat[p] = body[q][0][1:len(body[q][0])]#
 						pat[p] = [body[q][0][1]]
-						#pat[p] = resto_de_patrones(body[q][0])
 	       			exp[p].append(body[p][1])
 				if len(body[p][0]) == 1:
-					#pat[p].append(body[p][0])#
 					pat[p].append(body[p][0][1])
-					#pat[p].append(resto_de_patrones(body[p][0]))
 				else:
-					#pat[p].append(body[p][0][1:len(body[p][0])])#
 					pat[p].append(body[p][0][1])
-					#pat[p].append(resto_de_patrones(body[p][0]))
+			#else:
+				#if q not in clave:
+					#clave[q] = max(clave.keys())+1
+					#particion[q]
 	       		q += 1
 		p += 1
 	
@@ -563,6 +478,14 @@ def eval(nodo,env):
 		elif nodo.type == 'LET':
 			p = nodo.izquierdo.izquierdo
 			e1 = nodo.izquierdo.derecho
+			if p.izquierdo.type == 'LISTA':
+				print 'sup duc quad'
+				tuplas_look = match(p.izquierdo,e1,[])
+				print 'look', tuplas_look
+				print '  -',tuplas_look[0][0]
+				print '  -',tuplas_look[0][1]
+				print '  -',tuplas_look[1][0]
+				print '  -',tuplas_look[1][1]
 			e2 = nodo.derecho
 			env1 = extend(copy.deepcopy(env),str(valor(p)),'fake')
 			v1 = eval(e1,env1)
