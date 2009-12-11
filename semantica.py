@@ -40,7 +40,24 @@ def match(nodo1,nodo2):
 		return comparar_listas(nodo1,nodo2,[])
 
 	return False
-
+def pa(nodo,env):
+	a= []
+	if isinstance(nodo,Nodo.Nodo):
+		if nodo.type == 'LISTAPATRON':
+			pa(nodo.izquierdo,env)
+		if nodo.type == 'lp':
+			if isinstance(nodo.derecho,Nodo.Nodo):
+				print valor(eval(nodo.derecho,env))
+				a.append(valor(eval(nodo.derecho,env)))
+				if isinstance(nodo.izquierdo,Nodo.Nodo):
+					pa(nodo.izquierdo,env)
+				else: 
+					print (valor(eval(nodo.derecho)))
+			else:
+				print valor(eval(nodo,env))
+		else: print a
+			
+	
 # Comparar Listas
 def comparar_listas(lista1,lista2,tuplas):
 	if match(lista1.izquierdo,lista2.izquierdo):
@@ -80,17 +97,19 @@ def extend(diccionario,clave,valor):
 	diccionario[clave] = valor
 	return diccionario
 
-# Lookup
+# lookup
 def lookup(clave,diccionario):
 	try:
 		if clave in diccionario:
-			return diccionario[clave]
-		else: raise ParametrosError('Variable '+str(clave)+' no declarada')
+			if diccionario[clave]=='fake':
+				raise ParametrosError('De recursion')
+			else: return diccionario[clave]
+		else:
+			raise ParametrosError('De lookup')
 	except ParametrosError, messag:
 		messag = messag.messg
 		print 'Error : ' + messag
 			
-
 # Eval
 # def eval(nodo,env,orientacion):
 # 	if orientacion == 'izquierda': return eval(nodo.izquierdo,env)
@@ -107,31 +126,24 @@ def valor(nodo):
 		else:
 			return str(valor(nodo.izquierdo))+'::'+str(valor(nodo.derecho))
 	return nodo
-
-# Cantidad de patrones de una Funcion
-# def cantidad_patrones(nodo):
-# 	while (nodo.type != 'lp'):
-# 		nodo = nodo.izquierdo
-# 	global suma
-# 	suma = 0
-# 	tam_listapatron(nodo)
-# 	return suma
 	
 # Apply
-def apply(cls,nodo):
-	for c in cls.clausura:
-		comparar = match(c[0],nodo)
-		if comparar:
-			print 'MACHEOOOO \n  +',c[0],'\n  +',nodo
-			if isinstance(comparar,list):
-				nuevo_env = copy.deepcopy(cls.env)
-				for n in comparar:				
-					extend(nuevo_env,valor(n[0]),n[1])
-				return eval(c[1],extend(nuevo_env,str(valor(c[0])),nodo))
-			else : return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
+def apply(cls,nodo): 
+	if isinstance(cls,CLS.CLS):
+		for c in cls.clausura:
+			comparar = match(c[0],nodo)
+			if comparar:
+				if isinstance(comparar,list):
+					nuevo_env = copy.deepcopy(cls.env)
+					for n in comparar:				
+						extend(nuevo_env,valor(n[0]),n[1])
+					return eval(c[1],extend(nuevo_env,str(valor(c[0])),nodo))
+				else : return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
+	#Error de aplicar una No funcion
+	else: raise ParametrosError('De aplicacion') 
+	#Error de matching
 	raise ParametrosError(' De matching')
 
-	
 # Obtener clausura de una funcion
 def clausura(nodo,env,temp):
 	if isinstance(nodo,Nodo.Nodo):
@@ -140,7 +152,6 @@ def clausura(nodo,env,temp):
 		clausura(nodo.izquierdo,env,temp)
 		clausura(nodo.derecho,env,temp)
 	return CLS.CLS(env,temp)
-
 
 # Obtener patrones de una lista de patrones
 def patrones(nodo,listap):
@@ -386,7 +397,7 @@ def factorizar(body):
 	print 'DEF',temp
 	return temp
 				    
-# Eval
+
 def es_entero(x,y):
 	if isinstance(x,int) and isinstance(y,int) and not(isinstance(x,bool)) and not(isinstance(y,bool)):
 		return True
@@ -406,7 +417,7 @@ def eval(nodo,env):
 			eval(nodo.derecho,env)
 		if nodo.type == 'arg2': return eval(nodo.izquierdo,env)
 		if nodo.type == 'lp':return nodo
-		elif nodo.type == 'FUN': 
+		elif nodo.type == 'FUN':
 			#print 'In-Fun\n', nodo
 			cuerpo_fun = cuerpo(nodo,[])
 			#print 'CUERPO','\n',cuerpo_fun,'\n^^^','\n',cuerpo_fun[0][0][1]
@@ -524,11 +535,10 @@ def eval(nodo,env):
 			else: raise ParametrosError('De tipo en los parametros del <>')
 		elif nodo.type == 'NO' :
 			i = valor(eval(nodo.izquierdo,env))
-			d = valor(eval(nodo.derecho,env))
-			if es_booleano(i,d):
-				resultado = (i or d)
+			if es_booleano(i,True):
+				resultado = not(i)
 				return Nodo.Nodo('CONSTANTE',Nodo.Nodo('BOOLEANO',str(resultado).upper()))
-			else: raise ParametrosError('De tipo en los parametros del OR')
+			else: raise ParametrosError('De tipo en la Negacion')
 		elif nodo.type == 'OR' :
 			i = valor(eval(nodo.izquierdo,env))
 			d = valor(eval(nodo.derecho,env))
@@ -553,7 +563,7 @@ def eval(nodo,env):
 			p = nodo.izquierdo.izquierdo
 			e1 = nodo.izquierdo.derecho
 			e2 = nodo.derecho
-			env1 = extend(env,p,'fake')
+			env1 = extend(copy.deepcopy(env),str(valor(p)),'fake')
 			v1 = eval(e1,env1)
 			return eval(e2,replace(env1,str(valor(p)),v1))
 		
@@ -566,7 +576,7 @@ def eval(nodo,env):
 			return
 		elif nodo.type == 'APLICAR':
 				return apply(eval(nodo.izquierdo,env),eval(nodo.derecho,env))
-			#else: raise ParametrosError('De aplicacion')
+			
 	# Manejador de excepciones
 	except ParametrosError, messag:
 		messag = messag.messg
