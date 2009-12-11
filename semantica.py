@@ -4,9 +4,9 @@ from excepcion import *
 sys.setrecursionlimit(3000)
 # Match
 def match(nodo1,nodo2):
-	#print 'matching'
-	#print nodo1
-	#print nodo2
+	print 'matching'
+	print '  -',nodo1
+	print '  -',nodo2
 	# Fin de recursion
 	if (not isinstance(nodo1,Nodo.Nodo)) and (not isinstance(nodo2,Nodo.Nodo)):
 		return nodo1 == nodo2
@@ -92,9 +92,9 @@ def lookup(clave,diccionario):
 			
 
 # Eval
-def eval(nodo,env,orientacion):
-	if orientacion == 'izquierda': return eval(nodo.izquierdo,env)
-	return eval(nodo.derecho,env)
+# def eval(nodo,env,orientacion):
+# 	if orientacion == 'izquierda': return eval(nodo.izquierdo,env)
+# 	return eval(nodo.derecho,env)
 
 # Valor
 def valor(nodo):
@@ -109,19 +109,20 @@ def valor(nodo):
 	return nodo
 
 # Cantidad de patrones de una Funcion
-def cantidad_patrones(nodo):
-	while (nodo.type != 'lp'):
-		nodo = nodo.izquierdo
-	global suma
-	suma = 0
-	tam_listapatron(nodo)
-	return suma
+# def cantidad_patrones(nodo):
+# 	while (nodo.type != 'lp'):
+# 		nodo = nodo.izquierdo
+# 	global suma
+# 	suma = 0
+# 	tam_listapatron(nodo)
+# 	return suma
 	
 # Apply
 def apply(cls,nodo):
 	for c in cls.clausura:
 		comparar = match(c[0],nodo)
 		if comparar:
+			print 'MACHEOOOO \n  +',c[0],'\n  +',nodo
 			if isinstance(comparar,list):
 				nuevo_env = copy.deepcopy(cls.env)
 				for n in comparar:				
@@ -149,39 +150,107 @@ def patrones(nodo,listap):
 		#if isinstance(nodo.izquierdo,Nodo.Nodo):
 			#patrones(nodo.izquierdo,listap)
 		#if isinstance(nodo.derecho,Nodo.Nodo):
-			#patrones(nodo.derecho,listap)
-	if nodo.izquierdo.izquierdo.type == 'PATRON':
-		primer_patron = nodo.izquierdo.izquierdo #copy.deepcopy(nodo.izquierdo.izquierdo)
-		nodo.izquierdo = nodo.derecho # copy.deepcopy(nodo.derecho)
-		nodo.derecho = ''
-		return (primer_patron, nodo)
-	else:
-		print 'PATRONES',nodo,nodo.izquierdo.izquierdo
-		abuelo,papa,hijo = nodo,nodo.izquierdo,nodo.izquierdo.izquierdo
-
-		while hijo.type != 'PATRON':
-			print hijo.izquierdo
-			abuelo = papa
-			papa = hijo
-			hijo = hijo.izquierdo
-		primer_patron = hijo.izquierdo
-		papa.izquierdo = papa.derecho #copy.deepcopy(papa.derecho)
-		papa.derecho = ''
-		return (primer_patron,nodo)
+			#patrones(nodo.derecho,listap
+# 	if nodo.izquierdo.type = 'PATRON':
+# 		primer_patron = nodo.izquierdo #copy.deepcopy(nodo.izquierdo.izquierdo)
+# 		nodo.izquierdo = nodo.derecho # copy.deepcopy(nodo.derecho)
+# 		nodo.derecho = ''
+# 		return (primer_patron, nodo)
+	if isinstance(nodo,Nodo.Nodo):
+		#print nodo.__class__,nodo
+		if nodo.izquierdo.izquierdo.type == 'PATRON':
+			primer_patron =  copy.deepcopy(nodo.izquierdo.izquierdo) #copy.deepcopy(nodo.izquierdo.izquierdo)
+			nodo.izquierdo =  nodo.derecho #copy.deepcopy(nodo.derecho)
+			nodo.derecho = ''
+		#print 'PATRONES', nodo
+			return (primer_patron, nodo)
+		else:
+		#print 'PATRONES',nodo.izquierdo.izquierdo.izquierdo.type
+		#abuelo,papa,hijo = copy.deepcopy(nodo), copy.deepcopy(nodo.izquierdo), copy.deepcopy(nodo.izquierdo.izquierdo) 
+			#print 'ZXZ',nodo
+			#abuelo = nodo
+			abuelo = nodo# copy.deepcopy(nodo)
+			papa =  abuelo.izquierdo
+			#print 'papa', papa.derecho
+			hijo = papa.izquierdo
+			#print 'papa,abuelo,hijo\n', abuelo,'\n',papa,'\n',hijo
+			#print hijo
+		#print 'nnn', nodo.izquierdo.izquierdo.__class__
+			while hijo.type != 'PATRON':
+			#print 'HIJO 1'#\n -',hijo.type,'\n -', hijo.izquierdo.type,'\n -', hijo.derecho
+				abuelo = papa
+				papa = hijo
+				hijo = hijo.izquierdo
+				#print 'papa,abuelo,hijo\n', abuelo,'\n',papa,'\n',hijo
+			#print 'HIJO 2', hijo.type
+			primer_patron = copy.deepcopy(hijo)
+			#print 'HIJO', papa.derecho
+			hijo = ''
+			papa.izquierdo = ''
+			abuelo.izquierdo = ''
+			papa = ''
+			abuelo.izquierdo = abuelo.derecho  #copy.deepcopy(abuelo.derecho) #copy.deepcopy(papa.derecho)
+			#print 'HIJO2', papa.izquierdo
+			abuelo.derecho = ''
+		       	#print 'papa,abuelo,hijo\n', abuelo,'\n',papa,'\n',hijo
+		#print 'PATRONES', nodo
+			#print '+++',nodo
+			return (primer_patron,nodo)
+	return
 
 	#return listap
+
+# tam_listapatron
+
+def tam_listapatron(nodo):
+	#print 'tlp',nodo, nodo.type
+	if isinstance(nodo,Nodo.Nodo):
+		if nodo.type == 'lfe':
+			#print 'ccc',nodo.izquierdo
+			res = tlp(nodo.izquierdo,[])
+			#print 'res',res
+			#print 'res',res
+			return res
+		else:
+			return tam_listapatron(nodo.izquierdo)
+
+def tlp(nodo,t):
+	#print 'hhh',nodo.type
+	if isinstance(nodo,Nodo.Nodo):
+		if nodo.type == 'LISTAPATRON':
+			#print 'in listapatron'
+			nodo = nodo.izquierdo
+			print nodo.izquierdo.type
+		if nodo.type == 'lp':
+			if nodo.izquierdo.type == 'PATRON':
+				#print 'iii', nodo
+				t.append(1)
+			#return
+			else :
+				tlp(nodo.izquierdo,t)
+				#print 'ddd',nodo
+				if isinstance(nodo.derecho,Nodo.Nodo) and nodo.derecho.type == 'PATRON':
+					t.append(1)
+				else:
+					tlp(nodo.izquierdo,t)
+					#print 'lent',len(t)
+	#else: return 
+	return len(t)
+			
+
 
 # Obtener cuerpo (listas de patrones y expresiones)
 # de una funcion
 def cuerpo(nodo,body):
 	if isinstance(nodo,Nodo.Nodo):
 		if nodo.type == 'lfe':
-			body.append((patrones(nodo.izquierdo,[]),nodo.derecho))
+			#print 'WWW' , nodo.izquierdo
+			body.append((patrones(copy.deepcopy(nodo.izquierdo),[]),copy.deepcopy(nodo.derecho)))
 		cuerpo(nodo.izquierdo,body)
 		cuerpo(nodo.derecho,body)
 	return body
 
-# Lista de patrones sin el primero
+#Lista de patrones sin el primero
 def resto_de_patrones(nodo):
 	if nodo.izquierdo.izquierdo.type == 'PATRON':
 		nodo.izquierdo.izquierdo = copy.deepcopy(nodo.derecho)
@@ -216,22 +285,22 @@ def factorizar(body):
 		#pat[0] = [body[0][0][1:len(body[0][0])]]
 		pat[0] = [body[0][0][1]]#
 		#pat[0] = resto_de_patrones(body[0][0])
-	print 'len' ,len(conjunto)
+	#print 'len' ,len(conjunto)
 	while p < len(conjunto):
 
-		print 'p,q,clave: ',p,q,clave
+		#print 'p,q,clave: ',p,q,clave
 		q = p + 1
 		#if p not in clave:
 		#particion[q] = [conjunto[0]]
 	       	#exp[q] = [body[0][1]]
 	       	while q < len(conjunto):
-			print 'ppp',pat
+			#print 'ppp',pat
 	       		if match(conjunto[p],conjunto[q]) and match (conjunto[q],conjunto[p]):
-	       			print '# clave',clave
-	       			print '# particion',particion
-	       			print '# exp', exp
-	       			print '# p', p
-	       			print '# q',q
+	       			#print '# clave',clave
+	       			#print '# particion',particion
+	       			#print '# exp', exp
+	       			#print '# p', p
+	       			#print '# q',q
 	       		#print 'conjunto',conjunto[p],conjunto[q],p,q
 	       			clave[q] = p
 	       			if p in particion and conjunto[q] not in particion[p]:
@@ -278,15 +347,14 @@ def factorizar(body):
 		p += 1
 	
 	#print 'PARTICION\n *',particion, '\nEXP\n *',exp
-	print 'PARTICION\n *',particion,'\n *',particion[0][0] ,'\n *', particion[1][0] ,'\nEXP\n *',exp,'\n *', exp[0][0],'\n *', exp[0][1],'\n *', exp[1][0],'\n *', exp[1][1]#,'\n *', exp[2][0]
-	#print 'PARTICION\n *',particion,'\n *',particion[0][0],'\n *', particion[0][1] ,'\n *',particion[0][2],'\n *','\nEXP\n *',exp,'\n *', exp[0][0],'\n *', exp[0][1] ,'\n *', exp[0][1]#,'\n *', exp[2][0]
+	#print 'PARTICION\n *',particion,'\n *',particion[0][0] ,'\n *', particion[1][0]# ,'\nEXP\n *',exp,'\n *', exp[0][0],'\n *', exp[0][1],'\n *', exp[1][0],'\n *', exp[1][1]#,'\n *', exp[2][0]
+	#print 'PARTICION\n *',particion,'\n *',particion[0][0],'\n *', particion[1][0]# ,'\n *','\nEXP\n *',exp,'\n *', exp[0][0],'\n *', exp[0][1] ,'\n *', exp[1][0]#,'\n *', exp[1][1]
 	#i = 0
 	#j = 0
 	#k = 0
-#	print '\nPAT\n *',pat#,'\n *', pat[0][0],'\n *', pat[0][1][0],'\n *', pat[1][0],'\n *', pat[1][1]
-	print 'PAT\n *', pat, '\n *',pat[0][0],'\n *', pat[0][1],'\n *', pat[1][0],'\n *', pat[1][1]#
-#	print pat[0][0],pat[1][0]	
-	print conjunto[0], conjunto[1]
+	#print '\nPAT\n *',pat,'\n *', pat[0][0]#,'\n *', pat[0][1],'\n *', pat[1][0],'\n *', pat[1][1]
+	#print 'EXP\n *', exp, '\n *',exp[0][0],'\n *', exp[0][1],'\n *', exp[1][0],'\n *', exp[1][1]
+	#print 'ccc',conjunto,'\n *',conjunto[0],'\n *', conjunto[1],'\n *', conjunto[2],'\n *', conjunto[3],'\n * BODY',body[0][0][1]
 	factorizada = Nodo.Nodo('FUN',0)
 	arboles = []
 	while i < len(particion):
@@ -296,22 +364,26 @@ def factorizar(body):
 			if j == 0:
 				temp = Nodo.Nodo('FUN',Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',pat[i][j],exp[i][j]))))
 				arg = temp.izquierdo
+				#print 'tttt', temp
 			else:
 				arg.derecho = Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',pat[i][j],exp[i][j])))
 				arg = arg.derecho
+				#print 'tttt', temp
 			j += 1
 		arboles.append(temp)
+		#print 'TEMP' , temp
 		i += 1
 	
 	
 	while k < len(particion):
 		if k == 0:
-			temp = Nodo.Nodo('FUN',Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',conjunto[k]),arboles[k]))))
+			temp = Nodo.Nodo('FUN',Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',Nodo.Nodo('lp',Nodo.Nodo('PATRON',conjunto[k]))),arboles[k]))))
 			arg = temp.izquierdo
 		else:
-			arg.derecho = Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',conjunto[k]),arboles[k])))
+			arg.derecho = Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',Nodo.Nodo('lp',Nodo.Nodo('PATRON',conjunto[k]))),arboles[k])))
 			arg = temp.derecho
 		k += 1
+	print 'DEF',temp
 	return temp
 				    
 # Eval
@@ -335,15 +407,23 @@ def eval(nodo,env):
 		if nodo.type == 'arg2': return eval(nodo.izquierdo,env)
 		if nodo.type == 'lp':return nodo
 		elif nodo.type == 'FUN': 
-			#print 'In-Fun\n', cuerpo(nodo,[])
-			#cuerpo_fun = cuerpo(nodo,[])
+			#print 'In-Fun\n', nodo
+			cuerpo_fun = cuerpo(nodo,[])
+			#print 'CUERPO','\n',cuerpo_fun,'\n^^^','\n',cuerpo_fun[0][0][1]
 			#if len(cuerpo_fun[0][0]) != 1:
+			#print 'AQUI' ,nodo
+			t = tam_listapatron(nodo)
+			print 'tamano',t
+			if t != 1:
+				factorizada = factorizar(cuerpo_fun)
 				#print 'CUERPO',cuerpo_fun[0][0]
-				#factorizada = factorizar(cuerpo_fun)
-				#return eval(factorizada,env)
+				#print 'CLAUSURA REYNA',  clausura(factorizada,env,[])
+				print 'FACTORIZADA\n >>>',factorizada
+				return clausura(factorizada,env,[])
 				#fun_factorizada = factorizar(nodo)
-			#else:
-			return clausura(nodo,env,[])
+			else:
+				#print 'FUNCION QUE QUEDO' ,nodo
+				return clausura(nodo,env,[])
 			#return eval(nodo.izquierdo,env)
 		elif nodo.type == 'LISTAPATRON': return nodo
 		elif nodo.type == 'no_terminal': return eval(nodo.izquierdo,env)
