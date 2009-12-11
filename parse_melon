@@ -195,7 +195,7 @@ try:
 	#print dicc
 		p_error(0)
 	print result	# arbol
-	print semantica.valor(semantica.eval(result,{}))
+	print str(semantica.valor(semantica.eval(result,{}))).lower()
 
 except EOFError:
 	pass #break

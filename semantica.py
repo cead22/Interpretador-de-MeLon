@@ -12,8 +12,8 @@ def match(nodo1,nodo2,tuplas):
 		return nodo1 == nodo2
 
 	# Bajar si el nodo es no_terminal
-	if nodo1.type == 'no_terminal' or nodo1.type == '' or nodo1.type == 'PATRON' or nodo1.type == 'sub' or nodo1.type == 'LISTAPATRON' or nodo1.type == 'lp': return match(nodo1.izquierdo,nodo2,tuplas)
-	if nodo2.type == 'no_terminal' or nodo2.type == '' or nodo2.type == 'PATRON' or nodo2.type == 'sub' or nodo2.type == 'LISTAPATRON' or nodo2.type == 'lp': return match(nodo2.izquierdo,nodo1,tuplas)
+	if nodo1.type == 'no_terminal' or nodo1.type == '' or nodo1.type == 'PATRON' or nodo1.type == 'sub' or (nodo1.type == 'LISTAPATRON' and tam_listapatron(Nodo.Nodo('lfe',nodo1)) == 1 ) or nodo1.type == 'lp': return match(nodo1.izquierdo,nodo2,tuplas)
+	if nodo2.type == 'no_terminal' or nodo2.type == '' or nodo2.type == 'PATRON' or nodo2.type == 'sub' or (nodo2.type == 'LISTAPATRON' and tam_listapatron(Nodo.Nodo('lfe',nodo2)) == 1) or nodo2.type == 'lp': return match(nodo2.izquierdo,nodo1,tuplas)
 
 	# Variables hacen match con todo
 	if nodo1.type == 'VARIABLE' or nodo2.type == 'VARIABLE':
@@ -99,7 +99,7 @@ def lookup(clave,diccionario):
 				raise ParametrosError('De recursion')
 			else: return diccionario[clave]
 		else:
-			raise ParametrosError('De lookup')
+			raise ParametrosError('De lookup ('+clave+')')
 	except ParametrosError, messag:
 		messag = messag.messg
 		print 'Error : ' + messag
@@ -123,16 +123,19 @@ def apply(cls,nodo):
 		for c in cls.clausura:
 			comparar = match(c[0],nodo,[])
 			if comparar:
+				print 'MATCHEO\n  =',c[0],'\n  =',nodo,isinstance(comparar,list)
 				if isinstance(comparar,list):
 					nuevo_env = copy.deepcopy(cls.env)
 					for n in comparar:				
 						extend(nuevo_env,valor(n[0]),n[1])
 					return eval(c[1],extend(nuevo_env,str(valor(c[0])),nodo))
-				else : return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
+				else : 
+					print 'here'
+					return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
 	#Error de aplicar una No funcion
-	else: raise ParametrosError('De aplicacion') 
+	#else: raise ParametrosError('De aplicacion') 
 	#Error de matching
-	raise ParametrosError(' De matching')
+	#raise ParametrosError(' De matching')
 
 # Obtener clausura de una funcion
 def clausura(nodo,env,temp):
@@ -244,7 +247,7 @@ def factorizar(body):
 	       			clave[q] = p
 	       			if p in particion and conjunto[q] not in particion[p]:
 	       				particion[p].append(conjunto[q])
-					pat[p].append(body[p][0][1])
+					pat[p].append(body[q][0][1])
 	       			else:
 	       				particion[p] = [conjunto[q]]
 					pat[p] = [body[p][0][1]]
@@ -266,29 +269,49 @@ def factorizar(body):
 					pat[p].append(body[p][0][1])
 				else:
 					pat[p].append(body[p][0][1])
-			#else:
-				#if q not in clave:
-					#clave[q] = max(clave.keys())+1
-					#particion[q]
+#			else:
+# 				if q not in clave:
+# 					clave[q] = max(clave.keys())+1
+# 					particion[clave[q]] = [conjunto[q]]
+# 					pat[clave[q]] = [body[q][0][1]]
+# 					exp[clave[q]] = [body[q][1]]
 	       		q += 1
 		p += 1
 	
-	#print 'PARTICION\n *',particion, '\nEXP\n *',exp
-	#print 'PARTICION\n *',particion,'\n *',particion[0][0] ,'\n *', particion[1][0]# ,'\nEXP\n *',exp,'\n *', exp[0][0],'\n *', exp[0][1],'\n *', exp[1][0],'\n *', exp[1][1]#,'\n *', exp[2][0]
+	p = 0
+	print 'CJTO',conjunto
+	while p < len(conjunto):
+		if p not in clave:
+			print ' keys', exp.keys()
+			if len(exp.keys()) == 0:
+				cl = 0
+			else:
+				cl = max(exp.keys())+1
+			print 'cl', cl
+			particion[cl] = [conjunto[p]]
+			exp[cl] = [body[p][1]]
+			pat[cl] = [body[p][0][1]]
+			print 'lllll',len(exp)
+		p +=1
+			
+	
+	#print 'PARTICION\n *',particion, '\nEXP\n *',exp, '\nPAT\n *',pat
+	#print 'PARTICION\n *',particion,'\n *',particion[0][0] ,'\n *', particion[1][0],'\n *', particion[2][0]# ,'\nEXP\n *',exp,'\n *', exp[0][0],'\n *', exp[0][1],'\n *', exp[1][0],'\n *', exp[1][1]#,'\n *', exp[2][0]
 	#print 'PARTICION\n *',particion,'\n *',particion[0][0],'\n *', particion[1][0]# ,'\n *','\nEXP\n *',exp,'\n *', exp[0][0],'\n *', exp[0][1] ,'\n *', exp[1][0]#,'\n *', exp[1][1]
 	#i = 0
 	#j = 0
 	#k = 0
-	#print '\nPAT\n *',pat,'\n *', pat[0][0]#,'\n *', pat[0][1],'\n *', pat[1][0],'\n *', pat[1][1]
-	#print 'EXP\n *', exp, '\n *',exp[0][0],'\n *', exp[0][1],'\n *', exp[1][0],'\n *', exp[1][1]
+	#print '\nPAT\n *',pat,'\n *', pat[0][0],'\n *', pat[0][1],'\n *', pat[1][0],'\n *', pat[2][0]
+	#print 'EXP\n *', exp, '\n *',exp[0][0],'\n *', exp[0][1],'\n *', exp[1][0],'\n *', exp[2][0]
 	#print 'ccc',conjunto,'\n *',conjunto[0],'\n *', conjunto[1],'\n *', conjunto[2],'\n *', conjunto[3],'\n * BODY',body[0][0][1]
 	factorizada = Nodo.Nodo('FUN',0)
 	arboles = []
 	temp = 0
 	while i < len(particion):
 		j = 0
-		
+		print 'iii', i
 		while j < len(exp[i]):
+			print 'i,j', i,j
 			if j == 0:
 				temp = Nodo.Nodo('FUN',Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',pat[i][j],exp[i][j]))))
 				arg = temp.izquierdo
@@ -305,11 +328,13 @@ def factorizar(body):
 	
 	while k < len(particion):
 		if k == 0:
-			temp = Nodo.Nodo('FUN',Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',Nodo.Nodo('lp',Nodo.Nodo('PATRON',conjunto[k]))),arboles[k]))))
+			temp = Nodo.Nodo('FUN',Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',Nodo.Nodo('lp',particion[k][0])),arboles[k]))))
 			arg = temp.izquierdo
 		else:
-			arg.derecho = Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',Nodo.Nodo('lp',Nodo.Nodo('PATRON',conjunto[k]))),arboles[k])))
-			arg = temp.derecho
+			print 'arg' ,arg
+			arg.derecho = Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',Nodo.Nodo('lp',particion[k][0])),arboles[k])))
+			arg = arg.derecho
+			print 'arg',arg
 		k += 1
 	#print 'DEF',temp
 	return temp
@@ -344,9 +369,17 @@ def eval(nodo,env):
 			print 'tamano',t
 			if t != 1:
 				factorizada = factorizar(cuerpo_fun)
+				#print 'tamano body', len(cuerpo_fun)
+				#if len(cuerpo
 				#print 'CUERPO',cuerpo_fun[0][0]
 				#print 'CLAUSURA REYNA',  clausura(factorizada,env,[])
 				print 'FACTORIZADA\n >>>',factorizada
+				# c =  clausura(copy.deepcopy(factorizada),copy.deepcopy(env),[])
+# 				print c
+#  				print '\n',c.clausura[0][0],'  ---  ',c.clausura[0][1],'\n'
+#  				print '\n',c.clausura[1][0],'  ---  ',c.clausura[1][1],'\n'
+#  				print '\n',c.clausura[2][0],'  ---  ',c.clausura[2][1],'\n'
+#  				print '\n',c.clausura[3][0],'  ---  ',c.clausura[3][1],'\n'
 				return clausura(factorizada,env,[])
 				#fun_factorizada = factorizar(nodo)
 			else:

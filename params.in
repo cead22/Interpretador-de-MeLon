@@ -1,1 +1,1 @@
-(fun 1 2 a-> true::true | 1 b 3 -> true | 9 1 1 -> false | 8 5 5 -> 1 nuf) 1 9 9
+(fun 9 2 a-> true::true | 7 b 3 -> true | 9 1 1 -> false | 3 5 5 -> 1 nuf)  3 5 5

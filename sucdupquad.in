@@ -1,0 +1,7 @@
+(let suc = fun x -> x+1 nuf
+in (let dup = (fun f x -> f(f x) nuf)
+    in (let quad = (fun f x ->  dup dup f x nuf)
+	 in quad quad suc 0 
+	tel)
+    tel)
+tel)
