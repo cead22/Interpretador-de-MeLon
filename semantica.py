@@ -4,9 +4,9 @@ from excepcion import *
 sys.setrecursionlimit(3000)
 # Match
 def match(nodo1,nodo2,tuplas):
-	print 'matching'
-	print '  -',nodo1
-	print '  -',nodo2
+	#print 'matching'
+	#print '  -',nodo1
+	#print '  -',nodo2
 	# Fin de recursion
 	if (not isinstance(nodo1,Nodo.Nodo)) and (not isinstance(nodo2,Nodo.Nodo)):
 		return nodo1 == nodo2
@@ -47,10 +47,10 @@ def comparar_listas(lista1,lista2,tuplas):
 		tuplas.append((lista1.izquierdo,lista2.izquierdo))
 		d1 = lista1.derecho
 		d2 = lista2.derecho
-		print 'listas \n  +',lista1,'\n  +',lista2,'\n  +',tuplas,'\n  +',d1.type,'\n  +',d2.type
+		#print 'listas \n  +',lista1,'\n  +',lista2,'\n  +',tuplas,'\n  +',d1.type,'\n  +',d2.type
 		if d1.type == 'LISTA':
 			if d2.type == 'LISTA':
-				print 'tuplas internas', comp
+		#		print 'tuplas internas', comp
 				comp = comparar_listas(d1,d2,tuplas)
 				if not comp:
 					tuplas = []
@@ -77,7 +77,7 @@ def comparar_listas(lista1,lista2,tuplas):
 				return False
 		if tuplas == []: 
 			return False
-		print tuplas#[0][0],tuplas[0][1],tuplas[1][0],tuplas[1][1]
+		#print tuplas#[0][0],tuplas[0][1],tuplas[1][0],tuplas[1][1]
 		return tuplas
 	else: return False
 	
@@ -123,19 +123,19 @@ def apply(cls,nodo):
 		for c in cls.clausura:
 			comparar = match(c[0],nodo,[])
 			if comparar:
-				print 'MATCHEO\n  =',c[0],'\n  =',nodo,isinstance(comparar,list)
+				#print 'MATCHEO\n  =',c[0],'\n  =',nodo,isinstance(comparar,list)
 				if isinstance(comparar,list):
 					nuevo_env = copy.deepcopy(cls.env)
 					for n in comparar:				
 						extend(nuevo_env,valor(n[0]),n[1])
 					return eval(c[1],extend(nuevo_env,str(valor(c[0])),nodo))
 				else : 
-					print 'here'
+					#print 'here'
 					return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
 	#Error de aplicar una No funcion
-	#else: raise ParametrosError('De aplicacion') 
+	else: raise ParametrosError('De aplicacion') 
 	#Error de matching
-	#raise ParametrosError(' De matching')
+	raise ParametrosError(' De matching')
 
 # Obtener clausura de una funcion
 def clausura(nodo,env,temp):
