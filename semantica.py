@@ -1,12 +1,12 @@
 #! /usr/bin/python
 import Nodo,CLS,copy,sys
 from excepcion import *
+
+# Aumentar limite de recursiones
 sys.setrecursionlimit(3000)
+
 # Match
 def match(nodo1,nodo2,tuplas):
-	print 'matching'
-	print '  -',nodo1
-	print '  -',nodo2
 	# Fin de recursion
 	if (not isinstance(nodo1,Nodo.Nodo)) and (not isinstance(nodo2,Nodo.Nodo)):
 		return nodo1 == nodo2
@@ -47,18 +47,14 @@ def comparar_listas(lista1,lista2,tuplas):
 		tuplas.append((lista1.izquierdo,lista2.izquierdo))
 		d1 = lista1.derecho
 		d2 = lista2.derecho
-		print 'listas \n  +',lista1,'\n  +',lista2,'\n  +',tuplas,'\n  +',d1.type,'\n  +',d2.type
 		if d1.type == 'LISTA':
 			if d2.type == 'LISTA':
-				print 'tuplas internas', comp
 				comp = comparar_listas(d1,d2,tuplas)
 				if not comp:
 					tuplas = []
 				else:
-					#tuplas += comp
 					for c in comp:
 						tuplas.append(comp[c])
-					#return tuplas
 			else: 
 				if match(d1,d2,tuplas): tuplas.append((d1,d2))
 				else:
@@ -77,8 +73,6 @@ def comparar_listas(lista1,lista2,tuplas):
 				return False
 		if tuplas == []: 
 			return False
-		print tuplas#[0][0],tuplas[0][1],tuplas[1][0],tuplas[1][1]
-		return tuplas
 	else: return False
 	
 # Replace
@@ -122,14 +116,12 @@ def apply(cls,nodo):
 		for c in cls.clausura:
 			comparar = match(c[0],nodo,[])
 			if comparar:
-				print 'MATCHEO\n  =',c[0],'\n  =',nodo,isinstance(comparar,list)
 				if isinstance(comparar,list):
 					nuevo_env = copy.deepcopy(cls.env)
 					for n in comparar:				
 						extend(nuevo_env,valor(n[0]),n[1])
 					return eval(c[1],extend(nuevo_env,str(valor(c[0])),nodo))
 				else : 
-					print 'here'
 					return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
 	#Error de aplicar una No funcion
 	#else: raise ParametrosError('De aplicacion') 
@@ -149,8 +141,8 @@ def clausura(nodo,env,temp):
 def patrones(nodo,listap):
 	if isinstance(nodo,Nodo.Nodo):
 		if nodo.izquierdo.izquierdo.type == 'PATRON':
-			primer_patron =  copy.deepcopy(nodo.izquierdo.izquierdo) #copy.deepcopy(nodo.izquierdo.izquierdo)
-			nodo.izquierdo =  nodo.derecho #copy.deepcopy(nodo.derecho)
+			primer_patron =  copy.deepcopy(nodo.izquierdo.izquierdo)
+			nodo.izquierdo =  nodo.derecho 
 			nodo.derecho = ''
 			return (primer_patron, nodo)
 		else:
@@ -184,7 +176,6 @@ def tlp(nodo,t):
 	if isinstance(nodo,Nodo.Nodo):
 		if nodo.type == 'LISTAPATRON':
 			nodo = nodo.izquierdo
-			print nodo.izquierdo.type
 		if nodo.type == 'lp':
 			if nodo.izquierdo.type == 'PATRON':
 				t.append(1)
@@ -232,6 +223,8 @@ def factorizar(body):
 	exp = {}
 	pat = {}
 	p,q,i,j,k = 0,1,0,0,0
+
+	# Crear particion de patrones que hacen match
 	for b in body:
 		conjunto.append(b[0][0])
 	clave[0] = 0
@@ -251,7 +244,6 @@ def factorizar(body):
 	       				particion[p] = [conjunto[q]]
 					pat[p] = [body[p][0][1]]
 	       			if p in exp and body[q][1] not in exp[p]:
-	       				print 'abcdefg'
 	       				exp[p].append(body[q][1])
 					if len(body[q][0]) == 1:
 						pat[p].append(body[q][0][1])
@@ -268,59 +260,34 @@ def factorizar(body):
 					pat[p].append(body[p][0][1])
 				else:
 					pat[p].append(body[p][0][1])
-#			else:
-# 				if q not in clave:
-# 					clave[q] = max(clave.keys())+1
-# 					particion[clave[q]] = [conjunto[q]]
-# 					pat[clave[q]] = [body[q][0][1]]
-# 					exp[clave[q]] = [body[q][1]]
 	       		q += 1
 		p += 1
 	
 	p = 0
-	print 'CJTO',conjunto
 	while p < len(conjunto):
 		if p not in clave:
-			print ' keys', exp.keys()
 			if len(exp.keys()) == 0:
 				cl = 0
 			else:
 				cl = max(exp.keys())+1
-			print 'cl', cl
 			particion[cl] = [conjunto[p]]
 			exp[cl] = [body[p][1]]
 			pat[cl] = [body[p][0][1]]
-			print 'lllll',len(exp)
 		p +=1
-			
-	
-	#print 'PARTICION\n *',particion, '\nEXP\n *',exp, '\nPAT\n *',pat
-	#print 'PARTICION\n *',particion,'\n *',particion[0][0] ,'\n *', particion[1][0],'\n *', particion[2][0]# ,'\nEXP\n *',exp,'\n *', exp[0][0],'\n *', exp[0][1],'\n *', exp[1][0],'\n *', exp[1][1]#,'\n *', exp[2][0]
-	#print 'PARTICION\n *',particion,'\n *',particion[0][0],'\n *', particion[1][0]# ,'\n *','\nEXP\n *',exp,'\n *', exp[0][0],'\n *', exp[0][1] ,'\n *', exp[1][0]#,'\n *', exp[1][1]
-	#i = 0
-	#j = 0
-	#k = 0
-	#print '\nPAT\n *',pat,'\n *', pat[0][0],'\n *', pat[0][1],'\n *', pat[1][0],'\n *', pat[2][0]
-	#print 'EXP\n *', exp, '\n *',exp[0][0],'\n *', exp[0][1],'\n *', exp[1][0],'\n *', exp[2][0]
-	#print 'ccc',conjunto,'\n *',conjunto[0],'\n *', conjunto[1],'\n *', conjunto[2],'\n *', conjunto[3],'\n * BODY',body[0][0][1]
-	factorizada = Nodo.Nodo('FUN',0)
+
+	# Crear la funcion factorizada
 	arboles = []
 	while i < len(particion):
 		j = 0
-		print 'iii', i
 		while j < len(exp[i]):
-			print 'i,j', i,j
 			if j == 0:
 				temp = Nodo.Nodo('FUN',Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',pat[i][j],exp[i][j]))))
 				arg = temp.izquierdo
-				#print 'tttt', temp
 			else:
 				arg.derecho = Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',pat[i][j],exp[i][j])))
 				arg = arg.derecho
-				#print 'tttt', temp
 			j += 1
 		arboles.append(temp)
-		#print 'TEMP' , temp
 		i += 1
 	
 	
@@ -329,12 +296,9 @@ def factorizar(body):
 			temp = Nodo.Nodo('FUN',Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',Nodo.Nodo('lp',particion[k][0])),arboles[k]))))
 			arg = temp.izquierdo
 		else:
-			print 'arg' ,arg
 			arg.derecho = Nodo.Nodo('arg',Nodo.Nodo('arg2',Nodo.Nodo('lfe',Nodo.Nodo('LISTAPATRON',Nodo.Nodo('lp',particion[k][0])),arboles[k])))
 			arg = arg.derecho
-			print 'arg',arg
 		k += 1
-	print 'DEF',temp
 	return temp
 				    
 
@@ -358,32 +322,13 @@ def eval(nodo,env):
 		if nodo.type == 'arg2': return eval(nodo.izquierdo,env)
 		if nodo.type == 'lp':return nodo
 		elif nodo.type == 'FUN':
-			#print 'In-Fun\n', nodo
 			cuerpo_fun = cuerpo(nodo,[])
-			#print 'CUERPO','\n',cuerpo_fun,'\n^^^','\n',cuerpo_fun[0][0][1]
-			#if len(cuerpo_fun[0][0]) != 1:
-			#print 'AQUI' ,nodo
 			t = tam_listapatron(nodo)
-			print 'tamano',t
 			if t != 1:
 				factorizada = factorizar(cuerpo_fun)
-				#print 'tamano body', len(cuerpo_fun)
-				#if len(cuerpo
-				#print 'CUERPO',cuerpo_fun[0][0]
-				#print 'CLAUSURA REYNA',  clausura(factorizada,env,[])
-				print 'FACTORIZADA\n >>>',factorizada
-				# c =  clausura(copy.deepcopy(factorizada),copy.deepcopy(env),[])
-# 				print c
-#  				print '\n',c.clausura[0][0],'  ---  ',c.clausura[0][1],'\n'
-#  				print '\n',c.clausura[1][0],'  ---  ',c.clausura[1][1],'\n'
-#  				print '\n',c.clausura[2][0],'  ---  ',c.clausura[2][1],'\n'
-#  				print '\n',c.clausura[3][0],'  ---  ',c.clausura[3][1],'\n'
 				return clausura(factorizada,env,[])
-				#fun_factorizada = factorizar(nodo)
 			else:
-				#print 'FUNCION QUE QUEDO' ,nodo
 				return clausura(nodo,env,[])
-			#return eval(nodo.izquierdo,env)
 		elif nodo.type == 'LISTAPATRON': return nodo
 		elif nodo.type == 'no_terminal': return eval(nodo.izquierdo,env)
 		elif nodo.type == 'sub': return eval(nodo.izquierdo,env)
@@ -512,12 +457,10 @@ def eval(nodo,env):
 			e1 = nodo.izquierdo.derecho
 			if p.izquierdo.type == 'LISTA':
 				print 'sup duc quad'
-				tuplas_look = match(p.izquierdo,e1,[])
+				print p.izquierdo
+				print e1
+				tuplas_look = look_match(p.izquierdo,e1,[])
 				print 'look', tuplas_look
-				print '  -',tuplas_look[0][0]
-				print '  -',tuplas_look[0][1]
-				print '  -',tuplas_look[1][0]
-				print '  -',tuplas_look[1][1]
 			e2 = nodo.derecho
 			env1 = extend(copy.deepcopy(env),str(valor(p)),'fake')
 			v1 = eval(e1,env1)
