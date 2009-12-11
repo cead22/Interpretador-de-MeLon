@@ -103,6 +103,7 @@ def lookup(clave,diccionario):
 	except ParametrosError, messag:
 		messag = messag.messg
 		print 'Error : ' + messag
+		sys.exit(-1)
 
 # Valor
 def valor(nodo):
@@ -504,7 +505,8 @@ def eval(nodo,env):
 	# Manejador de excepciones
 	except ParametrosError, messag:
 		messag = messag.messg
-		print 'ERROR : ' + messag
+		print 'Error : ' + messag
+		sys.exit(-1)
 
 
 
