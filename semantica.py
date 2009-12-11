@@ -73,6 +73,7 @@ def comparar_listas(lista1,lista2,tuplas):
 				return False
 		if tuplas == []: 
 			return False
+		return tuplas
 	else: return False
 	
 # Replace
@@ -97,6 +98,7 @@ def lookup(clave,diccionario):
 	except ParametrosError, messag:
 		messag = messag.messg
 		print 'Error : ' + messag
+		sys.exit(-1)
 
 # Valor
 def valor(nodo):
@@ -124,9 +126,9 @@ def apply(cls,nodo):
 				else : 
 					return eval(c[1],extend(copy.deepcopy(cls.env),str(valor(c[0])),nodo))
 	#Error de aplicar una No funcion
-	#else: raise ParametrosError('De aplicacion') 
+	else: raise ParametrosError('De aplicacion') 
 	#Error de matching
-	#raise ParametrosError(' De matching')
+	raise ParametrosError(' De matching')
 
 # Obtener clausura de una funcion
 def clausura(nodo,env,temp):
@@ -277,6 +279,7 @@ def factorizar(body):
 
 	# Crear la funcion factorizada
 	arboles = []
+	temp = 0
 	while i < len(particion):
 		j = 0
 		while j < len(exp[i]):
@@ -479,7 +482,8 @@ def eval(nodo,env):
 	# Manejador de excepciones
 	except ParametrosError, messag:
 		messag = messag.messg
-		print 'ERROR : ' + messag
+		print 'Error : ' + messag
+		sys.exit(-1)
 
 
 
