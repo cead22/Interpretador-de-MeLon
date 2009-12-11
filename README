@@ -1,0 +1,33 @@
+=================================================
+  Autores:					=
+	- Liliana Barrios (06-39207)		=
+	- Carlos Alvarez (06-39141)		=
+  Nombre:					=
+  Proyecto 1 - Analisis Semantico		=
+=================================================
+
+	El proyecto se escuentra dividido en 8 archivos:
+
+	* CLS.py
+	* excepcion.py
+	* funciones.py
+	* melonlex.py
+	* Nodo.py
+	* semantica.py
+	* yacc.py
+	* interpretar_melon
+
+  Descripcion y funcionamiento de algunos archivos:
+  ---------------------------------------------
+
+	== CLS.py ==
+		Clase que representa la clausura de una funcion
+		
+	== semantica.py ==
+		Contiene todas las funciones que se implementaron. (eval, match,...)
+		= no trivial: 	las funciones de varios parametros son factorizadas
+				para que sean interpretadas como funciones que tienen un solo
+				parametro en sus listas de parametros
+		= no trivial: 	el limite de recursiones permitidas fue aumentado para
+				permitir la corrida de funciones recursivas de rapido
+				crecimiento
